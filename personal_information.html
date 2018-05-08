@@ -1,0 +1,475 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>帳戶維護</title>
+    <link rel="stylesheet" href="css/reset.css" />
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" type="text/css" href="css/personal_information.css" />  <!--CSS檔案-->
+    <script src="js/md5.min.js"></script>
+    <script src="js/check_login.js"></script>
+</head>
+<body>
+    <div class="title_bar">
+        <div class="bar">
+            <img id="logo" src="images/image_banner_logo.svg">
+            <h1 id="title">LEO-D Location Viewer</h1>
+                <div class="dropdown" id="my_account_view" style="float:right;">
+                    <div id="my_account" class="dropbtn" onclick="openMenu()">
+                        <img id="account_icon" src="images/btn_account_n_48.svg">
+                        <h1 id="myname"></h1>
+                    </div>
+                    <div id="myDropdown" class="dropdown-content">
+                      <a id="account_management" href="javascript: void(0)">帳戶維護</a>
+                      <a id="logout" href="javascript: void(0)">登出</a>
+                    </div>
+                </div>
+            <div id="my_function">
+                <img id="setting_icon" src="images/btn_manage_n_48.svg" onclick="location.href='floor_management.html';">
+                <!-- <img id="alert_icon" src="images/btn_bell_n_48.svg"> -->
+                <img id="employee_icon" src="images/btn_personnel_n_48.svg" onclick="location.href='account_management.html';">
+            </div>
+        </div>
+        <div class="barline"></div>
+    </div>
+    <div class="function">
+        <div id="now_function_title">帳戶 > 帳戶維護 > 編輯個人資料</div>
+        <div id="final_updated_time">系統更新時間：2018.02.27　15:00</div>
+    </div>
+    <div id="account_info_bg_left">
+        <span id="account_info_bg_left_fonts" class="edit_mode">帳戶資訊</span>
+    </div>
+    <div id="account_info_bg_center">
+        <span id="account_info_bg_center_line"></span>
+    </div>
+    <div id="account_info_bg_right">
+        <span id="account_info_bg_right_fonts">個人資料</span>
+        <a href="javascript: void(0)" onclick="edit_data()"><img src="./images/edit_on.svg" id="account_info_bg_right_edit_icon" border="0" title="編輯" width="30px" height="30px" /></a>
+        <button id="save_button" type="button" onclick="save_data()">儲存</button>
+
+        <button id="cancel_button" type="button" onclick="cancel()">取消</button>
+    </div>
+    <div id="account_left">
+        <span id="account_left_01" class="edit_mode">
+            帳號
+        </span>
+        <span id="account_left_02">
+            <input id="account_left_02_input" type="text" class="edit_mode" disabled>
+        </span>
+        <span id="account_left_03" class="edit_mode">
+            密碼
+        </span>
+        <span id="account_left_04">
+            <input id="account_left_04_input" type="password" class="edit_mode" disabled>
+        </span>
+        <span id="account_left_05" class="edit_mode">
+            <a href="javascript: void(0)" id="change_password" class="edit_mode" >變更密碼</a>
+        </span>
+    </div>
+    <div id="account_right">
+        <div id="#">
+            <span id="item_01">姓名</span>
+            <span id="item_02"><input type="text" id="name" class="input_width" maxlength="10" autocomplete="off" disabled></span>
+        </div>
+        <div id="#">
+            <span id="item_03">員工編號</span>
+            <span id="item_04"><input type="text" id="job_id" class="input_width" maxlength="20" autocomplete="off" disabled></span>
+        </div>
+        <div id="#">
+            <span id="item_05">性別</span>
+            <span id="item_06">
+                <input type="radio" id="male" value="male" name="Gender" disabled="true" />&nbsp&nbsp&nbsp男&nbsp&nbsp&nbsp<input type="radio" id="female" value="female" name="Gender" disabled="true" />&nbsp&nbsp&nbsp女
+            </span>
+        </div>
+        <div id="#">
+            <span id="item_07">部門</span>
+            <span id="item_08"><input type="text" id="job_class" class="input_width" maxlength="10" autocomplete="off" disabled></span>
+        </div>
+        <div id="#">
+            <span id="item_09">電話</span>
+            <span id="item_10"><input type="text" id="telephone" class="input_width" maxlength="12" autocomplete="off" disabled></span>
+        </div>
+        <div id="#">
+            <span id="item_11">分機</span>
+            <span id="item_12"><input type="text" id="ext" class="input_width" maxlength="6" autocomplete="off" disabled></span>
+        </div>
+        <div id="#">
+            <span id="item_13">手機</span>
+            <span id="item_14"><input type="text" id="cellphone" class="input_width" maxlength="10" autocomplete="off" disabled></span>
+        </div>
+        <div id="#">
+            <span id="item_15">郵件</span>
+            <span id="item_16"><input type="text" id="email" class="input_width" disabled></span>
+        </div>
+        <div id="#">
+            <span id="item_17">備註</span>
+            <span id="item_18"><input type="text" id="remarks" class="input_width" maxlength="50" autocomplete="off" disabled></span>
+        </div>
+
+
+
+    </div>
+
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <div id="modal_content_info">
+                
+            </div>
+            <div id="modal_panel">
+
+                <div id="old_password_panel">
+                    <div id="old_password_font">
+                        請輸入舊密碼
+                    </div>
+                    <div id="old_password_input">
+                        <input id="old_password_input_style" type="password" placeholder="8-16字元英文或數字" autocomplete="off" maxlength="16" />
+                    </div>
+                </div>
+                <div id="new_password_panel">
+                    <div id="new_password_font">
+                        請輸入新密碼
+                    </div>
+                    <div id="new_password_input">
+                        <input id="new_password_input_style" type="password" placeholder="8-16字元英文或數字" autocomplete="off" maxlength="16" />
+                    </div>
+                </div>
+                <div id="new_password_check_panel">
+                    <div id="new_password_check_font">
+                        請再輸入一次新密碼
+                    </div>
+                    <div id="new_password_check_input">
+                        <input id="new_password_check_input_style" type="password" placeholder="8-16字元英文或數字" autocomplete="off" maxlength="16"/>
+                    </div>
+                </div>
+                <div id="button_panel">
+                    <button id="Modal_Confirm" type="button" onclick="check_botton()"><span id="Modal_Confirm_Font">確認</span></button>
+                    <button id="Modal_Cancel" type="button" class="close"><span id="Modal_Cancel_Font">取消</span></button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="js/header.js"></script>
+    <script>
+        //---匯入員工資料---
+        // var ID_data;
+        // var url = location.href;//URL
+        // var temp = url.split("?");//取得問號之後的值
+        // var vars = temp[1].split("&");//將值再度分開
+
+        // for (var i = 0; i < vars.length; i++) {//一一顯示出來
+        //     ID_data = vars[i];
+        // };
+        // let user_id = window.localStorage.getItem("user_id");
+
+        var url = api_endpoint + "get_employee_data_by_id?id=" + user_id; //某員工的個人資料
+         console.log(url);
+        input_data(url);//匯入資料
+        //-------------
+        //匯入資料
+        var Purview="";
+        function input_data(url) {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    // console.log(this.responseText);
+                    var obj = JSON.parse(this.responseText).data;
+                    var ID = obj.id;
+                    var Job_ID = obj.job_id;
+                    var Name = obj.name;
+                    var Gender = obj.gender;
+                    var Account = obj.account;
+                    var Email = obj.email;
+                    var Job_Class = obj.job_class;
+                    var Telephone = obj.telephone;
+                    var Ext = obj.ext;
+                    var Cellphone = obj.cellphone;
+                    var Remarks = obj.remarks;
+                    Purview = obj.purview;
+                    console.log(obj.purview);
+                    if (Gender == "男") {
+                        document.getElementById("male").checked = true;
+                    }
+                    if (Gender == "女") {
+                        document.getElementById("female").checked = true;
+                    }
+                    document.getElementById("account_left_02_input").value = Account;
+                    document.getElementById("job_id").value = Job_ID;
+                    document.getElementById("name").value = Name;
+                    document.getElementById("telephone").value = Telephone;
+                    document.getElementById("ext").value = Ext;
+                    document.getElementById("cellphone").value = Cellphone;
+                    document.getElementById("email").value = Email;
+                    document.getElementById("remarks").value = Remarks;
+                    document.getElementById("job_class").value = Job_Class;
+                    document.getElementById("account_left_04_input").value = "***************";
+
+                }
+            };
+            xhttp.open("GET", url, true);
+            xhttp.send();
+        }
+
+        //編輯員工 按下編輯icon後
+        function edit_data() {
+            document.getElementById('save_button').style.display = 'initial';
+            document.getElementById('cancel_button').style.display = 'initial';
+            document.getElementById('name').style.border = "solid 2px #58b4c3";
+            document.getElementById('job_id').style.border = "solid 2px #58b4c3";
+            document.getElementById('telephone').style.border = "solid 2px #58b4c3";
+            document.getElementById('ext').style.border = "solid 2px #58b4c3";
+            document.getElementById('cellphone').style.border = "solid 2px #58b4c3";
+            document.getElementById('email').style.border = "solid 2px #58b4c3";
+            document.getElementById('remarks').style.border = "solid 2px #58b4c3";
+            document.getElementById('job_class').style.border = "solid 2px #58b4c3";
+            document.getElementById('male').disabled = false;
+            document.getElementById('female').disabled = false;
+            var nodes = document.getElementsByClassName("input_width");
+            for(i = 0; i < nodes.length; i++){
+                nodes[i].disabled=false;
+            }
+            var edit_mode_obj = document.getElementsByClassName("edit_mode");
+            var i;
+            for (i = 0; i < edit_mode_obj.length; i++) {
+                edit_mode_obj[i].style.color = "#969696";
+            }
+
+        }
+
+        //儲存變更後的值
+        function save_data() {
+            //網址分割取ID
+            // var url = location.href;//URL
+            // var temp = url.split("=");//取得問號之後的值
+            // var vars = temp[1].split("#");//將值再度分開
+            // var Save_ID_data;
+            // Save_ID_data = vars[0];
+
+
+            var Job_ID = document.getElementById('job_id');
+            var Name = document.getElementById('name');
+            var Gender = document.getElementById('male');
+            if (Gender.checked == true) {
+                Gender = "男"
+            }
+            else {
+                Gender = "女"
+            }
+            var Job_Class = document.getElementById('job_class');
+            var Telephone = document.getElementById('telephone');
+            var Ext = document.getElementById('ext');
+            var Cellphone = document.getElementById('cellphone');
+            var Email = document.getElementById('email');
+            var Remarks = document.getElementById('remarks');
+            var Data = new Object();
+            Data.id = user_id;
+            Data.job_id = Job_ID.value;
+            Data.name = Name.value;
+            Data.gender = Gender;
+            Data.telephone = Telephone.value;
+            Data.ext = Ext.value;
+            Data.cellphone = Cellphone.value;
+            Data.purview = Purview;
+            if (verification_email(Email.value) == "true") {
+                Data.email = Email.value;
+                Data.job_class = Job_Class.value;
+                Data.remark = Remarks.value;
+               // console.log(Data);
+                var urlpost = api_endpoint + "edit_employee";
+                data_post_API(urlpost, Data);
+            }
+            else {
+                alert("email錯誤，請再次檢查");
+            }
+
+        }
+
+
+        function data_post_API(url, value_obj) {//把資料更新出去
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    console.log(this.responseText);   //回傳更新是否成功
+                    window.location.reload();
+                }
+            };
+            xhttp.open("POST", url, true);
+            xhttp.setRequestHeader("Content-Type", "application/json");
+            xhttp.send(JSON.stringify(value_obj));
+        }
+
+        //email 驗證
+        function verification_email(email) {
+            //please input the test email to see is valid
+            var strEmail = email;
+            //Regular expression Testing
+            emailRule = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/;
+            //validate ok or not
+            if (strEmail.search(emailRule) != -1) {
+                return ("true");
+            } else {
+                return ("false");
+            }
+        }
+        //取消
+        function cancel() {
+            // var url = location.href;//URL
+            // var temp = url.split("=");//取得問號之後的值
+            // var vars = temp[1].split("#");//將值再度分開
+            // var cancel_ID_data;
+            // cancel_ID_data = user_id;
+            location.href = 'personal_information.html';
+        }
+
+
+        // Get the modal
+        var modal = document.getElementById('myModal');
+        // Get the button that opens the modal
+        var btn = document.getElementById("change_password");
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+
+        var Confirm_btn = document.getElementById("Modal_Confirm");
+
+
+        // When the user clicks the button, open the modal
+        btn.onclick = function () {
+            modal.style.display = "block";
+        }
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function () {
+            clean_change_password_data();
+            modal.style.display = "none";
+            clean_change_password_data();
+        }
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                
+                modal.style.display = "none";
+                clean_change_password_data();
+            }
+        }
+
+        //變更密碼AJAX
+        function change_password_post_API(url, value_obj) {//把資料更新出去
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    console.log(this.responseText);   //回傳更新是否成功
+                    var response = JSON.parse(this.responseText);
+                    var status = response.data;
+                    if (response.status == "success") {
+                        document.getElementById('modal_content_info').innerText = "變更成功";
+						document.getElementById('old_password_input_style').value = "";
+						document.getElementById('new_password_input_style').value = "";
+						document.getElementById('new_password_check_input_style').value = "";
+                    }else {
+                        document.getElementById('modal_content_info').innerText = "變更失敗";
+                    }
+                }
+            };
+            xhttp.open("POST", url, true);
+            xhttp.setRequestHeader("Content-Type", "application/json");
+            xhttp.send(JSON.stringify(value_obj));
+        }
+
+        //變更密碼(初步驗證 字元長度、空值)
+        function check_botton() {
+            var old_password = document.getElementById('old_password_input_style').value;
+            var new_password = document.getElementById('new_password_input_style').value;
+            var new_check_password = document.getElementById('new_password_check_input_style').value;
+            if (old_password != "" && new_password != "" && new_check_password != "") {
+
+                document.getElementById('modal_content_info').innerText = "";
+                document.getElementById('old_password_input_style').style.border = "solid 2px #58b4c3";
+                document.getElementById('new_password_check_input_style').style.border = "solid 2px #58b4c3";
+                document.getElementById('new_password_input_style').style.border = "solid 2px #58b4c3";
+                if ((old_password.length < 8 || old_password.length >16)) {
+                    document.getElementById('modal_content_info').innerText = "字元長度錯誤!";
+                    document.getElementById('old_password_input_style').style.border = "solid 2px #d92016";
+                }
+                if ((new_password.length < 8 || new_password.length > 16)) {
+                    document.getElementById('modal_content_info').innerText = "字元長度錯誤!";
+                    document.getElementById('new_password_input_style').style.border = "solid 2px #d92016";
+                }
+                if ((new_check_password.length < 8 || new_check_password.length > 16)) {
+                    document.getElementById('modal_content_info').innerText = "字元長度錯誤!";
+                    document.getElementById('new_password_check_input_style').style.border = "solid 2px #d92016";
+                }
+                else {
+                    second_check(old_password, new_password, new_check_password);//變更密碼(二次驗證)
+                }
+              
+            }
+            if (old_password == "" || new_password == "" || new_check_password == "") {
+                document.getElementById('modal_content_info').innerText = "輸入錯誤!";
+                if (old_password == "" && new_password == "" && new_check_password == "") {
+                    document.getElementById('old_password_input_style').style.border = "solid 2px #d92016";
+                    document.getElementById('new_password_check_input_style').style.border = "solid 2px #d92016";
+                    document.getElementById('new_password_input_style').style.border = "solid 2px #d92016";
+                }
+                if (old_password == "" ) {
+                    document.getElementById('old_password_input_style').style.border = "solid 2px #d92016";
+                }
+                if (new_password == "" ) {
+                    document.getElementById('new_password_input_style').style.border = "solid 2px #d92016";
+                }
+                if (new_check_password == "") {
+                    document.getElementById('new_password_check_input_style').style.border = "solid 2px #d92016";
+                }
+                
+            }
+
+           
+        }
+           //變更密碼(二次驗證 密碼相符 送給change_password_post_API())
+        function second_check(old_password, new_password, new_check_password) {
+
+            if (new_password != new_check_password) {
+                document.getElementById('modal_content_info').innerText = "兩組密碼不相符";
+                document.getElementById('new_password_check_input_style').style.border = "solid 2px #d92016";
+                document.getElementById('new_password_input_style').style.border = "solid 2px #d92016";
+            }
+            else {
+                //var url = location.href;//URL
+                //var temp = url.split("=");//取得問號之後的值
+                //var vars = temp[1].split("#");//將值再度分開
+                //var check_botton_ID_data;
+                //check_botton_ID_data = vars[0];
+
+                var Data = new Object();
+                Data.id = user_id;
+                Data.old_password = md5(old_password);
+                Data.new_password = md5(new_password);
+                console.log(Data);
+                var urlpost = api_endpoint + "change_password ";
+                change_password_post_API(urlpost, Data);
+            }
+        }
+
+        //按下取消或離開時 清除資料
+        function clean_change_password_data() {
+            document.getElementById('new_password_check_input_style').value = "";
+            document.getElementById('new_password_input_style').value = "";
+            document.getElementById('old_password_input_style').value = "";
+            document.getElementById('modal_content_info').innerText = "";
+            document.getElementById('old_password_input_style').style.border = "solid 2px #58b4c3";
+            document.getElementById('new_password_check_input_style').style.border = "solid 2px #58b4c3";
+            document.getElementById('new_password_input_style').style.border = "solid 2px #58b4c3";
+   
+        }
+
+        
+            
+      
+    </script>
+
+
+
+
+</body>
+</html>

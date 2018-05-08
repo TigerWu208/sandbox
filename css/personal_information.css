@@ -1,0 +1,882 @@
+﻿
+body {
+    width: 1366px;
+    height: 768px;
+    background-color: #ffffff;
+    position: relative;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+}
+
+#bg {
+    width: 1366px;
+    height: 56px;
+    background-color: #abdae3;
+    position: absolute;
+    top: 0px;
+}
+
+#logo_advantech {
+    width: 125px;
+    height: 32px;
+    position: absolute;
+    top: 12px;
+    bottom: 12px;
+    left: 22px;
+}
+
+#hader_viewer {
+    position: absolute;
+    top: 19px;
+    left: 167px;
+    width: 209px;
+    height: 22px;
+    font-family: Arial;
+    font-size: 20px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #323232;
+}
+
+#Line {
+    width: 1366px;
+    height: 4px;
+    background-color: #58b4c3;
+    position: absolute;
+    top: 56px;
+}
+
+#header_path {
+    width: 1366px;
+    height: 56px;
+    background-color: #f0f0f0;
+    position: absolute;
+    top: 60px;
+}
+
+#header_path_fonts {
+    width: 140px;
+    height: 27px;
+    font-family: "微軟正黑體";
+    font-size: 20px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #323232;
+    position: absolute;
+    top: 15px;
+    left: 24px
+}
+
+
+
+#account_info_bg_left {
+    width: 682px;
+    height: 56px;
+    background-color: #e1e1e1;
+    position: absolute;
+    top: 114px;
+    left: 0px;
+}
+
+#account_info_bg_left_fonts {
+    width: 80px;
+    height: 27px;
+    font-family: "微軟正黑體";
+    font-size: 20px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    position: absolute;
+    top: 15px;
+    left: 24px;
+}
+
+#account_info_bg_center {
+    width: 2px;
+    height: 56px;
+    background-color: #e1e1e1;
+    position: absolute;
+    top: 114px;
+    left: 682px;
+}
+
+#account_info_bg_center_line {
+    width: 2px;
+    height: 40px;
+    background-color: #969696;
+    position: absolute;
+    top: 8px;
+    left: 0px;
+}
+
+#account_info_bg_right {
+    width: 682px;
+    height: 56px;
+    background-color: #e1e1e1;
+    position: absolute;
+    top: 114px;
+    left: 684px
+}
+
+#account_info_bg_right_fonts {
+    width: 80px;
+    height: 27px;
+    font-family: "微軟正黑體";
+    font-size: 20px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    position: absolute;
+    top: 15px;
+    left: 48px;
+}
+
+#account_info_bg_right_edit_icon {
+    width: 32px;
+    height: 32px;
+    position: absolute;
+    top: 12px;
+    left: 140px;
+}
+
+#save_button {
+    width: 80px;
+    height: 40px;
+    background-color: #58b4c3;
+    display: none;
+    position: absolute;
+    top: 8px;
+    right: 108px;
+    border: none;
+    outline:none;
+    font-size: 16px;
+    color: #ffffff;
+    font-family: "微軟正黑體";
+}
+
+#cancel_button {
+    width: 80px;
+    height: 40px;
+    background-color: #969696;
+    display: none;
+    position: absolute;
+    top: 8px;
+    right: 16px;
+    border: none;
+    outline:none;
+    font-size: 16px;
+    color: #ffffff;
+    font-family: "微軟正黑體";
+}
+
+#account_left {
+    width: 682px;
+    background-color: #ffffff;
+    position: absolute;
+    left: 0px;
+    top: 171px;
+}
+
+#account_left_01 {
+    width: 32px;
+    height: 21px;
+    font-family: "微軟正黑體";
+    font-size: 16px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #323232;
+    position: absolute;
+    left: 24px;
+    top: 24px;
+}
+
+#account_left_02 {
+    width: 90px;
+    height: 17px;
+    font-family: "微軟正黑體";
+    font-size: 16px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #323232;
+    position: absolute;
+    left: 104px;
+    top: 24px;
+}
+
+#account_left_02_input {
+    width: 272px;
+    height: 17px;
+    border: 0px;
+    font-family: Arial;
+    font-size: 16px;
+}
+
+#account_left_02_input:disabled {
+    background: #ffffff;
+}
+
+#account_left_03 {
+    width: 32px;
+    height: 21px;
+    font-family: "微軟正黑體";
+    font-size: 16px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #323232;
+    position: absolute;
+    left: 24px;
+    top: 73px;
+}
+
+#account_left_04 {
+    width: 108px;
+    height: 21px;
+    font-family: "微軟正黑體";
+    font-size: 16px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #323232;
+    position: absolute;
+    left: 104px;
+    top: 74px;
+}
+
+#account_left_04_input {
+    width: 120px;
+    height: 17px;
+    border: 0px;
+    font-family: "微軟正黑體";
+    font-size: 16px;
+}
+
+    #account_left_04_input:disabled {
+        background: #ffffff;
+    }
+
+#account_left_05 {
+    width: 64px;
+    height: 21px;
+    font-family: "微軟正黑體";
+    font-size: 16px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #323232;
+    position: absolute;
+    left: 264px;
+    top: 73px;
+}
+
+#account_right {
+    width: 682px;
+    background-color: #ffffff;
+    position: absolute;
+    left: 682px;
+    top: 171px;
+}
+
+#layer_left {
+    width: 80px;
+    height: 27px;
+    font-family: "微軟正黑體";
+    font-size: 20px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #323232;
+}
+
+#layer_right {
+    width: 80px;
+    height: 27px;
+    font-family: "微軟正黑體";
+    font-size: 20px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #323232;
+}
+
+table, th, td {
+    border: 0px solid black;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 17px;
+}
+
+.td_width_01 {
+    width: 112px;
+    height: 56px;
+}
+
+.td_width_02 {
+    width: 240px;
+    height: 56px;
+}
+
+.input_width {
+    width: 240px;
+    height: 40px;
+    border: 0px;
+    font-size: 16px;
+    color: #323232;
+    font-family: "Arial";
+    padding-left: 16px;
+}
+
+.input_width:disabled {
+    background: #ffffff;
+}
+
+.edit_mode {
+    color: #323232;
+}
+
+#change_password {
+    width: 64px;
+    height: 21px;
+    font-family: "微軟正黑體";
+    font-size: 16px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #58b4c3;
+    text-decoration:none;
+}
+
+#item_01 {
+    width: 32px;
+    height: 21px;
+    font-family: "微軟正黑體";
+    font-size: 16px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #323232;
+    position: absolute;
+    left: 50px;
+    top: 18px;
+}
+
+#item_02 {
+    width: 32px;
+    height: 21px;
+    font-family: "微軟正黑體";
+    font-size: 16px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #323232;
+    position: absolute;
+    left: 179px;
+    top: 8px;
+}
+
+#item_03 {
+    width: 64px;
+    height: 21px;
+    font-family: "微軟正黑體";
+    font-size: 16px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #323232;
+    position: absolute;
+    left: 50px;
+    top: 74px;
+}
+
+#item_04 {
+    width: 32px;
+    height: 21px;
+    font-family: "微軟正黑體";
+    font-size: 16px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #323232;
+    position: absolute;
+    left: 179px;
+    top: 64px;
+}
+
+#item_05 {
+    width: 32px;
+    height: 21px;
+    font-family: "微軟正黑體";
+    font-size: 16px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #323232;
+    position: absolute;
+    left: 50px;
+    top: 139px;
+}
+
+#item_06 {
+    width: 300px;
+    height: 21px;
+    font-family: "微軟正黑體";
+    font-size: 16px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #323232;
+    position: absolute;
+    left: 190px;
+    top: 139px;
+}
+
+#item_07 {
+    width: 32px;
+    height: 21px;
+    font-family: "微軟正黑體";
+    font-size: 16px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #323232;
+    position: absolute;
+    left: 50px;
+    top: 204px;
+}
+
+#item_08 {
+    width: 32px;
+    height: 21px;
+    font-family: "微軟正黑體";
+    font-size: 16px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #323232;
+    position: absolute;
+    left: 179px;
+    top: 194px;
+}
+
+#item_09 {
+    width: 32px;
+    height: 21px;
+    font-family: "微軟正黑體";
+    font-size: 16px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #323232;
+    position: absolute;
+    left: 50px;
+    top: 269px;
+}
+
+#item_10 {
+    width: 32px;
+    height: 21px;
+    font-family: "微軟正黑體";
+    font-size: 16px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #323232;
+    position: absolute;
+    left: 179px;
+    top: 259px;
+}
+
+#item_11 {
+    width: 32px;
+    height: 21px;
+    font-family: "微軟正黑體";
+    font-size: 16px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #323232;
+    position: absolute;
+    left: 50px;
+    top: 334px;
+}
+
+#item_12 {
+    width: 32px;
+    height: 21px;
+    font-family: "微軟正黑體";
+    font-size: 16px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #323232;
+    position: absolute;
+    left: 179px;
+    top: 324px;
+}
+
+#item_13 {
+    width: 32px;
+    height: 21px;
+    font-family: "微軟正黑體";
+    font-size: 16px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #323232;
+    position: absolute;
+    left: 50px;
+    top: 399px;
+}
+
+#item_14 {
+    width: 32px;
+    height: 21px;
+    font-family: "微軟正黑體";
+    font-size: 16px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #323232;
+    position: absolute;
+    left: 179px;
+    top: 389px;
+}
+
+#item_15 {
+    width: 32px;
+    height: 21px;
+    font-family: "微軟正黑體";
+    font-size: 16px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #323232;
+    position: absolute;
+    left: 50px;
+    top: 464px;
+}
+
+#item_16 {
+    width: 32px;
+    height: 21px;
+    font-family: "微軟正黑體";
+    font-size: 16px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #323232;
+    position: absolute;
+    left: 179px;
+    top: 454px;
+}
+
+#item_17 {
+    width: 32px;
+    height: 21px;
+    font-family: "微軟正黑體";
+    font-size: 16px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #323232;
+    position: absolute;
+    left: 50px;
+    top: 529px;
+}
+
+#item_18 {
+    width: 32px;
+    height: 21px;
+    font-family: "微軟正黑體";
+    font-size: 16px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #323232;
+    position: absolute;
+    left: 179px;
+    top: 519px;
+}
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 200px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+/* Modal Content */
+.modal-content {
+    width: 530px;
+    height: 385px;
+    margin-left: 427px;
+    margin-top: 0;
+    border: 1px solid #888;
+    background-color: #ffffff;
+}
+#modal_content_info {
+    margin-left: 64px;
+    margin-top: 40px;
+    float: left;
+    font-family: 微軟正黑體;
+    font-size: 14px;
+    color: #d92016;
+    width: 100px;
+    height: 22px;
+}
+#modal_panel {
+    width: 512px;
+    height: 368px;
+    margin-left: 40px;
+    margin-top: 32px;
+    float: left;
+}
+#old_password_panel {
+    width: 450px;
+    height:56px;
+    margin-left: 24px;
+    margin-top: 0px;
+    float: left;
+}
+#old_password_font {
+    width: 180px;
+    height: 22px;
+    margin-left: 0px;
+    margin-top: 17px;
+    float: left;
+    font-family: 微軟正黑體;
+    font-size: 16px;
+    color: #323232;
+}
+#old_password_input {
+    width: 240px;
+    height: 56px;
+    margin-left:0px;
+    margin-top: 0px;
+    float: left;
+}
+#old_password_input_style {
+    width: 224px;
+    height: 40px;
+    border: solid 2px #58b4c3;
+    padding-left: 16px;
+    font-family: 微軟正黑體;
+    font-size: 16px;
+    color: #002855;
+}
+#new_password_panel {
+    width: 450px;
+    height: 56px;
+    margin-left: 24px;
+    margin-top: 12px;
+    float: left;
+}
+#new_password_font {
+    width: 180px;
+    height: 22px;
+    margin-left: 0px;
+    margin-top: 17px;
+    float: left;
+    font-family: 微軟正黑體;
+    font-size: 16px;
+    color: #323232;
+}
+
+#new_password_input {
+    width: 240px;
+    height: 56px;
+    margin-left: 0px;
+    margin-top: 0px;
+    float: left;
+}
+
+#new_password_input_style {
+    width: 224px;
+    height: 40px;
+    border: solid 2px #58b4c3;
+    padding-left: 16px;
+    font-family: 微軟正黑體;
+    font-size: 16px;
+    color: #002855;
+}
+#new_password_check_panel {
+    width: 450px;
+    height: 56px;
+    margin-left: 24px;
+    margin-top: 12px;
+    float: left;
+}
+#new_password_check_font {
+    width: 180px;
+    height: 22px;
+    margin-left: 0px;
+    margin-top: 17px;
+    float: left;
+    font-family: 微軟正黑體;
+    font-size: 16px;
+    color: #323232;
+}
+
+#new_password_check_input {
+    width: 240px;
+    height: 56px;
+    margin-left: 0px;
+    margin-top: 0px;
+    float: left;
+}
+
+#new_password_check_input_style {
+    width: 224px;
+    height: 40px;
+    border: solid 2px #58b4c3;
+    padding-left: 16px;
+    font-family: 微軟正黑體;
+    font-size: 16px;
+    color: #002855;
+}
+#button_panel {
+    width: 450px;
+    height: 56px;
+    margin-left: 24px;
+    margin-top: 24px;
+    float: left;
+}
+/* The Close Button */
+/*.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+    .close:hover,
+    .close:focus {
+        color: #000;
+        text-decoration: none;
+        cursor: pointer;
+    }*/
+#Modal_Content_Font {
+    width: 432px;
+    height: 256px;
+    float: left;
+    margin-left: 40px;
+    margin-top: 72px;
+    font-family: 微軟正黑體;
+    font-size: 16px;
+    color: #323232;
+}
+
+#Modal_Confirm {
+    width: 160px;
+    height: 40px;
+    background-color: #abdae3;
+    border: 0px;
+    float: left;
+    margin-left: 24px;
+    margin-top: 0px;
+}
+
+#Modal_Confirm_Font {
+    width: 32px;
+    height: 21px;
+    font-family: 微軟正黑體;
+    font-size: 16px;
+    color: #ffffff;
+}
+
+#Modal_Cancel {
+    width: 160px;
+    height: 40px;
+    background-color: #969696;
+    border: 0px;
+    float: right;
+    margin-right: 80px;
+    margin-top: 0px;
+}
+
+#Modal_Cancel_Font {
+    width: 32px;
+    height: 21px;
+    font-family: 微軟正黑體;
+    font-size: 16px;
+    color: #ffffff;
+}
+#Modal_Confirm:active {
+    background-color: #58b4c3;
+}
+input:focus {
+    outline: none;
+}

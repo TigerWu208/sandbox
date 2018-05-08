@@ -1,0 +1,210 @@
+<!doctype html>
+
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>LEO-D Location Viewer</title>
+    <meta name="description" content="LEO-D Location Viewer">
+    <meta name="author" content="SitePoint">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/reset.css">
+    <link href="css/select2.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="js/select2.min.js"></script>
+</head>
+
+<body onselectstart="return false" style="width:1366px;height:768px">
+    <div class="title_bar">
+        <div class="bar">
+            <img id="logo" src="images/image_banner_logo.svg">
+            <h1 id="title">LEO-D Location Viewer</h1>
+                <div class="dropdown" id="my_account_view" style="float:right;">
+                    <div id="my_account" class="dropbtn" onclick="openMenu()">
+                        <img id="account_icon" src="images/btn_account_n_48.svg">
+                        <h1 id="myname"></h1>
+                    </div>
+                    <div id="myDropdown" class="dropdown-content">
+                      <a id="account_management" href="#">帳戶維護</a>
+                      <a href="#">登出</a>
+                    </div>
+                </div>
+            <div id="my_function">
+                <img id="setting_icon" src="images/btn_manage_n_48.svg">
+                <img id="alert_icon" src="images/btn_bell_n_48.svg">
+                <img id="employee_icon" src="images/btn_personnel_n_48.svg">
+            </div>
+        </div>
+        <div class="barline"></div>
+    </div>
+    <div class="function">
+        <div id="now_function_title">首頁 > 已連線 > 平面圖</div>
+        <div id="final_updated_time">系統更新時間：2018.02.27　15:00</div>
+    </div>
+    <div class="tabview">
+        <ul class="segmented-control">
+            <li class="segmented-control__item">
+                <input class="segmented-control__input" type="radio" value="online" name="option" id="tab_online" onclick="check_tab('online_tabview')" checked >
+                <label class="segmented-control__label" for="tab_online">已連線</label>
+            </li>
+            <li class="segmented-control__item">
+                <input class="segmented-control__input" type="radio" value="offline" name="option" id="tab_offline" onclick="check_tab('offline_tabview')">
+                <label class="segmented-control__label" for="tab_offline">未連線</label>
+            </li>
+        </ul>
+    </div>
+    <div id="tabview">
+        <!-- <div class="selectview"></div>
+        <div class="mapview"></div> -->
+        <div id="online_tabview" class="tabcontent">
+            <div class="selectview">
+                <p id="floor_title">樓層區域</p>
+                <select id="floor_select" name="floor_select" class="floor_select" onchange="renderMap()">
+                </select>
+                <div id="info_bg_center">
+                    <span id="info_bg_center_line"></span>
+                </div>
+                <p id="search_title">設備名稱</p>
+                <div id="search_view">
+                    <select name="tag_search" class="tag_search" style="width:240px;">
+                        <option></option>
+                    </select>
+                </div>
+                <div id="list_button">
+                    <img id="list_icon" src="images/btn_form_d_32.svg">
+                    <p id="list_title">列表</p>
+                </div>
+                <div id="info_bg_center" style="float:right;margin-left:0px">
+                    <span id="info_bg_center_line"></span>
+                </div>
+                <div id="map_button">
+                    <img id="map_icon" src="images/btn_map_a_32.svg">
+                    <p id="map_title">平面圖</p>
+                </div>
+            </div>
+            <div id="drawT"></div>
+            <div id="accordion-resizer" class="ui-widget-content">
+                <div id="accordion"></div>
+            </div>
+        </div>
+        
+        <div id="offline_tabview" class="tabcontent">
+            <div class="selectview"></div>
+            <h3>Paris</h3>
+            <p>Paris is the capital of France.</p> 
+        </div>
+    </div>
+    <script src="js/header.js"></script>
+    <script>
+        var Mapinit = [];
+        var chif = "請選擇建築區域";
+        AccRouterCount = [];
+        var now_floor_id;
+
+        function check_tab(page) {
+            if(page == "online_tabview"){
+                document.getElementById('offline_tabview').style.display = "none";
+            }else{
+                document.getElementById('online_tabview').style.display = "none";
+            }
+            document.getElementById(page).style.display = "block";
+        }
+
+        function getAllFloor() {
+            $.ajax({
+                type: 'post',
+                url: "http://172.20.2.101:8080/api/?function=get_all_floor",
+                success: function (data) {
+                    for (var i = 0; i < data.length; i++){
+                        FloorId = data[i].FloorId;
+                        FloorSrc = data[i].FloorSrc;
+                        FloorName = data[i].FloorName;
+
+                        SelectName = " <option class='floor_option' value='" + FloorId + "'>";
+                        SelectName += FloorName;
+                        SelectName += "</option>";
+
+                        $(".floor_select").append(SelectName);
+                        var map = new Object();
+                        map.FloorId = FloorId;
+                        map.FloorSrc = FloorSrc;
+                        map.FloorName = FloorName;
+                        Mapinit.push(map);
+                    }
+                    renderMap();
+                    //$('#drawT').css('background', 'url("' + Mapinit[0].FloorSrc + '")');
+                },
+                error: function () {
+                    alert('select menu ajax failed');
+                }
+            });
+        }
+
+        function renderMap(){
+            $("#drawT").empty();
+            $("#accordion").empty();
+            var floor = document.getElementById("floor_select");
+            var floorid = floor.options[floor.selectedIndex].value;
+            for (let i = 0; i < Mapinit.length; i++) {
+                if (floorid == Mapinit[i].FloorId) {
+                    $('#drawT').css('background', 'url("' + Mapinit[i].FloorSrc + '")');
+                    break;
+                }
+            }
+            $.ajax({
+                type: 'post',
+                url: "http://172.20.2.101:8080/api/?function=get_routers_by_floorid&floorid=" + floorid,
+                success: function (sname) {
+                    //alert('success1');
+                    //var obj = JSON.parse(sname);
+                    ////alert(sname);
+                    console.log('CREATEROUTER=' + sname);
+                    var length = sname.length;
+                    for (var i = 0; i < length; i++) {
+                        RId = sname[i].id;
+                        RTop = sname[i].RTop;
+                        RLeft = sname[i].RLeft;
+                        H = sname[i].height;
+                        W = sname[i].width;
+                        RName = sname[i].RName;
+                        console.log("sname[i].RTop=" + sname[i].RTop + "H = sname[i].H=" + sname[i].H);
+                        AccRouterCount.push(RId);
+
+                        //加入Router區塊
+                        DivString = "<a href='javascript: void (0);' class='accordion_options' rel='" + i + "'>";
+                        DivString += "<div  id = 'R" + RId + "' class='fclass init'>";
+                        DivString += "</div>";
+                        DivString += "</a>";
+                        //Pstring = '<img class ="imgT" src ="../Uploads/bookmark-11.png" title="+PTitle+" data-item="+PId+">'
+                        $('#drawT').append(DivString);
+                        //加入手風琴表頭
+                        h3str = "<h3>" + RName + "</h3>";
+                        h3str += "<div id ='acc" + RId + "' class ='accc'><table><tr><td>連線設備</td><td>剩餘電量</td></tr></table></div>";
+                        $('#accordion').append(h3str);
+
+                        //alert($("#R1").attr("id"));
+
+                        $("#R" + RId).append("<p class='DT'>" + RName + "</p>");
+                        $("#R" + RId).parent().css({ position: 'relative' });
+                        $("#R" + RId).css({ height: H + 'px', width: W + 'px', top: RTop + 'px', left: RLeft + 'px', position: 'absolute' });
+
+                    }
+                    //alert('s11');
+                    $('#accordion').accordion("refresh");
+                },
+            });
+        }
+
+        document.getElementById("tab_online").click();
+        getAllFloor();
+        $(document).ready(function() {
+            $('.tag_search').select2({
+                placeholder: "請選擇單一設備"
+            });
+        });
+
+    </script>
+</body>
+
+</html>

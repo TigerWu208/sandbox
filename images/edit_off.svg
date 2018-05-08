@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="32px" height="32px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 46.2 (44496) - http://www.bohemiancoding.com/sketch -->
+    <title>btn_edit_d_32</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Management" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="btn_edit_d_32" fill="#969696">
+            <g id="btn_edit_normal_32" transform="translate(6.000000, 6.000000)">
+                <polygon id="Fill-13" points="18 19 2 19 2 3 7.998 3 7.998 1 0 1 0 21 20 21 20 13 18 13"></polygon>
+                <path d="M9.4746,14.1094 L8.5856,15.0004 L5.9996,15.0004 L5.9996,12.4144 L6.8896,11.5234 L9.4746,14.1094 Z M12.5466,5.8654 L15.1326,8.4534 L10.8886,12.6954 L8.3036,10.1094 L12.5466,5.8654 Z M17.2536,6.3324 L16.5466,7.0394 L13.9606,4.4514 L14.6666,3.7464 L17.2536,6.3324 Z M3.9996,11.5864 L3.9996,17.0004 L9.4136,17.0004 L11.7566,14.6564 L20.0816,6.3324 L14.6666,0.9184 L5.4756,10.1094 L3.9996,11.5864 Z" id="Fill-14"></path>
+            </g>
+        </g>
+    </g>
+</svg>

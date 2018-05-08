@@ -1,0 +1,1203 @@
+<!doctype html>
+
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>LEO-D Location Viewer</title>
+    <meta name="description" content="LEO-D Location Viewer">
+    <meta name="author" content="Advantech">
+    <link rel="stylesheet" href="css/floor_management.css">
+    <link rel="stylesheet" href="css/reset_index.css">
+    <link href="css/select2.css" rel="stylesheet" />
+    <link href="Content/themes/base/jquery-ui.css" rel="stylesheet" />
+    <link href="Content/themes/base/theme.css" rel="stylesheet" />
+    <script src="Scripts/jquery-3.3.1.min.js"></script>
+    <script src="Scripts/jquery-ui-1.12.1.js"></script>
+    <!-- <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> -->
+    <script src="js/select2.min.js"></script>
+    <script src="js/check_login.js"></script>
+</head>
+
+<body onselectstart="return false" style="width:1366px;height:768px">
+    <div class="title_bar">
+        <div class="bar">
+            <img id="logo" src="images/image_banner_logo.svg">
+            <h1 id="title">LEO-D Location Viewer</h1>
+                <div class="dropdown" id="my_account_view" style="float:right;">
+                    <div id="my_account" class="dropbtn" onclick="openMenu()">
+                        <img id="account_icon" src="images/btn_account_n_48.svg">
+                        <h1 id="myname"></h1>
+                    </div>
+                    <div id="myDropdown" class="dropdown-content">
+                      <a id="account_management" href="javascript: void(0)">帳戶維護</a>
+                      <a id="logout" href="javascript: void(0)" onclick="">登出</a>
+                    </div>
+                </div>
+            <div id="my_function">
+                <img id="setting_icon" src="images/btn_manage_n_48.svg" onclick="location.href='floor_management.html';">
+                <!-- <img id="alert_icon" src="images/btn_bell_n_48.svg"> -->
+                <img id="employee_icon" src="images/btn_personnel_n_48.svg" onclick="location.href='account_management.html';">
+            </div>
+        </div>
+        <div class="barline"></div>
+    </div>
+    <div class="function">
+        <div id="now_function_title">設備管理 > 樓層管理</div>
+        <div id="final_updated_time">系統更新時間：2018.02.27　15:00</div>
+    </div>
+    <div class="tabview">
+        <ul class="segmented-control">
+            <li class="segmented-control__item">
+                <input class="segmented-control__input" type="radio" value="floor" name="option" id="tab_floor" onclick="check_tab('floor_tabview')" checked >
+                <label class="segmented-control__label" for="tab_floor">樓層管理</label>
+            </li>
+            <li class="segmented-control__item">
+                <input class="segmented-control__input" type="radio" value="router" name="option" id="tab_router" onclick="check_tab('router_tabview')">
+                <label class="segmented-control__label" for="tab_router">定位管理</label>
+            </li>
+        </ul>
+    </div>
+    <div id="tabview">
+        <div id="floor_tabview" class="tabcontent">
+            <div class="selectview">
+                <span id="delete_floor_icon"><a href="javascript: void(0)"><img src="./images/delete_off.svg" border="0" title="刪除樓層" width="30px" height="30px" /></a></span>
+                <span id="edit_floor_icon"><a href="javascript: void(0)"><img src="./images/edit_off.svg" border="0" title="編輯樓層" width="30px" height="30px" /></a></span>
+                <span id="add_floor_icon"><a href="javascript: void(0)" onclick="add_floor_onclick()"><img src="./images/add.svg" border="0" title="加入樓層" width="30px" height="30px" /></a></span>
+            </div>
+            <div id="drawT"><img id="FloorImg">
+                <p id="init_map_title">請新增地圖資料</p>
+            </div>
+            <div id="maintain">
+                <p id="init_mantain_title">請新增樓層資料</p>
+            </div>
+        </div>
+        <div id="router_tabview" class="tabcontent">
+            <div class="selectview">
+                <div id ="toggleselectview">
+                    <p id="floor_title">樓層區域</p>
+                    <!-- <select id="router_floor_select" name="router_floor_select" class="router_floor_select" onchange="renderRouterMap()">
+                    </select> -->
+                    <select name="files" id="files">
+                        <option selected="selected">請選擇建築區域</option>
+                    </select>
+                    <!-- <span id="delete_router_icon"><a href="javascript: void(0)" id="RouterDelete"><img src="./images/delete_off.svg" border="0" title="刪除Router" width="30px" height="30px" /></a></span> -->
+                    <span id="edit_router_icon"><a href="javascript: void(0)" class="tablinks" onclick="openTag(event,'tab2')"><img src="./images/edit_on.svg" border="0" title="編輯Router" width="30px" height="30px" /></a></span>
+                    <span id="add_router_icon"><a href="javascript: void(0)" class="tablinks" onclick="openTag(event,'tab1')"><img src="./images/add.svg" border="0" title="加入Router" width="30px" height="30px" /></a></span>
+                </div>
+                <div id="editconfirm"></div>
+            </div>
+            <div id="divcontainer">
+                <div id="drawT_router">
+                    <div id="linex"></div>
+                    <div id="liney"></div>
+                </div>
+                <div class="Tab_Area">
+                    <!-- <ul class="TabHead">
+                        <li class="tablinks" onclick="openTag(event,'tab1')">新增</li>
+                        <li class="tablinks" onclick="openTag(event,'tab2')">編輯</li>
+                    </ul> -->
+                    <div class="tab_container">
+                        <div id="addtext">請加入區域或選取區域編輯</div>
+                        <div id="tab1" class="tab_content">
+                            <table id="InsertTable">
+                                <tr class='tr1'>
+                                    <td>Mac address</td>
+                                    <td>
+                                        <select name="InsertMAC" id="InsertMAC">
+                                            <option selected="selected">選擇MAC ADDRESS</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>區域名稱</td>
+                                    <td>
+                                        <input id="InRouterName" placeholder="新增區域名稱" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>區域半徑</td>
+                                    <td><input id="InRouterRadius" placeholder="新增區域半徑值" value="100" /></td>
+                                </tr>
+                                <tr>
+                                    <td>橫軸座標</td>
+                                    <td><input id="InRouterLeft" placeholder="新增區域橫軸座標值" value="100" /></td>
+                                </tr>
+                                <tr>
+                                    <td>縱軸座標</td>
+                                    <td><input id="InRouterTop" placeholder="新增區域縱軸座標值" value="100" /></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td><button id="InRouterInsert" type="button" value="新增區域">新增區域</button></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div id="tab2" class="tab_content">
+                            <table id="UpdateTable">
+                                <tr>
+                                    <td class="td1">Mac address</td>
+                                    <td>
+                                        <select name="CMAC" id="CMAC">
+                                            <option selected="selected">選擇MAC ADRESS</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="td1">區域名稱</td>
+                                    <td>
+                                        <input id="RouterName" placeholder="變更的區域名稱" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="td1">區域半徑</td>
+                                    <td ><input id="RouterRadius" placeholder="變更區域半徑值" /></td>
+                                </tr>
+                                <tr>
+                                    <td class="td1">橫軸座標</td>
+                                    <td><input id="RouterLeft" placeholder="變更區域橫軸座標值" /></td>
+                                </tr>
+                                <tr>
+                                    <td class="td1">縱軸座標</td>
+                                    <td><input id="RouterTop" placeholder="變更區域縱軸座標值" /></td>
+                                </tr>
+                                <tr>
+                                    <td class="td1"></td>
+                                    <td><Button id="RouterDelete" type="button" value="刪除區域">刪除區域</Button><input id="RouterSave" type="button" value="保存更動" style="display:none;"/></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="DelModal" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <div id="Modal_Content_Font">確定刪除?</div>
+            <button id="Modal_Confirm" type="button" class="close"><span id="Modal_Confirm_Font">確認</span></button>
+            <button id="Modal_Cancel" type="button" class="close"><span id="Modal_Cancel_Font">取消</span></button>
+        </div>
+    </div>
+    <div id="DelModal_Router" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <div id="Modal_Content_Font">確定刪除?</div>
+            <button id="Modal_Confirm_Router" type="button" class="close_Router"><span id="Modal_Confirm_Font">確認</span></button>
+            <button id="Modal_Cancel_Router" type="button" class="close_Router"><span id="Modal_Cancel_Font">取消</span></button>
+        </div>
+    </div>
+    <script src="js/header.js"></script>
+    <script>
+        var Mapinit = [];
+        var file = null;
+        var base64 = "";
+
+        var modal = document.getElementById('DelModal');
+        // var btn = document.getElementById("DelOpenBtn");
+        // Get the <span> element that closes the modal
+        var cancelbtn = document.getElementsByClassName("close")[0];
+        var cancelbtn1 = document.getElementsByClassName("close")[1];
+        // btn.onclick = function () {
+        //     modal.style.display = "block";
+        // }
+        // When the user clicks on <span> (x), close the modal
+        cancelbtn.onclick = function () {
+            modal.style.display = "none";
+        }
+        cancelbtn1.onclick = function () {
+            modal.style.display = "none";
+        }
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+
+        $("#Modal_Confirm").on("click", function () {
+            var delfloor = [];
+            var select = $("#floor_select option:selected");
+            var floorid =select.attr("value");
+            delfloor.push(floorid);
+            console.log(JSON.stringify(delfloor));
+            $.ajax({
+                url: api_endpoint + 'delete_floor',
+                data: JSON.stringify(delfloor), //將陣列轉成Json
+                type: 'POST',
+                contentType: 'application/json',
+                success: function (data) {
+                    location.href = 'floor_management.html';
+                }
+            });
+        });
+
+        function check_tab(page) {
+            if(page == "floor_tabview"){
+                document.getElementById('router_tabview').style.display = "none";
+            }else{
+                document.getElementById('floor_tabview').style.display = "none";
+            }
+            document.getElementById(page).style.display = "block";
+        }
+
+        function getBase64Image(img) {
+            var canvas = document.createElement("canvas");
+            canvas.width = img.width;
+            canvas.height = img.height;
+            var ctx = canvas.getContext("2d");
+            ctx.drawImage(img, 0, 0);
+            var dataURL = canvas.toDataURL("image/png");
+            return dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
+        }
+
+        function getAllFloor() {
+            $.ajax({
+                type: 'get',
+                url: api_endpoint + "get_all_floor",
+                success: function (data) {
+                    //console.log(data);
+                    data = data.data;
+                    if (data.length > 0) {
+                        $("#maintain").empty();
+                        document.getElementById('maintain').innerHTML += `<p id="floor_title">樓層區域</p>
+                                                               <select id="floor_select" name="floor_select" class="floor_select" onchange="renderMap()">
+                                                               </select>`;
+                        document.getElementById('edit_floor_icon').childNodes[0].childNodes[0].src = './images/edit_on.svg';
+                        document.getElementById('edit_floor_icon').childNodes[0].onclick = function() { 
+                            edit_floor_onclick(); 
+                        };
+                        document.getElementById('delete_floor_icon').childNodes[0].childNodes[0].src = './images/delete_on.svg';
+                        document.getElementById('delete_floor_icon').childNodes[0].onclick = function() { 
+                            delete_floor_onclick(); 
+                        };
+                        for (var i = 0; i < data.length; i++){
+                            FloorId = data[i].floorid;
+                            FloorSrc = data[i].floorimage;
+                            FloorName = data[i].floorname;
+                            
+                            let SelectName = " <option class='floor_option' value='" + FloorId + "'>";
+                            SelectName += FloorName;
+                            SelectName += "</option>";
+                            
+                            $("#floor_select").append(SelectName);
+                            // $("#router_floor_select").append(SelectName);
+
+                            var map = new Object();
+                            map.FloorId = FloorId;
+                            map.FloorSrc = FloorSrc;
+                            map.FloorName = FloorName;
+                            Mapinit.push(map);
+                        }
+                        renderMap();
+                        // renderRouterMap();
+                    }
+                    
+                },
+                error: function () {
+                    alert('select menu ajax failed');
+                }
+            });
+        }
+
+        function renderMap(){
+            $("#drawT").empty();
+            var floor = document.getElementById("floor_select");
+            var floorid = floor.options[floor.selectedIndex].value;
+            for (let i = 0; i < Mapinit.length; i++) {
+                if (floorid == Mapinit[i].FloorId) {
+                    $('#drawT').css('background', 'url("' + Mapinit[i].FloorSrc + '")');
+                    break;
+                }
+            }
+        }
+
+        function renderRouterMap(){
+            $("#drawT_router").empty();
+            var floor = document.getElementById("router_floor_select");
+            var floorid = floor.options[floor.selectedIndex].value;
+            for (let i = 0; i < Mapinit.length; i++) {
+                if (floorid == Mapinit[i].FloorId) {
+                    $('#drawT_router').css('background', 'url("' + Mapinit[i].FloorSrc + '")');
+                    break;
+                }
+            }
+        }
+
+        function add_floor_onclick(){
+            $("#drawT").css('background', 'none');
+            $("#drawT").empty();
+            $("#maintain").empty();
+            $(".selectview").empty();
+            document.getElementById('drawT').innerHTML += `
+            <input id="inp" type="file" style="opacity: 0.0; position: absolute; top:0; left: 0; bottom: 0; right:0; width: 100%; height:100%;" />
+            <img id="add_floor_bigicon" src="images/btn_insert_n_150.svg">`;
+            document.getElementById('maintain').innerHTML += `<p id="floor_input_title">樓層名稱</p>
+                                                               <input type="text" id="floor_input" name="floor_input" class="floor_input" />`;
+            document.getElementsByClassName('selectview')[0].innerHTML += `
+                <button id="cancel_button" type="button" onclick="cancel()">取消</button>
+                <button id="save_button" type="button" onclick="save_data()">儲存</button>`;
+            $("#inp").on("change", readFile);
+        }
+
+        function edit_floor_onclick(){
+            var select = $("#floor_select option:selected");
+            var floorname = select[0].innerHTML;
+            var floorid = select[0].value;
+            console.log(select);
+            $("#maintain").empty();
+            $(".selectview").empty();
+            document.getElementById('drawT').innerHTML += `
+            <input id="inp" type="file" style="opacity: 0.0; position: absolute; top:0; left: 0; bottom: 0; right:0; width: 100%; height:100%;" />
+            <img id="add_floor_bigicon" src="images/btn_edit_h_150.svg">`;
+            document.getElementById('maintain').innerHTML += `<p id="floor_input_title">樓層名稱</p>
+                                                               <input type="text" id="floor_input" name="${floorid}" class="floor_input" value="${floorname}"/>`;
+            document.getElementsByClassName('selectview')[0].innerHTML += `
+                <button id="cancel_button" type="button" onclick="cancel()">取消</button>
+                <button id="save_button" type="button" onclick="edit_save_data()">儲存</button>`;
+            $("#inp").on("change", readFile);
+        }
+
+        function delete_floor_onclick(){
+            modal.style.display = "block";
+        }
+
+        function save_data() {
+            SendFile();
+        }
+
+        function edit_save_data() {
+            EditFile();
+        }
+
+        function cancel() {
+            location.href = 'floor_management.html';
+        }
+        function readFile() {
+            if (this.files && this.files[0]) {
+                document.getElementById('add_floor_bigicon').src = 'images/btn_edit_h_150.svg';
+                $('#drawT').css('background', 'url("' + window.URL.createObjectURL(this.files[0]) + '")');
+                file = this.files[0];
+                var FR = new FileReader();
+
+                FR.addEventListener("load", function (e) {
+                    base64 = e.target.result;
+                });
+
+                FR.readAsDataURL(this.files[0]);
+
+            }
+        }
+
+        function SendFile() {
+            if (file != null) {
+                var FloorName = $("#floor_input").val();
+                var FR = new FileReader();
+
+                FR.addEventListener("load", function () {
+                    var xhttp = new XMLHttpRequest();
+                    var data =
+                        {
+                            "floorname": FloorName,
+                            "image": base64
+                        };
+                    xhttp.open("POST", api_endpoint + "add_floor", true);
+                    xhttp.setRequestHeader("Content-Type", "application/json");
+                    xhttp.send(JSON.stringify(data));
+                    xhttp.onreadystatechange = function() {
+                        if (this.readyState == 4 && this.status == 200) {
+                            location.href = 'floor_management.html';
+                        }
+                    };
+                });
+
+                FR.readAsDataURL(file);
+                file = null;
+            }
+        }
+
+        function EditFile() {
+            var fid = $("#floor_input").attr("name");
+            console.log(base64);
+            var FloorName = $("#floor_input").val();
+            var xhttp = new XMLHttpRequest();
+            var data =
+                {
+                    "floorid": fid,
+                    "floorname": FloorName,
+                    "image": base64
+                };
+            xhttp.open("POST", api_endpoint + "edit_floor", true);
+            xhttp.setRequestHeader("Content-Type", "application/json");
+            xhttp.send(JSON.stringify(data));
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    location.href = 'floor_management.html';
+                }
+            };
+
+            //FR.readAsDataURL(file);
+            file = null;
+        }
+
+        document.getElementById("tab_floor").click();
+        getAllFloor();
+
+    </script>
+    <script>
+        function cancel_Router() {
+            $('#confirmselectview').remove();
+            $('#toggleselectview').css('display','block');
+            $('#edit_router_icon,#add_router_icon').on('click',edit_Router_onclick);
+            // $("#files").selectmenu("refresh");
+        }
+        function edit_Router_onclick(){
+
+            $("#toggleselectview").css('display','none');
+            var htmlstr =[];
+            htmlstr.push("<div id ='confirmselectview'>");
+            htmlstr.push("<button id='cancel_button_Router' type='button' onclick='cancel_Router()'>取消</button>");
+            htmlstr.push("<button class='Router_Save' type='button'>儲存</button>");
+            // htmlstr.push("<span id='delete_router_icon'><a href='javascript: void(0)' id='RouterDelete'><img src='./images/delete_off.svg' border='0' title='刪除Router' width='30px 'height='30px' /></a></span>");
+            htmlstr.push("</div>");
+            $('#editconfirm').html(htmlstr.join(""));
+            $('.Router_Save').on('click',Router_Save);
+            console.log('Routerarray='+JSON.stringify(RouterChange));
+        }
+        function Router_Save(){
+            $('#RouterSave').trigger('click');
+        }
+        $(function () {
+            //Tab Init(寫死)
+            $('.tablinks').eq(0).addClass('tabactive');
+            $(".tab_content").css("display", "none");
+            // $(".tab_container").css("display", "none");
+            $('#edit_router_icon').on('click',edit_Router_onclick);
+        });
+        function KopenTag(evt, TagName) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tab_content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tablinks");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace("tabactive", "");
+            }
+            document.getElementById(TagName).style.display = "block";
+            $("#addtext").css("display", "none");
+        }
+        
+        function openTag(evt, TagName) {
+            // alert("ss="+$("#"+TagName).attr("id"));
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tab_content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tablinks");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace("tabactive", "");
+            }
+            $("#addtext").css("display", "none");
+            $("#"+TagName).css("display", "block");
+            // document.getElementById(TagName).style.display = "block";
+            evt.currentTarget.className += "tabactive";
+
+            // if(page == "floor_tabview"){
+            //     document.getElementById('router_tabview').style.display = "none";
+            // }else{
+            //     document.getElementById('floor_tabview').style.display = "none";
+            // }
+            // document.getElementById(page).style.display = "block";
+        }
+        function ShowEditLine(thisedit){
+            $("#x_div,#y_div").css("display","block");
+            $("#drawT_router").children(".activezindex").removeClass("activezindex").addClass("inactivezindex");
+            thisedit.removeClass("inactivezindex").addClass("activezindex");
+            $("#drawT_router .init").find('.ui-resizable-handle').css('display','none');
+            thisedit.children('.ui-resizable-handle').css('display','block');
+            $(".elem").css('border-width', '0');
+            thisedit.find(".elem").css('border', 'solid 1px #002855');
+        } 
+        function SetEditInputVal(objid){
+            RIndex = RouterChange.findIndex(x => x.id == objid);
+            $("#RouterName").val(RouterChange[RIndex].RName);
+            $("#RouterRadius").val(RouterChange[RIndex].width * 0.5);
+            $("#RouterLeft").val(RouterChange[RIndex].left+RouterChange[RIndex].width * 0.5);
+            $("#RouterTop").val(RouterChange[RIndex].top+RouterChange[RIndex].width * 0.5);
+            $('#CMAC').val(RouterChange[RIndex].RMAC).selectmenu('refresh');
+        }
+        function RouterSelect() {
+                    //輔助線視覺
+            $("#x_div, #y_div").css("display","none");
+            $("#drawT_router").children().find('.ui-resizable-handle').hide();
+            $("#drawT_router").find(".elem").css("border-width","0");
+
+            $('.fclass').on("click", function () {
+                    $("#x_div,#y_div").css("display","block");
+                    var radius = parseInt($(this).width());
+                    $("#x_div").css("top", $(this).position().top + $(this).width() * 0.5);
+                    $("#y_div").css("left", $(this).position().left + $(this).width() * 0.5);
+                    KopenTag('event','tab2');
+                    $('#edit_router_icon').trigger('click');
+                    $('.tablinks').eq(1).addClass("active");
+                    SetEditInputVal($(this).attr("id"));
+                    var thisedit = $(this);
+                    ShowEditLine(thisedit);
+                    console.log("class="+$(this).attr("class"));
+            });
+            
+        }
+        
+        
+        function RouterDragResize(){
+                var handleflag = "";
+                $('.ui-resizable-handle').on("mouseover",function(e){
+                            handleflag = $(this).attr("id");
+                            console.log("handleflag"+handleflag);
+                });
+                $(".draggable").draggable({
+                start: function (event, ui) {
+                    KopenTag(event, 'tab2');
+                    $('.tablinks').eq(1).addClass("active");
+                    SetEditInputVal($(this).attr("id"));
+                    var thisedit =$(this);
+                    ShowEditLine(thisedit);
+                    edit_Router_onclick();
+                    $('#CMAC').val(RouterChange[RIndex].RMAC).selectmenu('refresh');
+                },
+                stop: function (event, ui) {
+                    var top = parseInt($(this).position().top);
+                    var left = parseInt($(this).position().left);
+                    RIndex = RouterChange.findIndex(x => x.id == $(this).attr("id"));
+                    RouterChange[RIndex].top = top;
+                    RouterChange[RIndex].left = left;
+                    console.log("top=" + typeof (ui.position.left));
+                    console.log("JSON=" + JSON.stringify(RouterChange));
+                }
+                });
+
+                $(".draggable").on("drag", function (event, ui) {
+                    var top = parseInt($(this).position().top);
+                    var left = parseInt($(this).position().left);
+                    var radius = parseInt($(this).width());
+                    $("#x_div").css("top", ui.position.top + radius * 0.5);
+                    $("#y_div").css("left", ui.position.left + radius * 0.5);
+                    let x = $(this).position();
+                    $("#RouterLeft").val(left + radius* 0.5);
+                    $("#RouterTop").val(top + radius* 0.5);
+                });
+                var initpostop = null;
+                var initposleft = null;
+                $(".resizable").resizable({
+                aspectRatio: 1 / 1,
+                handles: {
+                    'nw': '#nwgrip',
+                    'ne': '#negrip',
+                    'sw': '#swgrip',
+                    'se': '#segrip',
+                },
+                start: function (event, ui) {
+                        var thisedit =$(this);
+                        ShowEditLine(thisedit);
+                        SetEditInputVal($(this).attr("id"));
+                        KopenTag(event, 'tab2');
+                        var radius = $(this).width();
+                        initpostop = $(this).position().top+radius*0.5;
+                        initposleft = $(this).position().left+radius*0.5;
+                        $('.tablinks').eq(1).addClass("active");
+                    },
+                stop: function (event, ui) {
+                    ui.size.width = ui.size.height;
+                    var radius = parseInt($(this).width());
+                    $(this).css("top", initpostop-radius* 0.5);
+                    $(this).css("left", initposleft-radius* 0.5);
+                    let x = $(this).position();
+                    var top = parseInt(x.top);
+                    var left = parseInt(x.left);
+                    $("#x_div").css("top", top + radius* 0.5);
+                    $("#y_div").css("left", left + radius* 0.5);
+                    RIndex = RouterChange.findIndex(x => x.id == $(this).attr("id"));
+                    RouterChange[RIndex].height = radius;
+                    RouterChange[RIndex].width = radius;
+                    RouterChange[RIndex].top = top;
+                    RouterChange[RIndex].left = left;
+                    $("#RouterRadius").val(radius * 0.5);
+                    $("#RouterLeft").val(left + radius* 0.5);
+                    $("#RouterTop").val(top + radius* 0.5);
+                }
+                });
+                $(".resizable").on("resize", function (event, ui) {
+
+                    var radius = parseInt($(this).width());
+                    $("#RouterRadius").val(radius * 0.5);
+                    console.log("handleflag="+handleflag);
+
+                    switch(handleflag){
+                        case "segrip":
+                            $(this).css({
+                                'left': parseInt(ui.position.left) + (ui.originalSize.width - ui.size.width)/2,
+                                'top': parseInt(ui.position.top) + (ui.originalSize.height - ui.size.height)/2
+                            });
+                            break;
+                        case "nwgrip":
+                            $(this).css({
+                                'left': parseInt(ui.position.left)+(ui.size.width*0.5-ui.originalSize.width*0.5),
+                                'top': parseInt(ui.position.top)-(ui.originalSize.width*0.5 - ui.size.width*0.5)
+                            });
+                            break;
+                        case "negrip":
+                            $(this).css({
+                                'left': parseInt(ui.position.left) + (ui.originalSize.width - ui.size.width)/2,
+                                'top': parseInt(ui.position.top) - (ui.originalSize.height - ui.size.height)/2
+                            });
+                            break;
+                        case "swgrip":
+                            $(this).css({
+                                'left': parseInt(ui.position.left)+(ui.size.width*0.5-ui.originalSize.width*0.5),
+                                'top': parseInt(ui.position.top)+(ui.originalSize.width*0.5 - ui.size.width*0.5)
+                            });
+                            break;
+                    }
+                    
+                });
+                
+        }
+
+        function RouterObj(RId,RMAC, RName,RLeft,RTop,H,W,FloorId) {
+            this.id = RId;
+            this.RMAC = RMAC;
+            this.RName = RName;
+            this.left = RLeft;
+            this.top = RTop;
+            this.RLeft = RLeft;
+            this.RTop = RTop;
+            this.height = H;
+            this.width = W;
+            this.FloorId = FloorId;
+        } 
+
+        function CreateRouterSetLocation(RId,RName,H,W,RTop,RLeft){
+            DivString = [];
+            DivString.push("<div  id = '" + RId + "' class='fclass init draggable resizable'>");
+            DivString.push("<div class='elem'><p class='DT'>" + RName + "</p></div><div class='ui-resizable-handle ui-resizable-nw' id='nwgrip'></div><div class='ui-resizable-handle ui-resizable-ne' id='negrip'></div> <div class='ui-resizable-handle ui-resizable-sw' id='swgrip'></div><div class='ui-resizable-handle ui-resizable-se' id='segrip'></div>");
+            DivString.push("</div>");
+            $('#drawT_router').append(DivString.join(""));
+            $("#" + RId).parent().css({ position: 'relative' });
+            $("#" + RId).css({ height: H + 'px', width: W + 'px', top: RTop + 'px', left: RLeft + 'px', position: 'absolute' });
+        }
+        // RObj = new RouterObj(RId,RMAC,RName,RLeft,RTop,H,W,FloorId);
+        // RouterChange.push(RObj);
+        
+        var availableTags = [];
+        var RouterInit = [];
+        var RouterChange =[];
+        var Mapinit = [];
+        var DelArray = [];
+        var InsertArray = [];
+        var SaveCheck = 0;
+        $(function () {
+
+            var chif = "請選擇建築區域";
+            //加入地圖資訊進陣列
+            $.ajax({
+                type: 'get',
+                url: api_endpoint + "get_all_floor",
+                success: function (name) {
+                    name = name.data;
+                    for (var i = 0; i < name.length; i++) {
+                        
+                        FloorId = name[i].floorid;
+                        FloorSrc = name[i].floorimage;
+                        FloorName = name[i].floorname;
+                        
+                        SelectName = " <option value='" + FloorName + "' name ='" + FloorId +"'>";
+                        SelectName += FloorName;
+                        SelectName += "</option>";
+                        
+                        $("#files").append(SelectName);
+
+                        var map = new Object();
+                        map.FloorId = FloorId;
+                        map.FloorSrc = FloorSrc;
+                        map.FloorName = FloorName;
+                        Mapinit.push(map);
+                    }
+                },
+                error: function () {
+                    alert('select menu ajax failed');
+                }
+            });
+            //新增欄位輸入文字
+            
+            $("#InRouterInsert").click(function () {
+                
+                console.log("ArraybeforerInsert=" + JSON.stringify(RouterChange));
+                var RID = $("#InsertMAC").find(":selected").attr("name");
+                console.log("$('#InsertMAC').find(':selected').val()" + RID);
+                var RMAC = $("#InsertMAC").val();
+                console.log("RMAC" + RMAC);
+                var RName = $("#InRouterName").val();
+                var Radius = $("#InRouterRadius").val()*2;
+                var left = $("#InRouterLeft").val();
+                var top = $("#InRouterTop").val();
+                
+                check = 0;
+                $("#InsertTable tr input").each(function () {
+                    var value = $(this).val();
+                    console.log('inputval=' + $(this).val());
+                    if ($(this).val() == '') { check += 1; }
+                });
+
+                var chinese = "選擇MAC ADDRESS";
+                if (RMAC === chinese) {
+                    check = check + 1;
+                }
+            
+                if (check == 0 && RMAC != null) {
+                //   alert('RMAC=' + RMAC);
+                    $("#drawT_router").empty();
+                    $("#drawT_router").append("<div id='x_div'></div><div id='y_div'></div>");
+                    
+                    RObj = new RouterObj(RID,RMAC,RName,parseInt(left-Radius*0.5),parseInt(top-Radius*0.5),Radius,Radius,$("#files").find(":selected").attr("name"));
+                    RouterChange.push(RObj);
+                    $('#InsertMAC option:selected').remove();
+                    $("#InsertMAC").selectmenu("refresh").selectmenu({ style: "dropdown" });
+                    console.log('RNameIn=' + RName);
+                    var SelectRName = "選擇RouterMAC";
+                    
+                    for (var i in RouterChange) {
+                        RId = RouterChange[i].id;
+                        RMAC = RouterChange[i].RMAC;
+                        RName = RouterChange[i].RName;
+                        RTop = RouterChange[i].top;
+                        RLeft = RouterChange[i].left;
+                        H = RouterChange[i].height;
+                        W = RouterChange[i].width;
+
+                        CreateRouterSetLocation(RId,RName,H,W,RTop,RLeft);
+                        
+                        SelectRName += " <option value ='" + RMAC + "' name ='" + RId +"'>";
+                        SelectRName += RMAC;
+                        SelectRName += "</option>";
+                        //$("#CMAC").append(SelectRName);
+                        if (parseInt(length) - 1) {
+                            $("#CMAC").html(SelectRName);
+                            $("#CMAC").selectmenu("refresh").selectmenu({ style: "dropdown" });
+                        }
+                        console.log('asyn1');
+                    }
+                    RouterDragResize();
+                    RouterSelect();
+                    // $("#"+RID).trigger("click");
+                    $("#InRouterName").val("");
+                    console.log("ArrayAfterInsert=" + JSON.stringify(RouterChange));
+                }
+                else
+                {
+                    alert('所有欄位不可為空');
+                }
+            });
+            
+            $("#Modal_Confirm_Router").click(function () {
+                console.log("BeforeDeleteRouterChange=" + JSON.stringify(RouterChange));
+                $("#drawT_router").empty();
+                $("#drawT_router").append("<div id='x_div'></div><div id='y_div'></div>");
+                var Rdel = $("#CMAC").val();
+                console.log("Rdel=" + Rdel);
+                DelArray = RouterChange.filter(function (e) {
+                    return e.RMAC !== Rdel;
+                });
+                var SelectRName = "選擇Router區域";
+                for (var i in DelArray) {
+                    RId = DelArray[i].id;
+                    RMAC = DelArray[i].RMAC;
+                    RName = DelArray[i].RName;
+                    RTop = DelArray[i].top;
+                    RLeft = DelArray[i].left;
+                    H = DelArray[i].height;
+                    W = DelArray[i].width;
+                    console.log('RdelName=' + RName);
+
+                    CreateRouterSetLocation(RId,RName,H,W,RTop,RLeft);
+
+                    SelectRName += " <option value ='" + RMAC + "' name ='" + RId +"'>";
+                    SelectRName += RMAC;
+                    SelectRName += "</option>";
+                    $("#CMAC").append(SelectRName);
+                    if (parseInt(length) - 1) {
+                        $("#CMAC").html(SelectRName);
+                        $("#CMAC").selectmenu("refresh").selectmenu({ style: "dropdown" });
+                    }
+                }
+                RouterChange = DelArray;
+                console.log("AfterDeleteRouterChange=" + JSON.stringify(RouterChange));
+                
+                RouterDragResize();
+                RouterSelect();
+                $("#drawT_router").children().find('.ui-resizable-handle').hide();
+                $("#drawT_router").find(".elem").css("border-width","0");
+                $('#Modal_Cancel_Router').trigger('click');
+            });
+
+            //RouterChangeArray
+            function changeR(RMAC, RNameNew, Radius, Radius, left, top) {
+                for (var i in RouterChange) {
+                    if (RouterChange[i].RMAC == RMAC) {
+                        RouterChange[i].RName = RNameNew;
+                        RouterChange[i].left = left;
+                        RouterChange[i].top = top;
+                        RouterChange[i].height = Radius;
+                        RouterChange[i].width = Radius;
+                        break; //找到值後跳出迴圈
+                    }
+                }
+            }
+            //crud update
+            // 編輯
+            $("#RouterName,#RouterRadius,#RouterLeft,#RouterTop").change(function () {
+                check = 0;
+                $("#UpdateTable tr input").each(function () {
+                    var value = $(this).val();
+                    console.log('inputval=' + $(this).val());
+                    if ($(this).val() == '') { check += 1; }
+                });
+
+                if (check == 0) {
+
+                var RID = "R"+$("#CMAC").find(":selected").attr("name");
+                console.log("$('#CMAC').find(':selected').val()" + RID);
+                var RMAC = $("#CMAC").val();
+                var RNameNew = $("#RouterName").val();
+                var Radius = $("#RouterRadius").val()*2;
+                var left = $("#RouterLeft").val();
+                var top = $("#RouterTop").val();
+                console.log("RarrayInit=" +JSON.stringify(RouterChange));
+                RIndex = RouterChange.findIndex(x => x.RMAC == RMAC);
+                console.log("RIndex=" +RIndex);
+                RID =RouterChange[RIndex].id ;
+                RouterChange[RIndex].RName = RNameNew;
+                RouterChange[RIndex].height = Radius;
+                RouterChange[RIndex].width =Radius;
+                RouterChange[RIndex].top = parseInt(top-Radius*0.5);
+                RouterChange[RIndex].left = parseInt(left-Radius*0.5);
+                console.log("RID=" +RID);
+                    
+                // changeR(RMAC, RNameNew,Radius,Radius,parseInt(left-Radius*0.5),parseInt(top-Radius*0.5));
+                console.log("Rarray=" +JSON.stringify(RouterChange));
+                $("#drawT_router").empty();
+                $("#drawT_router").append("<div id='x_div'></div><div id='y_div'></div>");
+                var SelectRName = "選擇Router區域";
+                console.log('RouterChange[0].RName=' + RouterChange[0].RName);
+                for (var i in RouterChange) {
+                    RId = RouterChange[i].id;
+                    RMAC = RouterChange[i].RMAC;
+                    RName = RouterChange[i].RName;
+                    RTop = RouterChange[i].top;
+                    RLeft = RouterChange[i].left;
+                    H = RouterChange[i].height;
+                    W = RouterChange[i].width;
+                    FloorId = RouterChange[i].FloorId;
+                
+                    console.log('UPdateRName=' + RName);
+                    CreateRouterSetLocation(RId,RName,H,W,RTop,RLeft);
+
+                    SelectRName += " <option value ='" + RName + "' name ='" + FloorId +"'>";
+                    SelectRName += RName;
+                    SelectRName += "</option>";
+
+                    $("#selectR").append(SelectRName);
+                    if (parseInt(length) - 1) {
+                    $("#selectR").html(SelectRName);
+                    $("#selectR").selectmenu("refresh").selectmenu({ style: "dropdown" });
+                    }
+                }
+                RouterDragResize();
+                RouterSelect();
+                $("#drawT_router").children().find('.ui-resizable-handle').hide();
+                $("#drawT_router").find(".elem").css("border-width","0");
+                $("#"+RID).trigger("click");
+                console.log("RouterChange=" + JSON.stringify(RouterChange));
+                }
+                else {
+                    alert('所有欄位不可為空');
+                }
+            });
+            
+            var RouterSaveArray1=[];
+            //保存按鈕
+            $("#RouterSave").click(function () {
+                console.log('RouterChangeinit='+JSON.stringify(RouterChange));
+                
+                var rif,ril;
+
+                var RouterSaveArray = JSON.parse(JSON.stringify(RouterChange));
+                console.log('afterCopyArrayRC=' + JSON.stringify(RouterChange));
+                console.log('CopypushArray=' + JSON.stringify(RouterSaveArray));
+                for (var i in RouterSaveArray) {
+                    RouterSaveArray[i].RTop = RouterSaveArray[i].top;
+                    RouterSaveArray[i].RLeft = RouterSaveArray[i].left;
+                    RouterSaveArray[i].MAC = RouterSaveArray[i].RMAC;
+                    rif = RouterSaveArray[i].id;
+                    var rifstr = rif.slice(1);
+                    RouterSaveArray[i].id = parseInt(rifstr);
+                    console.log('RouterChange[i].id='+RouterSaveArray[i].id);
+                }
+                RouterSaveArray.forEach(function(v){ 
+                    delete v.RMAC;
+                    delete v.top;
+                    delete v.left;
+                });
+                console.log("RouterSaveChange="+JSON.stringify(RouterSaveArray));
+                $.ajax({
+                    url: api_endpoint + 'add_router?floorid='+$("#files").find(":selected").attr("name"),
+                    data: JSON.stringify(RouterSaveArray), //將陣列轉成Json
+                    type: 'POST',
+                    contentType: 'application/json',
+                    success: function (fff) {
+                        console.log('fff');
+                        alert('保存成功!');
+                    }
+                });
+                console.log('AfterSaveRouterChange1111=' + JSON.stringify(RouterChange));
+                cancel_Router();
+                console.log('s1');
+            });
+            
+
+                
+                
+            //鍵盤事件
+            $(document).keydown(function (e) {
+                var code = e.keyCode || e.which;
+                switch (code) {
+                   case 46:
+                       if($("#tab2").css('display')=="block"){
+                           $("#RouterDelete").trigger('click');
+                       }
+                       break;
+                   case 13:
+                        if($("#tab2").css('display')=="block"){
+                            $("#RouterDelete").trigger('click');
+                        }
+                        else if($("#tab1").css('display')=="block"){
+                            $("#InRouterInsert").trigger('click');
+                        }
+                       break;
+                   case 45:
+                        if($("#tab1").css('display')=="block"){
+                            $("#InRouterInsert").trigger('click');
+                        }
+                       break;
+                }
+            });
+            
+            
+            $("#InsertMAC").selectmenu({
+                icons: { button: "ui-icon-caret-1-n" },
+                open: function (event, ui) {
+                    $("#InsertMAC").selectmenu("option", "icons", { button: "ui-icon-caret-1-ne" });
+                },
+                close: function (event, ui) {
+                    $("#InsertMAC").selectmenu("option", "icons", { button: "ui-icon-caret-1-n" });
+                },
+                change: function (event, data) {
+                    var rtext = data.item.value;
+                    $('#CMAC').val(rtext).selectmenu('refresh');
+                }
+            }).selectmenu("menuWidget").addClass("overflowtest");
+            $("#CMAC").selectmenu({
+                icons: { button: "ui-icon-caret-1-n" },
+                open: function (event, ui) {
+                    $("#CMAC").selectmenu("option", "icons", { button: "ui-icon-caret-1-ne" });
+                },
+                close: function (event, ui) {
+                    $("#CMAC").selectmenu("option", "icons", { button: "ui-icon-caret-1-n" });
+                },
+                change: function (event, data) {
+                    var rtext = data.item.value;
+                    // var ridArr = $.grep(RouterChange, function (item, i) {
+                    //     return (item.RMAC == rtext);
+                    // });
+                    RIndex = RouterChange.findIndex(x => x.RMAC ==  $("#CMAC").val());
+                    console.log(" RIndexid=" + RIndex+'RMAC='+$("#CMAC").val());
+                    var rid = RouterChange[RIndex].id;
+                    console.log("選單點選的id=" + rid);
+                    SetEditInputVal(rid);
+                    console.log("debug=" + $("#RouterRadius").attr("value"));
+                    $( "#"+rid).trigger( "click" );
+                    $("#CMAC").selectmenu("refresh").selectmenu({ style: "dropdown" });
+                }
+            });
+            $("#files").selectmenu({
+                icons: { button: "ui-icon-caret-1-n" },
+                open: function (event, ui) {
+                    $("#files").selectmenu("option", "icons", { button: "ui-icon-caret-1-ne" });
+                    // $(".ui-button").css("border-bottom","solid 2px #FFFFFF");
+                    $(".ui-selectmenu-menu").css({"border-top-width":"0"});
+                    $(".ui-selectmenu-menu").css({"margin-top":"-1"});
+                    // $(".ui-selectmenu-menu").offset({ top: $(this).offset().top});
+                },
+                close: function (event, ui) {
+                    $("#files").selectmenu("option", "icons", { button: "ui-icon-caret-1-n" });
+                    $(".ui-button").css("border-bottom","solid 2px #58b4c3");
+                },
+                change: function (event, data) {
+                    
+                    var ro = data.item.value;
+                    if (ro != chif) {
+                        $("#drawT_router").empty();
+                        $("#RouterName,#RouterRadius,#RouterLeft,#RouterTop,#InRouterName").val('');
+                        $("#addtext").css("display", "block");
+                        $(".tab_content").css("display", "none");
+                        $("#CMAC,#InsertMAC").html("<option>選擇MAC ADDRESS</option>");
+                        $("#CMAC").selectmenu("refresh").selectmenu({ style: "dropdown" });
+                        RouterChange = [];
+                        $("#drawT_router").append("<div id='x_div'></div><div id='y_div'></div>");
+                        //找出FloorSrc對應到Floor的物件
+                        var FlnewArr = $.grep(Mapinit, function (item, i) {
+                            return (item.FloorName == ro);
+                        });
+                        var ID = FlnewArr[0].FloorId;
+                        //找出FloorID對應到FloorName的物件
+                        var FlnewArr1 = $.grep(Mapinit, function (item, i) {
+                            return (item.FloorId == ro);
+                        });
+                        $('#drawT_router').css('background', 'url("' + FlnewArr[0].FloorSrc + '")');
+
+                        //加入Router區塊
+                        //RouterCreate
+                        //2018 0308選單要分兩個
+                        $.ajax({
+                            type: 'get',
+                            url: api_endpoint +"get_routers_by_floorid?floorid="+ID,
+                            success: function (sname) {
+                                console.log('sname='+JSON.stringify(sname));
+                                sname = sname.data; 
+                                var SelectRName = "選擇Router區域";
+                                var SelectRMAC= "選擇MAC ADDRESS";
+                                for (var i = 0; i < sname.length; i++) {
+
+                                    RId =sname[i].id;
+                                    RTop = sname[i].rtop;
+                                    RLeft = sname[i].rleft;
+                                    H = sname[i].height;
+                                    W = sname[i].width;
+                                    RName = sname[i].rname;
+                                    RMAC = sname[i].mac;
+                                    FloorId = sname[i].floorid;
+
+                                    CreateRouterSetLocation("R"+RId,RName,H,W,RTop,RLeft);
+
+                                    SelectRName += " <option value ='" + RName + "' name ='" + FloorId +"'>";
+                                    SelectRName += RName;
+                                    SelectRName += "</option>";
+
+                                    SelectRMAC += " <option value ='" + RMAC + "' name ='" + RId +"'>";
+                                    SelectRMAC += RMAC;
+                                    SelectRMAC += "</option>";
+                                    console.log("for select=" + SelectRMAC);
+
+                                    RObj = new RouterObj("R"+RId,RMAC,RName,RLeft,RTop,H,W,FloorId);
+                                    RouterChange.push(RObj);
+                                    console.log("JSON.stringify(RouterChange)=" + JSON.stringify(RouterChange));
+                                    RouterInit.push(RObj);
+                                    switch (i) {
+                                        case 0:
+                                            $("#RouterName").attr("value", RName);
+                                            $("#RouterRadius").attr("value", H*0.5);
+                                            $("#RouterLeft").attr("value", RLeft+H*0.5);
+                                            $("#RouterTop").attr("value", RTop+H*0.5);
+                                            console.log('case s1');
+                                            break;
+                                        case parseInt(sname.length) - 1:
+                                            $("#selectR").html(SelectRName);
+                                            $("#selectR").selectmenu("refresh").selectmenu({ style: "dropdown" });
+                                            $("#CMAC").html(SelectRMAC);
+                                            $("#CMAC").selectmenu("refresh").selectmenu({ style: "dropdown" });
+                                            console.log('case s2');
+                                            break;
+                                    }
+                                }
+                                RouterDragResize();
+                                console.log('val='+$("#drawT_router").find(".elem").children("p").val());
+                                RouterSelect();
+                                
+                                
+                            },
+                        });
+
+                        $.ajax({
+                            type: 'get',
+                            url: api_endpoint + "get_unbind_router",
+                            success: function (sname) {
+                                sname =sname.data;
+                                console.log('InsertNewMAC=' + sname);
+                                var SelectRMAC = "選擇MAC ADDRESS";
+                                
+                                for (var i = 0; i < sname.length; i++) {
+                                    let BID = sname[i].id;
+                                    let RMAC = sname[i].mac;
+
+                                    SelectRMAC += " <option name ='R" + BID +"' value='"+RMAC+"'>";
+                                    SelectRMAC += RMAC;
+                                    SelectRMAC += "</option>";
+
+                                    console.log("MEW MAC=" + SelectRMAC);
+                                    
+                                    switch (i) {
+                                        case parseInt(sname.length) - 1:
+                                            $("#InsertMAC").html(SelectRMAC);
+                                            $("#InsertMAC").selectmenu("refresh").selectmenu({ style: "dropdown" });
+                                            break;
+                                    }
+                                }
+                            },
+                        });
+
+                    }
+                    else {
+                        alert('請選擇區域');
+                    }
+                }
+                });
+        });
+        $(function(){
+            $(document).on('click','#RouterDelete',function(){
+                // $('#DelModal_Router').css('display','block');
+                var modal_RouterDel = document.getElementById("DelModal_Router");
+                modal_RouterDel.style.display = "block";
+            });
+            $(document).on('click','#Modal_Cancel_Router',function(){
+                // $('#DelModal_Router').css('display','block');
+                var modal_RouterDel = document.getElementById("DelModal_Router");
+                modal_RouterDel.style.display = "none";
+            });
+            
+        });
+        var btn = document.getElementById("RouterDelete");
+        // Get the <span> element that closes the modal
+        var cancelbtn = document.getElementsByClassName("close_Router")[0];
+        var cancelbtn1 = document.getElementsByClassName("close_Router")[1];
+        // btn.onclick = function () {
+        //     modal.style.display = "block";
+        // }
+        // When the user clicks on <span> (x), close the modal
+        cancelbtn.onclick = function () {
+            modal.style.display = "none";
+        }
+        cancelbtn1.onclick = function () {
+            modal.style.display = "none";
+        }
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
+</body>
+
+</html>

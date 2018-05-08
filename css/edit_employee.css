@@ -1,0 +1,488 @@
+﻿/*body 介面*/ 
+body {
+    width: 1366px;
+    height: 768px;
+    background-color: #ffffff;
+    position: relative;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+}
+
+#bg {
+    width: 1366px;
+    height: 56px;
+    background-color: #abdae3;
+    position: absolute;
+    top: 0px;
+}
+
+#logo_advantech {
+    width: 125px;
+    height: 32px;
+    position: absolute;
+    top: 12px;
+    bottom: 12px;
+    left: 22px;
+}
+
+#hader_viewer {
+    position: absolute;
+    top: 19px;
+    left: 167px;
+    width: 209px;
+    height: 22px;
+    font-family: Arial;
+    font-size: 20px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #323232;
+}
+
+#Line {
+    width: 1366px;
+    height: 4px;
+    background-color: #58b4c3;
+    position: absolute;
+    top: 56px;
+}
+
+/*目前索引列*/ 
+#header_path {
+    width: 1366px;
+    height: 56px;
+    background-color: #f0f0f0;
+    position: absolute;
+    top: 60px;
+}
+
+/*目前索引列字型*/ 
+#header_path_fonts {
+    width: 180px;
+    height: 27px;
+    font-family: 微軟正黑體;
+    font-size: 20px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #323232;
+    position: absolute;
+    top: 15px;
+    left: 24px
+}
+
+
+/*次標題左半部 (員工資料)*/ 
+#account_info_bg_left {
+    width: 682px;
+    height: 56px;
+    background-color: #e1e1e1;
+    position: absolute;
+    top: 114px;
+    left: 0px;
+}
+
+/*次標題左半部自型 (員工資料)*/ 
+#account_info_bg_left_fonts {
+    width: 80px;
+    height: 27px;
+    font-family: 微軟正黑體;
+    font-size: 20px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    position: absolute;
+    top: 15px;
+    left: 24px;
+}
+/*次標題中間寬度 (分隔線)*/ 
+#account_info_bg_center {
+    width: 2px;
+    height: 56px;
+    background-color: #e1e1e1;
+    position: absolute;
+    top: 114px;
+    left: 682px;
+}
+/*次標題中間 (分隔線)*/ 
+#account_info_bg_center_line {
+    width: 2px;
+    height: 40px;
+    background-color: #969696;
+    position: absolute;
+    top: 8px;
+    left: 0px;
+}
+/*次標題右半部 (員工權限)*/ 
+#account_info_bg_right {
+    width: 682px;
+    height: 56px;
+    background-color: #e1e1e1;
+    position: absolute;
+    top: 114px;
+    left: 684px
+}
+/*次標題右半部字型 (員工權限)*/ 
+#account_info_bg_right_fonts {
+    width: 80px;
+    height: 27px;
+    font-family: 微軟正黑體;
+    font-size: 20px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    position: absolute;
+    top: 15px;
+    left: 48px;
+}
+
+/*確認按鈕*/ 
+#save_button {
+    width: 80px;
+    height: 40px;
+    background-color: #58b4c3;
+    border: none;
+    position: absolute;
+    top: 8px;
+    right: 108px;
+}
+/*取消按鈕*/ 
+#cancel_button {
+    width: 80px;
+    height: 40px;
+    background-color: #969696;
+    border: none;
+    position: absolute;
+    top: 8px;
+    right: 16px;
+}
+/*按鈕字型*/ 
+.btn_font_style {
+    font-family: 微軟正黑體;
+    font-size: 16px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: left;
+    color: #ffffff;
+}
+/*左半區*/ 
+#account_left {
+    width: 682px;
+    background-color: #ffffff;
+    position: absolute;
+    left: 0px;
+    top: 171px;
+}
+/*右半區*/ 
+#account_right {
+    width: 682px;
+    background-color: #ffffff;
+    position: absolute;
+    left: 682px;
+    top: 171px;
+}
+
+/*輸入欄每欄間距及字型style*/
+.item_style {
+    margin-top: 24px;
+    margin-bottom: 24px;
+    margin-left: 24px;
+    font-family: 微軟正黑體;
+    font-size: 16px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #323232;
+}
+
+/*輸入欄style*/
+.input_width {
+    border: solid 2px #58b4c3;
+    width: 240px;
+    height: 40px;
+    padding-left: 20px;
+    font-family: Arial;
+    font-size: 16px;
+    color: #002855;
+}
+
+#item_01 {
+    width: 32px;
+    height: 21px;
+}
+
+#item_02 {
+    width: 32px;
+    height: 21px;
+    margin-left: 56px;
+}
+
+#item_03 {
+    width: 32px;
+    height: 21px;
+}
+
+#item_04 {
+    width: 32px;
+    height: 21px;
+    margin-left: 56px;
+}
+
+#item_05 {
+    width: 64px;
+    height: 21px;
+}
+
+#item_06 {
+    width: 32px;
+    height: 21px;
+    margin-left:24px;
+}
+
+#item_07 {
+    width: 32px;
+    height: 21px;
+}
+
+#item_08 {
+    width: 100px;
+    height: 21px;
+    margin-left: 56px;
+}
+
+#item_09 {
+    width: 32px;
+    height: 21px;
+}
+
+#item_10 {
+    width: 32px;
+    height: 21px;
+    margin-left: 56px;
+}
+
+#item_11 {
+    width: 32px;
+    height: 21px;
+}
+
+#item_12 {
+    width: 32px;
+    height: 21px;
+    margin-left: 56px;
+}
+
+#item_13 {
+    width: 32px;
+    height: 21px;
+}
+
+#item_14 {
+    width: 32px;
+    height: 21px;
+    margin-left: 56px;
+}
+
+#item_15 {
+    width: 32px;
+    height: 21px;
+}
+
+#item_16 {
+    width: 32px;
+    height: 21px;
+    margin-left: 56px;
+}
+
+#item_17 {
+    width: 32px;
+    height: 21px;
+}
+
+#item_18 {
+    width: 32px;
+    height: 21px;
+    margin-left: 56px;
+}
+
+#item_19 {
+    width: 32px;
+    height: 21px;
+}
+
+#item_20 {
+    width: 32px;
+    height: 21px;
+    margin-left: 56px;
+}
+#item_21 {
+    width: 32px;
+    height: 21px;
+}
+
+#item_22 {
+    width: 32px;
+    height: 21px;
+    margin-left: 24px;
+}
+
+/*放置權限的區域*/
+#account_right_01 {
+    width: 156px;
+    margin-left: 48px;
+    position: absolute;
+    top: 0px
+}
+/*放置樓層權限的區域*/
+#account_right_02 {
+    width: 352px;
+    position: absolute;
+    top: 0px;
+    left: 180px;
+    display: none;
+}
+/*樓層位置字型*/
+#floor_position_font {
+    font-family: 微軟正黑體;
+    font-size: 16px;
+    position: absolute;
+    top: 24px;
+    left: 24px;
+}
+/*樓層權限選項顯示的寬度*/
+.multiselect {
+    width: 240px;
+    position: absolute;
+    top: 0px;
+    left:88px;
+}
+/*樓層權限下拉選項位置*/
+#multiselect_position {
+    width: 240px;
+    height: 56px;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+}
+#select_floor_option {
+    width: 130px;
+    height: 21px;
+    font-family: 微軟正黑體;
+    font-size: 16px;
+    text-align: left;
+    color: #969696;
+    position: absolute;
+    top: 21px;
+    left: 48px;
+    right: -12px;
+}
+#dropdown_image {
+    position: absolute;
+    top: 12px;
+    bottom: 4px;
+    right: -12px;
+}
+/*樓層權限下拉主選項*/
+#select_floor {
+    width: 240px;
+    height: 40px;
+    background-color: #ffffff;
+    margin-left: 24px;
+    margin-top: 8px;
+    color: #969696;
+    color: var(--warm-grey);
+    border: solid 2px #58b4c3;
+}
+/*樓層權限下拉次選項*/
+
+/*.overSelect {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}*/
+#checkboxes label {
+    display: block;
+}
+
+#checkboxes label {
+    width: 240px;
+    height: 40px
+}
+/*樓層權限下拉選項點擊時*/
+/*#checkboxes label:hover {
+        background-color: #58b4c3;
+    }*/
+/*樓層權限下拉選項style*/
+#checkboxes {
+    display: none;
+    width: 240px;
+    border: solid 2px #58b4c3;
+    background-color: rgba(211, 191, 191, 0);
+    margin-left: 24px;
+    margin-top: -14px;
+}
+
+/*樓層權限style*/
+.first_check {
+    margin-top:24px;
+    margin-bottom: 17px;
+    font-family: 微軟正黑體;
+    font-size: 16px;
+    color: #969696;
+}
+#selectBox {
+    width: 240px;
+    height:56px
+}
+.selectBox select {
+    width: 100%;
+    font-weight: bold;
+}
+/*樓層權限lable位置style*/
+.floor_position_lable {
+    margin-top: 20px;
+    margin-left: 20px;
+    font-family: 微軟正黑體;
+    font-size: 16px;
+    text-align: center;
+    color: #969696;
+}
+
+/*驗證錯誤時的style*/
+.data_fault {
+    margin-left: 24px;
+    font-family: 微軟正黑體;
+    font-size: 16px;
+    text-align: left;
+    color: #d92016;
+}
+#dropdown_image {
+    margin-top: 2px;
+    margin-bottom: 2px;
+    margin-right: 2px;
+    margin-left: 2px;
+}
+.selectBox {
+    position: relative;
+}
+
+    .selectBox select {
+        width: 100%;
+        font-weight: bold;
+    }

@@ -1,0 +1,682 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>員工管理</title>
+    <link rel="stylesheet" href="css/reset.css" />
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" type="text/css" href="css/account_management.css" />
+    <script src="js/check_login.js"></script>  <!--CSS檔案-->
+
+   
+
+</head>
+<body>
+    <!--<div style="position:relative;">
+        <img src="./images/Banner_bg.svg" id="bg" />
+        <img src="./images/Logo.svg" id="logo_advantech" />
+        <span id="hader_viewer">LEO-D Location Viewer</span>
+    </div>
+    <div id="Line">
+    </div>
+    <div id="header_path">
+        <span id="header_path_fonts">員工管理</span>
+    </div>-->
+    <div class="title_bar">
+        <div class="bar">
+            <img id="logo" src="images/image_banner_logo.svg">
+            <h1 id="title">LEO-D Location Viewer</h1>
+                <div class="dropdown" id="my_account_view" style="float:right;">
+                    <div id="my_account" class="dropbtn" onclick="openMenu()">
+                        <img id="account_icon" src="images/btn_account_n_48.svg">
+                        <h1 id="myname"></h1>
+                    </div>
+                    <div id="myDropdown" class="dropdown-content">
+                      <a id="account_management" href="javascript: void(0)">帳戶維護</a>
+                      <a id="logout" href="javascript: void(0)">登出</a>
+                    </div>
+                </div>
+            <div id="my_function">
+                <img id="setting_icon" src="images/btn_manage_n_48.svg" onclick="location.href='floor_management.html';">
+                <!-- <img id="alert_icon" src="images/btn_bell_n_48.svg"> -->
+                <img id="employee_icon" src="images/btn_personnel_n_48.svg" onclick="location.href='account_management.html';">
+            </div>
+        </div>
+        <div class="barline"></div>
+    </div>
+    <div class="function">
+        <div id="now_function_title">員工管理</div>
+        <div id="final_updated_time">系統更新時間：2018.02.27　15:00</div>
+    </div>
+    <div id="header_path">
+        <div id="header_path_01">
+            <div id="account_info_bg_left_fonts">搜尋</div>
+        </div>
+        <form id="select_keyword">
+            <div id="header_path_02">
+                <div id="header_path_02_select">
+                    <select id="select_class_item">
+                        <option value="">請選定搜尋類別</option>
+                        <option value="name">姓名</option>
+                        <option value="account">帳號</option>
+                        <option value="job_id">員工編號</option>
+                        <option value="ext">分機</option>
+                    </select>
+                </div>
+            </div>
+
+            <div id="header_path_03">
+                <div id="header_path_03_select_data">
+                    <div id="header_path_03_select_data_content">
+                        <!--<input type="button" class="button button1" onclick="keyword()" value="搜尋" />-->
+                        <span id="search_keyword_icon"><a href="javascript: void(0)" onclick="keyword()"><img src="./images/search_keyword.svg" /></a></span>
+                    </div>
+                    <div id="header_path_03_select_data_button">
+                        <input id="search_keyword_value" type="text" placeholder="請輸入關鍵字搜尋該類別" autocomplete="off" onkeypress="return search_enter(event)"/>
+                    </div>
+
+                </div>
+            </div>
+        </form>
+		<div id="header_path_20">
+            <a href="javascript: void(0)" onclick="Reset_Page()" ><img src="./images/reset.svg" border="0" title="重新整理" width="38px" height="38px" /></a>
+        </div>
+        <div id="header_path_06">
+            <span id="delete_employee_icon"><a href="javascript: void(0)" ><img src="./images/delete_off.svg" border="0" title="刪除員工" width="30px" height="30px" /></a></span>
+            <span id="edit_employee_icon"><a href="javascript: void(0)" onclick="Go_Edit_Page()"><img src="./images/edit_off.svg" border="0" title="編輯員工" width="30px" height="30px" /></a></span>
+            <span id="add_employee_icon"><a href="./join_employee.html"><img src="./images/add.svg" border="0" title="加入員工" width="30px" height="30px" /></a></span>
+        </div>
+        <div id="header_path_05">
+            <span id="header_path_05_line"></span>
+        </div>
+        <div id="header_path_04">
+            <div id="header_path_04_right_icon">
+                <span id="right_icon"><a href="javascript: void(0)"><img src="./images/btn_right.svg" /></a></span>
+            </div>
+            <div id="header_path_04_content_01">
+                <div id="header_path_04_content_01_01">
+                    頁
+                </div>
+            </div>
+            <div id="header_path_04_input">
+                <div id="header_path_04_input_div">
+                    <input id="header_path_04_input_01" type="text" onkeypress="return runScript(event)" />
+                </div>
+            </div>
+            <div id="header_path_04_content_02">
+                <div id="header_path_04_content_02_01">
+                    第
+                </div>
+            </div>
+            <div id="header_path_04_left_icon">
+                <span id="left_icon"><a href="javascript: void(0)"><img src="./images/btn_left.svg" /></a></span>
+            </div>
+        </div>
+    </div>
+    <div id="table_header">
+        <div id="tb_hd_checkboxs">
+            <div id="tb_hd_checkboxs_input">
+                <input id="check_all_item" type="checkbox" onclick="check_all(this, 'checked')" />
+            </div>
+        </div>
+        <div id="tb_hd_account">
+            <div id="tb_hd_account_content">
+                <span>員工帳號</span>
+            </div>
+        </div>
+        <div id="tb_hd_name">
+            <div id="tb_hd_name_content">
+                <span>員工姓名</span>
+            </div>
+        </div>
+        <div id="tb_hd_gender">
+            <div id="tb_hd_gender_content">
+                <span>性別</span>
+            </div>
+        </div>
+        <div id="tb_hd_job_id">
+            <div id="tb_hd_job_id_content">
+                <span>員工編號</span>
+            </div>
+        </div>
+        <div id="tb_hd_cellphone">
+            <div id="tb_hd_cellphone_content">
+                <span>手機</span>
+            </div>
+        </div>
+        <div id="tb_hd_ext">
+            <div id="tb_hd_ext_content">
+                <span>分機</span>
+            </div>
+        </div>
+        <div id="tb_hd_email">
+            <div id="tb_hd_email_content">
+                <span>電子郵件</span>
+            </div>
+        </div>
+        <div id="tb_hd_purview">
+            <div id="tb_hd_purview_content">
+                <span>Admin</span>
+            </div>
+        </div>
+
+    </div>
+    <div id="table_data">
+        <table class="table" id="table_result">
+            <tbody id="all_employee"></tbody>
+        </table>
+    </div>
+
+
+
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+
+        <!-- Modal content -->
+        <div class="modal-content">
+            <!--<span class="close">&times;</span>-->
+            <!--<div id="Modal_Content_Info">-->
+                <div id="Modal_Content_Font">確定刪除?</div>
+                <button id="Modal_Confirm" type="button" onclick="Delete_Employee()"><span id="Modal_Confirm_Font">確認</span></button>
+                <button id="Modal_Cancel" type="button"  class="close"><span id="Modal_Cancel_Font">取消</span></button>
+            <!--</div>-->
+        </div>
+
+    </div>
+
+
+
+
+
+    <script src="js/header.js"></script>
+    <script>
+        
+        
+
+        //搜尋enter
+        function search_enter(e) {
+            if (e.keyCode == 13) {
+                keyword();
+                return false;
+            }
+        }
+        //分頁製作
+        var total_page = 0;
+        var start_checkbox = 0;
+        var end_checkbox = 0;
+        function goPage(pno, psize) {
+            var itable = document.getElementById("table_result");//通過ID找到表格
+            var num = itable.rows.length;//表格所有行數(所有紀錄數)
+            var totalPage = 0;//總頁數
+            var pageSize = psize;//每頁顯示行數
+            //總共分幾頁
+            if (num / pageSize > parseInt(num / pageSize)) {
+                totalPage = parseInt(num / pageSize) + 1;
+            } else {
+                totalPage = parseInt(num / pageSize);
+            }
+            total_page = totalPage;
+            var currentPage = pno;//當前頁數
+            var startRow = (currentPage - 1) * pageSize + 1;//開始顯示的行1
+            var endRow = currentPage * pageSize;//結束顯示的行   15
+            endRow = (endRow > num) ? num : endRow;
+            //顯示數據分頁
+            for (var i = 1; i < (num + 1); i++) {
+                var irow = itable.rows[i - 1];
+                if (i >= startRow && i <= endRow) {
+                    irow.style.display = "block";
+                    start_checkbox = startRow;
+                    end_checkbox = endRow;
+
+                }
+                else {
+                    irow.style.display = "none";
+                }
+            }
+            var tempStr = "";
+            var tempStr_left = "";
+            var tempStr_right = "";
+            if (currentPage > 1) {
+                tempStr_left += "<a href=\"javascript: void(0)\" onClick=\"goPage(" + (currentPage - 1) + "," + psize + ")\"><img src=\"./images/btn_left.svg\" /></a>";
+                tempStr += "<a href=\"javascript: void(0)\" onClick=\"goPage(" + (currentPage - 1) + "," + psize + ")\"><上一頁&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>"
+                for (var j = 1; j <= totalPage; j++) {
+                    tempStr += "<a href=\"javascript: void(0)\" onClick=\"goPage(" + j + "," + psize + ")\">" + j + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>"
+                }
+                document.getElementById("check_all_item").checked = false;
+                
+                var check_arr = document.getElementsByName("checked");
+                for (var i = 0; i < check_arr.length; i++) {
+                    check_arr[i].checked = false;
+                }
+            } else {
+                tempStr_left += "<img src=\"./images/btn_left_off.svg\" />";
+                tempStr += "<上一頁&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+                for (var j = 1; j <= totalPage; j++) {
+                    tempStr += "<a href=\"javascript: void(0)\" onClick=\"goPage(" + j + "," + psize + ")\">" + j + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>"
+                }
+            }
+            if (currentPage < totalPage) {
+                tempStr_right += "<a href=\"javascript: void(0)\" onClick=\"goPage(" + (currentPage + 1) + "," + psize + ")\"><img src=\"./images/btn_right.svg\" /></a>";
+                tempStr += "<a href=\"javascript: void(0)\" onClick=\"goPage(" + (currentPage + 1) + "," + psize + ")\">下一頁>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>";
+                for (var j = 1; j <= totalPage; j++) {
+                }
+                document.getElementById("check_all_item").checked = false;
+               
+                var check_arr = document.getElementsByName("checked");
+                for (var i = 0; i < check_arr.length; i++) {
+                    check_arr[i].checked = false;
+                }
+            } else {
+                tempStr_right += "<img src=\"./images/btn_right_off.svg\" />";
+                tempStr += "  下一頁>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+                for (var j = 1; j <= totalPage; j++) {
+                }
+            }
+            // document.getElementById("barcon").innerHTML = tempStr;
+            document.getElementById("header_path_04_input_01").value = currentPage;
+            document.getElementById("left_icon").innerHTML = tempStr_left;
+            document.getElementById("right_icon").innerHTML = tempStr_right;
+
+        }
+
+     
+        var flag = 0;//計算物件數量
+        //列出所有會員資料
+        function Select_all_employee(data) { //將資料丟進陣列
+            //console.log(data);
+            var obj = data;
+            var ID = new Array();
+            var Account = new Array();
+            var Name = new Array();
+            var Gender = new Array();
+            var Job_Title = new Array();
+            var Job_ID = new Array();
+            var Telephone = new Array();
+            var Ext = new Array();
+            var Cellphone = new Array();
+            var Email = new Array();
+            var Job_Class = new Array();
+            var Job_Group = new Array();
+            var Remarks = new Array();
+            var Purview = new Array();
+            //console.log(obj);
+            for (i = 0; i < obj.length; i++)//陣列長度
+            {
+                ID[i] = obj[i].id;
+                Account[i] = obj[i].account;
+                Name[i] = obj[i].name;
+                Gender[i] = obj[i].gender;
+                Job_Title[i] = obj[i].job_title;
+                Job_ID[i] = obj[i].job_id;
+                Telephone[i] = obj[i].telephone;
+                Ext[i] = obj[i].ext;
+                Cellphone[i] = obj[i].cellphone;
+                Email[i] = obj[i].email;
+                Job_Class[i] = obj[i].job_class;
+                Job_Group[i] = obj[i].job_group;
+                Remarks[i] = obj[i].remarks;
+                Purview[i] = obj[i].purview;
+                if (Account[i] == null) {
+                    Account[i] = "XXX";
+                }
+                if (Name[i] == null) {
+                    Name[i] = "XXX";
+                }
+                if (Gender[i] == null) {
+                    Gender[i] = "XXX";
+                }
+                if (Job_Title[i] == null) {
+                    Job_Title[i] = "XXX";
+                }
+                if (Job_ID[i] == null) {
+                    Job_ID[i] = "XXX";
+                }
+                if (Telephone[i] == null) {
+                    Telephone[i] = "XXX";
+                }
+                if (Ext[i] == null) {
+                    Ext[i] = "XXX";
+                }
+                if (Cellphone[i] == null) {
+                    Cellphone[i] = "XXX";
+                }
+                if (Email[i] == null) {
+                    Email[i] = "XXX";
+                }
+                if (Job_Class[i] == null) {
+                    Job_Class[i] = "XXX";
+                }
+                if (Job_Group[i] == null) {
+                    Job_Group[i] = "XXX";
+                }
+                if (Job_Title[i] == null) {
+                    Job_Title[i] = "XXX";
+                }
+                if (Remarks[i] == null) {
+                    Remarks[i] = "XXX";
+                }
+                if (Purview[i] != "user") {
+                    Purview[i] = "<img src=\"./images/radio_active.svg\" border=\"0\"  width=\"32px\" height=\"32px\" />";
+                }
+                if (Purview[i] == "user") {
+                    Purview[i] = "<img src=\"./images/radio_normal.svg\" border=\"0\"  width=\"32px\" height=\"32px\" />";
+                }
+
+            }
+            var data = "";
+            for (k = 0; k < obj.length; k++) {
+                data += "<tr class=\"row_style\">";
+                data += ("<td class=\"table_checked\"><span class=\"table_checked_span\"><input id=\"check" + k + "\" name=\"checked\" type=\"checkbox\" value=\"" + ID[k] + "\"onClick= \"choice(this.value)\"/></span></td><td class=\"table_account\"><span class=\"table_account_span\">" + Account[k] + "</span></td><td class=\"table_name\"><span class=\"table_name_span\">" + Name[k] + "</span></td><td class=\"table_gender\"><span class=\"table_gender_span\">" + Gender[k] + "</span><td class=\"table_job_id\"><span class=\"table_job_id_span\">" + Job_ID[k] + "</span></td><td class=\"table_cellphone\"><span class=\"table_cellphone_span\">" + Cellphone[k] + "</span></td><td class=\"table_ext\"><span class=\"table_ext_span\">" + Ext[k] + "</span></td><td class=\"table_email\"><span class=\"table_email_span\">" + Email[k] + "</span></td><td class=\"table_purview\"><span class=\"table_purview_span\">" + Purview[k] + "</span></td>");
+                data += "</tr>";
+            }
+            flag = obj.length;
+          
+            return data;
+        }
+
+        //列出關鍵字搜尋資料
+        function Select_keyword_employee(data) { //將資料丟進陣列
+            var obj = JSON.parse(data);
+
+            //console.log(obj.status);
+            var arr = obj.data;
+            var ID = new Array();
+            var Job_ID = new Array();
+            var Name = new Array();
+            var Gender = new Array();
+            var Account = new Array();
+            var Email = new Array();
+            var Job_Class = new Array();
+            var Job_Group = new Array();
+            var Job_Title = new Array();
+            var Telephone = new Array();
+            var Ext = new Array();
+            var Cellphone = new Array();
+            var Remarks = new Array();
+            var Purview = new Array();
+            for (i = 0; i < arr.length; i++)//陣列長度
+            {
+                ID[i] = arr[i].id;
+                Account[i] = arr[i].account;
+                Name[i] = arr[i].name;
+                Gender[i] = arr[i].gender;
+                Job_Title[i] = arr[i].job_title;
+                Job_ID[i] = arr[i].job_id;
+                Telephone[i] = arr[i].telephone;
+                Ext[i] = arr[i].ext;
+                Cellphone[i] = arr[i].cellphone;
+                Email[i] = arr[i].email;
+                Job_Class[i] = arr[i].job_class;
+                Job_Group[i] = arr[i].job_group;
+                Remarks[i] = arr[i].remarks;
+                Purview[i] = arr[i].purview;
+                if (Account[i] == null) {
+                    Account[i] = "XXX";
+                }
+                if (Name[i] == null) {
+                    Name[i] = "XXX";
+                }
+                if (Gender[i] == null) {
+                    Gender[i] = "XXX";
+                }
+                if (Job_Title[i] == null) {
+                    Job_Title[i] = "XXX";
+                }
+                if (Job_ID[i] == null) {
+                    Job_ID[i] = "XXX";
+                }
+                if (Telephone[i] == null) {
+                    Telephone[i] = "XXX";
+                }
+                if (Ext[i] == null) {
+                    Ext[i] = "XXX";
+                }
+                if (Cellphone[i] == null) {
+                    Cellphone[i] = "XXX";
+                }
+                if (Email[i] == null) {
+                    Email[i] = "XXX";
+                }
+                if (Job_Class[i] == null) {
+                    Job_Class[i] = "XXX";
+                }
+                if (Job_Group[i] == null) {
+                    Job_Group[i] = "XXX";
+                }
+                if (Job_Title[i] == null) {
+                    Job_Title[i] = "XXX";
+                }
+                if (Remarks[i] == null) {
+                    Remarks[i] = "XXX";
+                }
+                if (Purview[i] != "user") {
+                    Purview[i] = "<img src=\"./images/radio_active.svg\" border=\"0\"  width=\"32px\" height=\"32px\" />";
+                }
+                if (Purview[i] == "user") {
+                    Purview[i] = "<img src=\"./images/radio_normal.svg\" border=\"0\"  width=\"32px\" height=\"32px\" />";
+                }
+            }
+            var data = "";
+            for (k = 0; k < arr.length; k++) {
+                data += "<tr class=\"row_style\">";
+                data += ("<td class=\"table_checked\"><span class=\"table_checked_span\"><input id=\"check" + k + "\" name=\"checked\" type=\"checkbox\" value=\"" + ID[k] + "\"onClick= \"choice(this.value)\"/></span></td><td class=\"table_account\"><span class=\"table_account_span\">" + Account[k] + "</span></td><td class=\"table_name\"><span class=\"table_name_span\">" + Name[k] + "</span></td><td class=\"table_gender\"><span class=\"table_gender_span\">" + Gender[k] + "</span><td class=\"table_job_id\"><span class=\"table_job_id_span\">" + Job_ID[k] + "</span></td><td class=\"table_cellphone\"><span class=\"table_cellphone_span\">" + Cellphone[k] + "</span></td><td class=\"table_ext\"><span class=\"table_ext_span\">" + Ext[k] + "</span></td><td class=\"table_email\"><span class=\"table_email_span\">" + Email[k] + "</span></td><td class=\"table_purview\"><span class=\"table_purview_span\">" + Purview[k] + "</span></td>");
+                data += "</tr>";
+            }
+            flag = arr.length;
+            return data;
+        }
+        //---搜尋全部員工資料---
+        var all_employee = api_endpoint + "get_all_employee_data";
+        console.log(all_employee);
+        first_list_all_employee(all_employee);
+       
+        //-------------
+        //AJAX  first_list_all_employee
+
+        function first_list_all_employee(url) {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+
+                    document.getElementById("all_employee").innerHTML = Select_all_employee(JSON.parse(this.responseText).data);
+                    goPage(1, list_count);
+                }
+            };
+            xhttp.open("GET", url, true);
+            xhttp.send();
+        }
+
+
+        //AJAX search_employee_keyword
+        var list_count = 11;//每頁表格顯示筆數
+        function search_employee_keyword(url, Data) {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    console.log(this.responseText);
+                    document.getElementById("all_employee").innerHTML = Select_keyword_employee(this.responseText);
+
+                    goPage(1, list_count);
+                }
+            };
+            xhttp.open("POST", url, true);
+            console.log(Data);
+            xhttp.setRequestHeader("Content-Type", "application/json");
+            xhttp.send(JSON.stringify(Data));
+        }
+
+
+        //編輯按鈕驗證資料
+        function Go_Edit_Page() {
+            //var checked = document.getElementsByName();
+            var checkboxs = document.getElementsByName('checked');
+            var value = null;
+            var checkbox_ID = "";
+            for (var i = 0; i < checkboxs.length; i++) {
+                if (checkboxs[i].checked == true) {   //確定哪個被勾選
+                    value = i;
+                    checkbox_ID = document.getElementById("check" + value).value;
+                }
+            }
+
+            if (value != null) {
+                location.href = "edit_employee.html?id=" + checkbox_ID;
+            }
+        }
+
+
+        function keyword() {
+            var form_element = document.forms["select_keyword"];
+            var select_class = form_element[0].value;
+            var select_value = form_element[1].value;
+            var text = "";
+            var Data = new Object();
+            Data.type = select_class;
+            Data.keyword = select_value;
+            console.log(Data);
+            if (select_class == "" || select_value == "") {
+                alert("請輸入完整搜尋資訊");
+            }
+            else {
+                var urlpost = api_endpoint + "search_employee ";
+                search_employee_keyword(urlpost, Data);
+            }
+        }
+
+        //checkbox全選
+        function check_all(obj, cName) {
+            var checkboxs = document.getElementsByName(cName);
+            //console.log("here");
+            //console.log(start_checkbox);
+            //console.log(end_checkbox);
+            
+            for (var i = start_checkbox-1; i < end_checkbox; i++) {
+                checkboxs[i].checked = obj.checked;
+            }
+            if (check_all_item.checked == true) {
+                document.getElementById("delete_employee_icon").innerHTML = '<span id="delete_employee_icon_01"><a href="javascript: void(0)" onclick="modal_data()"><img src="./images/delete_on.svg" border="0" title="刪除員工" width="30px" height="30px" /></span></a>';
+                document.getElementById("edit_employee_icon").innerHTML = '<a><img src="./images/edit_off.svg" border="0" title="編輯員工資料" width="30px" height="30px"/></a>';//修改
+                choice();
+            }
+            if (check_all_item.checked == false) {
+                document.getElementById("delete_employee_icon").innerHTML = '<a href="javascript: void(0)" ><img src="./images/delete_off.svg" border="0" title="刪除員工" width="30px" height="30px" /></a>';
+                document.getElementById("edit_employee_icon").innerHTML = '<a><img src="./images/edit_off.svg" border="0" title="編輯員工資料" width="30px" height="30px"/></a>';//修改
+                choice();
+            }
+            //var checkboxs = document.getElementsByName(cName);
+
+        }
+
+        //編輯圖案 當checkbox被選取>1會無法連結,<=1才有連結
+        function choice(value) {
+            var j = 0;
+            var num = document.getElementsByName('checked');
+            for (i = 0; i < num.length; i++) {
+                if (num[i].checked == true) {
+                    j++;
+                }
+                if (j == 1) {
+                    document.getElementById("edit_employee_icon").innerHTML = '<a href="javascript: void(0)" onclick="Go_Edit_Page()" ><img src="./images/edit_on.svg" border="0" title="編輯員工資料" width="30px" height="30px"/></a>';
+                }
+                if (j < 1) {
+                    document.getElementById("edit_employee_icon").innerHTML = '<a href="javascript: void(0)" onclick="Go_Edit_Page()" ><img src="./images/edit_off.svg" border="0" title="編輯員工資料" width="30px" height="30px"/></a>';
+                    document.getElementById("delete_employee_icon").innerHTML = '<a href="javascript: void(0)"><img src="./images/delete_off.svg" border="0" title="刪除員工" width="30px" height="30px" /></a>';
+
+                }
+                if (j >= 1) {
+                    document.getElementById("delete_employee_icon").innerHTML = '<span id="delete_employee_icon_01"><a href="javascript: void(0)" onclick="modal_data()"><img src="./images/delete_on.svg" border="0" title="刪除員工" width="30px" height="30px" /></span></a>';
+
+                }
+                if (j >= 2) {
+                    document.getElementById("edit_employee_icon").innerHTML = '<a><img src="./images/edit_off.svg" border="0" title="編輯員工資料" width="30px" height="30px"/></a>';
+
+                }
+
+            }
+
+        }
+
+        //刪除勾選員工
+        function Delete_Employee() {
+            var Delete_checkboxs = document.getElementsByName('checked');
+            var value = null;
+            var Delete_checkbox_ID = "";
+            var person_array = [];
+            for (var i = 0; i < Delete_checkboxs.length; i++) {
+                if (Delete_checkboxs[i].checked == true) {   //確定哪個被勾選
+                    person_array.push(document.getElementById("check" + i).value);
+                }
+            }
+            console.log(person_array);
+            if (person_array.length != 0) {
+                var delete_employee_url = api_endpoint + "delete_employee_data_by_id";
+                Delete_Employee_Data(delete_employee_url, person_array);
+
+            }
+        }
+        //刪除員工資料AJAX
+        function Delete_Employee_Data(url, Data) {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    document.location.href = "Account_management.html"; //刪除完員工後導回會帳號管理頁面
+                }
+            };
+            xhttp.open("POST", url, true);
+            xhttp.setRequestHeader("Content-Type", "application/json");
+            xhttp.send(JSON.stringify(Data));
+        }
+
+        function modal_data() {
+            // Get the modal
+            var modal = document.getElementById('myModal');
+            // Get the button that opens the modal
+            var btn = document.getElementById("delete_employee_icon_01");
+           
+            // Get the <span> element that closes the modal
+            var span = document.getElementsByClassName("close")[0];
+            // When the user clicks the button, open the modal 
+            btn.onclick = function () {
+                modal.style.display = "block";
+            }
+           
+            // When the user clicks on <span> (x), close the modal
+            span.onclick = function () {
+                modal.style.display = "none";
+            }
+            // When the user clicks anywhere outside of the modal, close it
+            window.onclick = function (event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            }
+        }
+       
+        //跑頁按下enter
+        function runScript(e) {
+            if (e.keyCode == 13) {
+                var tb = document.getElementById("header_path_04_input_01");
+                //if (total_page < tb.value) {
+                //    alert("超過總頁數了");
+                //}
+                //if (tb.value <= 0) {
+                //    alert("查無此頁");
+                //}
+                if (tb.value > 0 && total_page >= tb.value) {
+                    goPage(tb.value, list_count);
+                }
+                else {
+                    alert("查無此頁");
+                }
+               
+            }
+        }
+		function Reset_Page(){
+		window.location.reload();
+		}
+    </script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="32px" height="32px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 46.2 (44496) - http://www.bohemiancoding.com/sketch -->
+    <title>btn_arrow_n_32</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="LED-Viewer" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="btn_arrow_n_32" fill="#58B4C3">
+            <g transform="translate(6.000000, 10.000000)" id="Page-1">
+                <polygon points="18 0.0001 9.707 8.2941 1.414 0.0001 0 1.4141 9.707 11.1211 19.414 1.4141"></polygon>
+            </g>
+        </g>
+    </g>
+</svg>

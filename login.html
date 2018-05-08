@@ -1,0 +1,135 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>登入</title>
+    <link rel="stylesheet" href="css/reset.css" />
+    <link rel="stylesheet" type="text/css" href="./css/login.css" />
+    <script src="js/md5.min.js"></script><!--CSS檔案-->
+    
+
+</head>
+<body>
+    <div style="background-image:url(./images/img_bg.svg); width:1366px; height:768px">
+        <div id="login_panel">
+            <div id="login_logo_panel">
+                <div id="login_logo_panel_image">
+                    <img src="./images/img_logo.svg" width="204px" height="53px" />
+                </div>
+            </div>
+            <div id="login_welcome">
+                <div id="login_welcome_content">
+                    歡迎使用LEO-D Location Viewer
+                </div>
+            </div>
+            <div id="login_account_panel">
+                <div id="login_account_panel_content_01">
+                    帳號
+                </div>
+                <div id="login_account_panel_content_02">
+                    <input id="login_account_panel_content_02_input" type="text" placeholder="請輸入8-16英文或數字" autocomplete="off" maxlength="16" />
+                </div>
+
+            </div>
+            <div id="login_password_panel">
+                <div id="login_password_panel_content_01">
+                    密碼
+                </div>
+                <div id="login_password_panel_content_02">
+                    <input id="login_password_panel_content_02_input" type="password" placeholder="請輸入8-16英文或數字" autocomplete="off" maxlength="16" />
+                    <div id="login_password_panel_content_02_forget_password">
+                        <span id="login_password_panel_content_02_forget_password_font"><a href="javascript: void(0)" onclick="Go_Forget_Password_Page()">忘記密碼</a></span>
+                    </div>
+                </div>
+
+            </div>
+            <div id="login_remember_panel">
+
+                <input id="login_remember_panel_content_checkbox" type="checkbox" />
+                <span id="login_remember_panel_content_font">記住我</span>
+
+            </div>
+            <div id="login_botton_panel">
+                <div id="login_botton_panel_content">
+                    <button id="login_btn" type="button" onclick="login_check()"><span id="login_bt_font">登入</span></button>
+                </div>
+            </div>
+
+
+        </div>
+        <div id="bottom_font">
+            Copyright © 1983-2018 Advantech Co.Ltd All Rights Reserved
+        </div>
+    </div>
+    <script>
+    
+        var api_endpoint = "https://leo-webservice.wise-paas.com/api/";
+        //var A = "ewrw";
+        //console.log(md5(A));
+        let user_id = window.localStorage.getItem("user_id");
+        let last_username = window.localStorage.getItem("last_username");
+        
+        if(user_id !== null) {
+            location.href = 'index.html';
+        }
+
+        if (last_username !== null) {
+            document.getElementById('login_account_panel_content_02_input').value = last_username;
+        }
+        
+
+        //登入
+        function login_check() {
+
+            var account = document.getElementById('login_account_panel_content_02_input').value;
+            var password = document.getElementById('login_password_panel_content_02_input').value;
+            var Data = new Object();
+            Data.account = account;
+            Data.password = md5(password);
+            console.log(Data);
+            var urlpost = api_endpoint + "login ";
+            data_post_API(urlpost, Data);
+        }
+
+        //登入 AJAX
+        function data_post_API(url, value_obj) {//把資料更新出去
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    console.log(this.responseText);   //回傳更新是否成功
+                    var response = JSON.parse(this.responseText);
+                    var response_content = response.data;
+                    if (response.status != "failed") {
+                        window.localStorage.setItem("user_id", response_content);
+                        if(document.getElementById('login_remember_panel_content_checkbox').checked == true){
+                            window.localStorage.setItem("last_username", document.getElementById('login_account_panel_content_02_input').value);
+                        }
+                        location.href = 'index.html' ;
+                    }
+                    else {
+                             
+                        document.getElementById("login_welcome_content").innerText = "帳號或密碼錯誤";
+                        document.getElementById("login_welcome_content").style.color = "#d92016";
+                        document.getElementById("login_account_panel_content_02_input").style.border = "solid 2px #d92016";
+                        document.getElementById("login_password_panel_content_02_input").style.border = "solid 2px #d92016";
+                        document.getElementById("login_password_panel_content_02_input").style.borderRight = "none";
+                        document.getElementById("login_password_panel_content_02_forget_password").style.border = "solid 2px #d92016";
+                        document.getElementById("login_password_panel_content_02_forget_password").style.borderLeft = "none";
+                       
+                       
+                    }
+                }
+            };
+            xhttp.open("POST", url, true);
+            xhttp.setRequestHeader("Content-Type", "application/json");
+            xhttp.send(JSON.stringify(value_obj));
+        }
+
+        //轉向忘記密碼
+        function Go_Forget_Password_Page() {
+            location.href = "forget_password.html" ;
+        }
+        
+    </script>
+</body>
+</html>

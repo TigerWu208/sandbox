@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="32px" height="32px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="background: #FFFFFF;">
+    <!-- Generator: Sketch 46.2 (44496) - http://www.bohemiancoding.com/sketch -->
+    <title>Btn_Edit_Normal_32</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Account" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Btn_Edit_Normal_32">
+            <g id="icon_edit">
+                <rect id="Rectangle-2" fill-opacity="0" fill="#D8D8D8" x="0" y="0" width="32" height="32"></rect>
+                <polygon id="Fill-13" fill="#58B4C3" points="24 25 8 25 8 9 13.998 9 13.998 7 6 7 6 27 26 27 26 19 24 19"></polygon>
+                <path d="M15.4746,20.1094 L14.5856,21.0004 L11.9996,21.0004 L11.9996,18.4144 L12.8896,17.5234 L15.4746,20.1094 Z M18.5466,11.8654 L21.1326,14.4534 L16.8886,18.6954 L14.3036,16.1094 L18.5466,11.8654 Z M23.2536,12.3324 L22.5466,13.0394 L19.9606,10.4514 L20.6666,9.7464 L23.2536,12.3324 Z M9.9996,17.5864 L9.9996,23.0004 L15.4136,23.0004 L17.7566,20.6564 L26.0816,12.3324 L20.6666,6.9184 L11.4756,16.1094 L9.9996,17.5864 Z" id="Fill-14" fill="#58B4C3"></path>
+            </g>
+        </g>
+    </g>
+</svg>

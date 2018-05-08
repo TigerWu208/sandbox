@@ -1,0 +1,570 @@
+﻿<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>編輯員工</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/reset.css" />
+    <link rel="stylesheet" type="text/css" href="css/edit_employee.css" />
+    <script src="js/check_login.js"></script>  <!--CSS檔案-->
+</head>
+<body onload=" show()">
+    <div class="title_bar">
+        <div class="bar">
+            <img id="logo" src="images/image_banner_logo.svg">
+            <h1 id="title">LEO-D Location Viewer</h1>
+                <div class="dropdown" id="my_account_view" style="float:right;">
+                    <div id="my_account" class="dropbtn" onclick="openMenu()">
+                        <img id="account_icon" src="images/btn_account_n_48.svg">
+                        <h1 id="myname"></h1>
+                    </div>
+                    <div id="myDropdown" class="dropdown-content">
+                      <a id="account_management" href="javascript: void(0)">帳戶維護</a>
+                      <a id="logout" href="javascript: void(0)">登出</a>
+                    </div>
+                </div>
+            <div id="my_function">
+                <img id="setting_icon" src="images/btn_manage_n_48.svg">
+                <!-- <img id="alert_icon" src="images/btn_bell_n_48.svg"> -->
+                <img id="employee_icon" src="images/btn_personnel_n_48.svg">
+            </div>
+        </div>
+        <div class="barline"></div>
+    </div>
+    <div class="function">
+        <div id="now_function_title">員工管理 > 編輯員工</div>
+        <div id="final_updated_time">系統更新時間：2018.02.27　15:00</div>
+    </div>
+    <div id="account_info_bg_left">
+        <span id="account_info_bg_left_fonts" class="edit_mode">員工資料</span>
+    </div>
+    <div id="account_info_bg_center">
+        <span id="account_info_bg_center_line"></span>
+    </div>
+    <div id="account_info_bg_right">
+        <span id="account_info_bg_right_fonts">員工權限</span>
+        <button id="save_button" type="button" onclick="Update()"><span class="btn_font_style">確認</span></button>
+        <button id="cancel_button" type="button" onclick="location.href='./Account_management.html'"><span class="btn_font_style">取消</span></button>
+    </div>
+    <div id="account_left">
+        <div class="item_style">
+            <span id="item_01">帳號</span>
+            <span id="item_02"><input id="Account" type="text" name="Account" value="" class="input_width" maxlength="12" disabled></span>
+        </div>
+        <div class="item_style">
+            <span id="item_03">姓名</span>
+            <span id="item_04"><input id="Name" type="text" name="Name" value="" class="input_width" maxlength="10"></span>
+        </div>
+        <div class="item_style">
+            <span id="item_05">員工編號</span>
+            <span id="item_06"><input id="Job_ID" type="text" name="Job_ID" value="" class="input_width" maxlength="20"></span>
+        </div>
+        <div class="item_style">
+            <span id="item_07">性別</span>
+            <span id="item_08">
+                <input type="radio" id="male" value="male" name="Gender" />男&nbsp&nbsp&nbsp&nbsp&nbsp<input type="radio" id="female" value="female" name="Gender" />女
+            </span>
+        </div>
+        <div class="item_style">
+            <span id="item_09">部門</span>
+            <span id="item_10"><input id="Job_Class" type="text" name="Class" value="" class="input_width" maxlength="10"></span>
+        </div>
+        <div class="item_style">
+            <span id="item_11">電話</span>
+            <span id="item_12"><input id="Telephone" type="text" name="telephone" value="" class="input_width" maxlength="12"></span>
+        </div>
+        <div class="item_style">
+            <span id="item_13">分機</span>
+            <span id="item_14"><input id="Ext" type="text" name="Ext" value="" class="input_width" maxlength="6"></span>
+        </div>
+        <div class="item_style">
+            <span id="item_15">手機</span>
+            <span id="item_16"><input input id="Cellphone" type="text" name="cellphone" value="" placeholder="09XXXXXXXXXX" class="input_width" maxlength="10"></span>
+        </div>
+        <div class="item_style">
+            <span id="item_17">郵件</span>
+            <span id="item_18"><input id="Email" type="text" name="Email" value="" placeholder="Example@com.tw" class="input_width" maxlength="30"></span>
+            <span id="email_fault_data" class="data_fault"></span>
+        </div>
+        <div class="item_style">
+            <span id="item_19">備註</span>
+            <span id="item_20"><input id="Remarks" type="text" name="Remarks" value="" class="input_width" maxlength="50"></span>
+        </div>
+        <div class="item_style">
+            <span id="item_21">重設密碼</span>
+            <span id="item_22"><input type="radio" name="password_reset" id="password_reset_yes" value="yes" />是&nbsp&nbsp&nbsp&nbsp&nbsp<input type="radio" name="password_reset" id="password_reset_no" value="no" checked="checked" />否</span>
+        </div>
+    </div>
+    
+    <div id="account_right">
+        
+        <div id="account_right_01">
+            <span id="role_id"></span>
+        </div>
+        <div id="account_right_02">
+            <span id="floor_position_font">樓層位置</span>
+            <div class="multiselect">
+                <div id="multiselect_position" class=multiselect >
+                    <div id="selectBox" onclick="showCheckboxes()">
+                        <div id="select_floor">
+                            <span id="select_floor_option">請選擇樓層與區域</span><img id="dropdown_image" src="./images/btn_dropdown.svg" >
+                        </div>
+                      
+                        <br />
+                        <div class="overSelect"></div>
+                    </div>
+                    <div id="checkboxes">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <p id="demo"></p>
+
+    </div>
+
+   
+
+</body>
+</html>
+
+<script src="js/header.js"></script>
+<script>
+    var ID_data;//傳入網址經劃分後的ID(全域變數)
+    var employee_role_id;//員工管理的checkeboxs id  做是否勾選判斷使用(全域變數)
+    var permission_id = [];//拿全部權限ID(陣列)
+    var floor_permission_id = [];//拿樓層全部權限ID(陣列)
+    var ID_data;//get_ID 某員工的個人ID(全域變數)
+    var role_count = 0;//role checkedbox 數量(全域變數)
+    var floor_role_count = 0;
+    var floor_role_id_data = [];
+    var role_id_data = [];
+
+
+    function show() {  //將網址分割拿取ID
+        var url = location.href;//URL
+        var temp = url.split("?");//取得問號之後的值
+        var vars = temp[1].split("&");//將值再度分開
+        for (var i = 0; i < vars.length; i++) {//一一顯示出來
+            ID_data = vars[i];
+        };
+        //---匯入員工資料---
+        var get_employee_data_url = api_endpoint + "get_employee_data_by_id&" + ID_data; //某員工的個人資料
+        personal_data(get_employee_data_url); //---匯入員工資料-- - 
+    }
+
+
+
+    //checkboxes的固定
+    var expanded = false;
+    function showCheckboxes() {
+        var checkboxes = document.getElementById("checkboxes");
+        if (!expanded) {
+            checkboxes.style.display = "block";
+            document.getElementById("dropdown_image").src = "./images/btn_dropup.svg";
+            expanded = true;
+            
+        } else {
+            checkboxes.style.display = "none";
+            document.getElementById("dropdown_image").src = "./images/btn_dropdown.svg";
+            expanded = false;
+        }
+    }
+    
+    //AJAX   ---匯入員工資料---
+    function personal_data(url) {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                //personal_data_analysis(this.responseText);//匯入資料後分析填入欄位
+                var obj = JSON.parse(this.responseText);
+                var ID = obj[0].ID;
+                var Job_ID = obj[0].Job_ID;
+                var Name = obj[0].Name;
+                var Gender = obj[0].Gender;
+                var Account = obj[0].Account;
+                var Email = obj[0].Email;
+                var Job_Class = obj[0].Job_Class;
+                var Telephone = obj[0].Telephone;
+                var Ext = obj[0].Ext;
+                var Cellphone = obj[0].Cellphone;
+                var Remarks = obj[0].Remarks;
+                if (Gender == "男") {
+                    document.getElementById("male").checked = true;
+                }
+                if (Gender == "女") {
+                    document.getElementById("female").checked = true;
+                }
+                document.getElementById("Account").value = Account;
+                document.getElementById("Job_ID").value = Job_ID;
+                document.getElementById("Name").value = Name;
+                document.getElementById("Telephone").value = Telephone;
+                document.getElementById("Ext").value = Ext;
+                document.getElementById("Cellphone").value = Cellphone;
+                document.getElementById("Email").value = Email;
+                document.getElementById("Remarks").value = Remarks;
+                document.getElementById("Job_Class").value = Job_Class;
+
+                //---搜尋全部權限資料---
+                var all_permission = api_endpoint + "get_all_permission";
+                search_permission_data(all_permission);//搜尋全部權限資料及印出權限資訊
+
+            }
+        };
+        xhttp.open("GET", url, true);
+        xhttp.send();
+    }
+    //AJAX 搜尋全部權限資料及印出權限資訊
+    var check_color_change_floor_id;//勾選後紀錄用
+    function search_permission_data(url) {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                var obj = JSON.parse(this.responseText);//找尋所有權限數量
+                Menu_Total_count = obj.length;//權限數量
+                var role_id = "";//權限代號字串輸出用
+                for (i = 0; i < Menu_Total_count; i++) {
+                    if (obj[i].fg_name == "樓層定位") {
+                        floor_id = obj[i].fg_id;
+                        //var dropdown = "<span id=\"check_A\"><div class=\"multiselect\"><div id=\"check_B\" class=\"selectBox\" onclick=\"showCheckboxes()\"><select><option>請選定樓層與區域</option></select><div class=\"overSelect\"></div></div><div id=\"checkboxes\"></div></span>";
+                        role_id += "<div class=\"first_check\" id=\"A" + i + "\"><input type=\"checkbox\" onclick=\"floor_checked()\" name=\"check_role\" id= \"" + obj[i].fg_id + "\" value= \"" + obj[i].fg_id + "\" />&nbsp;&nbsp;" + obj[i].fg_name +  "</div>";
+                        check_color_change_floor_id = "A" + i;
+                    }
+                    else if (obj[i].fg_name == "員工管理") {
+                        employee_role_id = obj[i].fg_id;
+                        role_id += "<div class=\"first_check\" id=\"A" + i + "\"><input type=\"checkbox\" onclick =\"each_floor_checked()\" name=\"check_role\" id= \"" + obj[i].fg_id + "\" value= \"" + obj[i].fg_id + "\"/>&nbsp;&nbsp;" + obj[i].fg_name + "</div>";
+                    }
+                    else {
+                        role_id += "<div class=\"first_check\" id=\"A" + i + "\"><input type=\"checkbox\" onclick =\"each_floor_checked()\"  name=\"check_role\" id= \"" + obj[i].fg_id + "\" value= \"" + obj[i].fg_id + "\"/>&nbsp;&nbsp;" + obj[i].fg_name + "</div>";
+
+                    }
+                    permission_id[i] = obj[i].fg_id; //所有的權限ID
+                    role_id_data[i] = obj[i].fg_id;
+                }
+                //  console.log(role_id);
+                document.getElementById("role_id").innerHTML = role_id;   //印出權限資訊
+                role_count = Menu_Total_count; //權限數量
+                //查詢樓層權限
+                var all_floor_permission = api_endpoint + "get_all_floor";
+                search_floor_permission_data(all_floor_permission);//查詢全部樓層權限及印出全部樓層權限資訊
+            }
+        };
+        xhttp.open("GET", url, true);
+        xhttp.send();
+    }
+
+    //AJAX 搜尋樓層權限資料
+    function search_floor_permission_data(url) {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                var floor_obj = JSON.parse(this.responseText);//找尋所有樓層權限數量
+                var floor_role_id_string = "";//樓層權限代號字串輸出用
+                for (i = 0; i < floor_obj.length; i++) {
+                    floor_role_id_string += "<label  for=" + i + "\" id=\"B" + floor_obj[i].FloorId + "\"><span class=\"floor_position_lable\"><input name=\"floor_lable_check\" id=" + floor_obj[i].FloorId + " type=\"checkbox\" onclick =\"floor_lable_check()\" />&nbsp&nbsp<span id=lable" + floor_obj[i].FloorId + ">" + floor_obj[i].FloorName + "</span></span></label >";
+                    floor_permission_id[i] = floor_obj[i].FloorId; //所有的權限ID
+                }
+                document.getElementById("checkboxes").innerHTML = floor_role_id_string;   //印出樓層權限資訊
+                floor_role_count = floor_obj.length;
+
+                for (w = 0; w < floor_obj.length; w++) {
+                    floor_role_id_data[w] = floor_obj[w].FloorId;
+                }
+                //拿取全部及員工所擁有的權限
+                var get_employee_permission_url = api_endpoint + "get_employee_permission_by_id&" + ID_data;
+
+                employee_permission(get_employee_permission_url);
+                var get_employee_floor_permission_url = api_endpoint + "get_employee_floorpermission_by_id&" + ID_data;
+                //  console.log(get_employee_floor_permission_url);
+                employee_floor_permission(get_employee_floor_permission_url);
+            }
+        };
+        xhttp.open("GET", url, true);
+        xhttp.send();
+    }
+
+    function employee_floor_permission(url) {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                var employee_floor_permission_obj = JSON.parse(this.responseText);
+                var employee_floor_permission_ID = [];
+                var employee_floor_permission_fg_id = [];
+               // console.log(employee_floor_permission_obj);
+                var employee_floor_permission_fg_name = [];
+                for (i = 0; i < employee_floor_permission_obj.length; i++) {
+
+                    employee_floor_permission_fg_id[i] = employee_floor_permission_obj[i].FloorId;
+
+
+                }
+                //console.log(employee_permission_fg_id);
+                for (r = 0; r < floor_permission_id.length; r++) {
+                    for (t = 0; t < employee_floor_permission_fg_id.length; t++) {
+
+                        if (floor_permission_id[r] == employee_floor_permission_fg_id[t]) {
+                            //  console.log(floor_permission_id[r]);
+                            document.getElementById(floor_permission_id[r]).checked = true;
+                            document.getElementById("B" + floor_permission_id[r]).style.backgroundColor = "#58b4c3";//被勾選的lable反藍
+                            document.getElementById("lable" + floor_permission_id[r]).style.color = "#FFFFFF";//被勾選的lable文字反白
+                            
+                        }
+
+                    }
+                }
+                calculate_checkboxs_count();//計算定位區域勾選總數
+                //floor_checked();//none 下拉選單
+            }
+        };
+        xhttp.open("GET", url, true);
+        xhttp.send();
+    }
+    //拿取全部及員工所有擁有的權限
+    function employee_permission(url) {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                    var employee_permission_obj = JSON.parse(this.responseText);
+                    var employee_permission_ID = [];
+                    var employee_permission_fg_id = [];
+                    var employee_permission_fg_name = [];
+                    for (i = 0; i < employee_permission_obj.length; i++) {
+                        employee_permission_ID[i] = employee_permission_obj[i].ID;
+                        employee_permission_fg_id[i] = employee_permission_obj[i].fg_id;
+                        employee_permission_fg_name[i] = employee_permission_obj[i].fg_name;
+
+                    }
+                    //console.log(employee_permission_fg_id);
+                    for (r = 0; r < permission_id.length; r++) {
+                        for (t = 0; t < employee_permission_fg_id.length; t++) {
+                            if (permission_id[r] == employee_permission_fg_id[t]) {
+                                document.getElementById(permission_id[r]).checked = true;
+                                document.getElementById("A" + r).style.color = "#58b4c3";//被勾選的會反藍
+                               
+                                floor_name();
+                                
+                                floor_checked_change_colar()
+                            }
+
+                        }
+                    }
+            }
+        };
+        xhttp.open("GET", url, true);
+        xhttp.send();
+    }
+    
+   
+    function floor_name() {
+        if (document.getElementById(floor_id).checked == true) {
+            document.getElementById("floor_position_font").style.color = "#58b4c3";//被勾選的會反藍
+        }
+    }
+    //樓層權限勾起變色
+    function floor_checked_change_colar() {
+        if (document.getElementById(floor_id).checked == true) {
+            document.getElementById('checkboxes').style.display = 'block';
+            document.getElementById(check_color_change_floor_id).style.color = "#58b4c3";  //樓層定位顏色
+            document.getElementById("floor_position_font").style.color = "#58b4c3";  //樓層位置顏色
+            document.getElementById("dropdown_image").src = "./images/btn_dropup.svg";//樓層選單圖片(上)
+            document.getElementById("account_right_02").style.display = "block";
+            calculate_checkboxs_count();//計算定位區域勾選總數
+        }
+    }
+   
+    //點擊樓層定位時，會展開選單
+    function floor_checked() {
+        if (document.getElementById(floor_id).checked == true) {
+           //顯示
+          //  console.log("顯示");
+           // document.getElementById('check_B').style.display = 'initial';
+            document.getElementById('checkboxes').style.display = 'block';
+            document.getElementById(check_color_change_floor_id).style.color = "#58b4c3";  //樓層定位顏色
+            document.getElementById("floor_position_font").style.color = "#58b4c3";  //樓層位置顏色
+            document.getElementById("dropdown_image").src = "./images/btn_dropup.svg";//樓層選單圖片(上)
+            document.getElementById("account_right_02").style.display = "block";  
+            calculate_checkboxs_count();//計算定位區域勾選總數
+        }
+        if (document.getElementById(floor_id).checked == false) {
+           //隱藏
+           // console.log("隱藏");
+           // console.log(role_id);
+          //  document.getElementById('check_B').style.display = 'none';
+            document.getElementById('checkboxes').style.display = 'none';
+            document.getElementById(check_color_change_floor_id).style.color = "#969696"; //樓層定位顏色
+            document.getElementById("floor_position_font").style.color = "#000000"; //樓層位置顏色
+            document.getElementById("dropdown_image").src = "./images/btn_dropdown.svg"; //樓層選單圖片(下)
+            document.getElementById("select_floor_option").innerText = "請選擇樓層與區域";
+            document.getElementById("account_right_02").style.display = "none";  
+        }
+    }
+
+//更新
+    function Update() {
+
+
+        var flag = 0;//計數用  Name
+        var floor_flag = 0;
+        var select_term = [];
+        var select_floor_term = [];
+        var name_element = document.getElementsByName('check_role');//權限checked名稱選項
+        var floor_check = document.getElementsByName('floor_lable_check');//權限checked名稱選項
+        console.log(typeof(name_element));
+        console.log(name_element);
+        console.log(name_element.length);
+            var url = location.href;//URL
+            var temp = url.split("?");//取得問號之後的值
+            var vars = temp[1].split("=");//將值再度分開
+            for (var i = 0; i < vars.length; i++) {//一一顯示出來
+                ID_data = vars[i];
+            };
+
+            console.log(role_count);
+            console.log(name_element[0].checked);
+        //列出已選權限ID
+            for (i = 0; i < name_element.length; i++) {
+            if (name_element[i].checked == true) {
+                select_term[flag] = role_id_data[i];
+                flag += 1;
+            }
+        }
+        //列出已選樓層權限
+        for (q = 0; q < floor_role_count; q++) {
+            if (floor_check[q].checked == true) {
+                select_floor_term[floor_flag] = floor_role_id_data[q];
+                floor_flag += 1;
+            }
+        }
+       
+        if (document.getElementById(floor_id).checked == false) {
+            select_floor_term = [];
+
+        }
+
+        var A_Job_ID = document.getElementById('Job_ID');
+        var A_Name = document.getElementById('Name');
+        var A_Gender = document.getElementById('male');
+        if (A_Gender.checked == true) {
+            A_Gender = "男"
+        }
+        else {
+            A_Gender = "女"
+        }
+        var A_Job_Class = document.getElementById('Job_Class');
+        var A_Telephone = document.getElementById('Telephone');
+        var A_Ext = document.getElementById('Ext');
+        var A_Cellphone = document.getElementById('Cellphone');
+        var A_Email = document.getElementById('Email');
+        var A_Remarks = document.getElementById('Remarks');
+
+        if (document.getElementById(employee_role_id).checked == true) {
+            var A_purview = "admin";
+        }
+        else {
+            var A_purview = "user"
+        }
+        if (document.getElementById('password_reset_yes').checked == true) {
+            var A_Password_Reset = "25d55ad283aa400af464c76d713c07ad";
+        }
+        else {
+            var A_Password_Reset = ""
+        }
+
+        var Data = new Object();
+
+        Data.id = ID_data;
+        Data.password = A_Password_Reset;
+        Data.job_id = A_Job_ID.value;
+        Data.name = A_Name.value;
+        Data.gender = A_Gender;
+        Data.telephone = A_Telephone.value;
+        Data.ext = A_Ext.value;
+        Data.cellphone = A_Cellphone.value;
+        if (verification_email(A_Email.value) == "true") {
+        Data.email = A_Email.value;
+        Data.job_class = A_Job_Class.value;
+        Data.remark = A_Remarks.value;
+        Data.purview = A_purview;
+        Data.func_permission = select_term;
+        Data.floor_permission = select_floor_term;
+        console.log(Data);
+        var urlpost = api_endpoint + "edit_employee ";
+        data_post_API(urlpost, Data);
+        }
+        else {
+            document.getElementById("Email").style.border = "solid 2px #d92016";
+            document.getElementById("email_fault_data").innerText = "錯誤";
+
+            //alert("email錯誤，請再次檢查");
+        }
+    }
+    function data_post_API(url, value_obj) {//把資料更新出去
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                console.log(this.responseText);   //回傳更新是否成功
+                //window.location.reload();
+				location.href = "./account_management.html"; //成功，跳回頁面
+            }
+        };
+        xhttp.open("POST", url, true);
+        xhttp.send(JSON.stringify(value_obj));
+    }
+
+
+    //check勾起變色
+    function each_floor_checked() {
+        for (p = 0; p < role_count; p++) {
+            if (document.getElementById(role_id_data[p]).checked == true) {
+                document.getElementById("A" + p).style.color = "#58b4c3";
+            }
+            if (document.getElementById(role_id_data[p]).checked == false) {
+                document.getElementById("A" + p).style.color = "#969696";
+            }
+        }
+    }
+
+    //樓層權限，勾起時反藍文字反白，不勾時反白文字反黑
+    function floor_lable_check() {
+        for (y = 0; y < floor_role_count; y++) {
+            if (document.getElementById(floor_permission_id[y]).checked == true) {
+                document.getElementById("B" + floor_permission_id[y]).style.backgroundColor = "#58b4c3";//被勾選的lable反藍
+                document.getElementById("lable" + floor_permission_id[y]).style.color = "#FFFFFF";//被勾選的lable反藍
+                calculate_checkboxs_count();//計算定位區域勾選總數
+            }
+            if (document.getElementById(floor_permission_id[y]).checked == false) {
+                document.getElementById("B" + floor_permission_id[y]).style.backgroundColor = "#FFFFFF";//被勾選的lable反藍 
+                document.getElementById("lable" + floor_permission_id[y]).style.color = "#969696";//被勾選的lable反藍
+                calculate_checkboxs_count();//計算定位區域勾選總數
+            }
+        }
+    }
+
+    //email 驗證
+    function verification_email(email) {
+        //please input the test email to see is valid
+        var strEmail = email;
+        //Regular expression Testing
+        emailRule = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/;
+        //validate ok or not
+        if (strEmail.search(emailRule) != -1) {
+            return ("true");
+        }
+        else {
+            return ("false");
+        }
+    }
+
+
+    //計算定位區域勾選總數
+    function calculate_checkboxs_count() {
+        var count = 0;
+        var check_array = document.getElementsByName("floor_lable_check");
+        for (var i = 0; i < check_array.length; i++) {
+            if (check_array[i].checked == true) {
+                count++;
+            }
+        }
+        document.getElementById("select_floor_option").innerText = "選定" + count + "個區域";
+    }
+</script>

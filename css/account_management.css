@@ -1,0 +1,770 @@
+﻿body {
+    width: 1366px;
+    height: 768px;
+    background-color: #ffffff;
+    position: relative;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+}
+
+/*#bg {
+    width: 1366px;
+    height: 56px;
+    background-color: #abdae3;
+    position: absolute;
+    top: 0px;
+}
+
+#logo_advantech {
+    width: 125px;
+    height: 32px;
+    position: absolute;
+    top: 12px;
+    bottom: 12px;
+    left: 22px;
+}
+
+#hader_viewer {
+    position: absolute;
+    top: 19px;
+    left: 167px;
+    width: 209px;
+    height: 22px;
+    font-family: Arial;
+    font-size: 20px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #323232;
+}
+
+#Line {
+    width: 1366px;
+    height: 4px;
+    background-color: #58b4c3;
+    position: absolute;
+    top: 56px;
+}*/
+
+
+/*目前索引列字型
+#header_path_fonts {
+    width: 180px;
+    height: 27px;
+    font-family: 微軟正黑體;
+    font-size: 20px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #323232;
+    position: absolute;
+    top: 15px;
+    left: 24px
+}
+
+/*最外框*/
+#header_path {
+    width: 1366px;
+    height: 56px;
+    background-color: #e1e1e1;
+    float: left;
+}
+#header_path_01 {
+    width: 80px;
+    height: 56px;
+    float: left;
+    
+}
+#header_path_02 {
+    width: 240px;
+    height: 56px;
+    float: left;
+    
+}
+#header_path_02_select {
+    width: 240px;
+    height: 40px;
+    float: left;
+    margin-left: 0px;
+    margin-top: 8px;
+}
+#header_path_03 {
+    width: 280px;
+    height: 56px;
+    float: left;
+   
+}
+#header_path_03_select_data {
+    float: left;
+    margin-top: 8px;
+    margin-left: 24px;
+    width: 258px;
+    height: 36px;
+    border: solid 2px #58b4c3;
+}
+#header_path_03_select_data_content {
+    width: 43px;
+    height: 35px;
+    float: left;
+    margin-left: 0px;
+   
+    background-color: #ffffff;
+}
+#header_path_20 {
+    width: 30px;
+    height: 56px;
+    float: left;
+	margin-left: 20px;
+	margin-top: 10px;
+   
+}
+#search_keyword_icon {
+    width: 31px;
+    height: 32px;
+    float: left;
+    margin-left: 12px;
+    margin-top: 4px;
+   
+}
+#header_path_03_select_data_button {
+    width: 215px;
+    height: 40px;
+    float: left;
+    margin-left:0px;
+    
+
+}
+#search_keyword_value {
+    width: 203px;
+    height: 33px;
+    float: left;
+    background-color: #ffffff;
+    border: 0px;
+    padding-left: 12px;
+    font-family: 微軟正黑體;
+    font-size: 16px;
+    color: #323232;
+}
+#search_keyword_value:focus {
+    outline:none;
+}
+#header_path_06 {
+    width: 174px;
+    height: 56px;
+    float: right;
+}
+
+#header_path_05 {
+    width: 2px;
+    height: 56px;
+    float: right;
+
+   
+}
+/*一條線*/
+#header_path_05_line {
+    width: 2px;
+    height: 40px;
+    float: right;
+    margin-top: 8px;
+    background-color: #969696;
+}
+#header_path_04 {
+    width: 264px;
+    height: 56px;
+    float: right;
+    
+}
+#header_path_04_right_icon {
+    width: 32px;
+    height: 32px;
+    border: 0px;
+    float: right;
+    margin-right: 20px;
+    margin-top: 10px;
+}
+#right_icon {
+    width: 32px;
+    height: 32px;
+    border: 0px;
+    float: right;
+}
+#header_path_04_content_01 {
+    width: 56px;
+    height: 56px;
+    float: right;
+}
+#header_path_04_content_01_01 {
+    width: 16px;
+    height: 21px;
+    font-family: 微軟正黑體;
+    font-size: 16px;
+    color: #323232;
+    float: right;
+    margin-right: 20px;
+    margin-top: 17px;
+}
+#header_path_04_input {
+    width: 64px;
+    height: 56px;
+    float: right;
+}
+#header_path_04_input_div {
+    width: 64px;
+    height: 40px;
+    float: right;
+    margin-right:0px;
+    margin-top: 6px;
+}
+#header_path_04_input_01 {
+    width: 60px;
+    height: 36px;
+    background-color: #ffffff;
+    border: solid 2px #58b4c3;
+    float: right;
+    text-align: center;
+    font-family: 微軟正黑體;
+    font-size: 16px;
+    color: #969696;
+}
+#header_path_04_content_02 {
+    width: 56px;
+    height: 56px;
+    float: right;
+}
+
+#header_path_04_content_02_01 {
+    width: 16px;
+    height: 21px;
+    font-family: 微軟正黑體;
+    font-size: 16px;
+    color: #323232;
+    float: right;
+    margin-right: 20px;
+    margin-top: 17px;
+}
+
+#header_path_04_left_icon {
+    width: 32px;
+    height: 32px;
+    border: 0px;
+    float: right;
+    margin-right: 0px;
+    margin-top: 12px;
+}
+
+/*刪除員工icon*/
+#delete_employee_icon {
+    width: 32px;
+    height: 32px;
+    float: right;
+    margin-right: 30px;
+    margin-top: 12px;
+} 
+    /*加入員工icon*/
+    #add_employee_icon {
+    width: 32px;
+    height: 32px;
+    float: right;
+    margin-right: 12px;
+    margin-top: 12px;
+}
+/*編輯員工icon*/
+#edit_employee_icon {
+    width: 32px;
+    height: 32px;
+    float: right;
+    margin-right: 12px;
+    margin-top: 12px;
+}
+#select_class_item {
+    width: 240px;
+    height: 40px;
+    background-color: #ffffff;
+    border: solid 2px #58b4c3;
+    font-family: 微軟正黑體;
+    font-size: 16px;
+    text-align: left;
+    color: #969696;
+    padding-left:24px;
+
+}
+
+#table_header {
+    width: 1366px;
+    height: 48px;
+    background-color: #58b4c3;
+    border: 0px;
+    float: left;
+    font-family: 微軟正黑體;
+    font-size: 16px;
+    text-align: left;
+    color: #ffffff;
+}
+#tb_hd_checkboxs {
+    width: 80px;
+    height: 48px;
+    float: left;
+}
+#tb_hd_checkboxs_input {
+    width: 14px;
+    height: 14px;
+    float: left;
+    margin-left:33px;
+    margin-top: 17px;
+}
+#tb_hd_account {
+    width: 160px;
+    height: 48px;
+    float: left;
+}
+#tb_hd_account_content {
+    width: 64px;
+    height: 22px;
+    margin-left: 24px;
+    margin-top: 13px;
+}
+#tb_hd_name {
+    width: 160px;
+    height: 48px;
+    float: left;
+   
+}
+#tb_hd_name_content {
+    width: 64px;
+    height: 22px;
+    float: left;
+    margin-left: 24px;
+    margin-top: 13px;
+}
+#tb_hd_gender {
+    width: 104px;
+    height: 48px;
+    float: left;
+}
+#tb_hd_gender_content {
+    width: 32px;
+    height: 22px;
+    float: left;
+    margin-left: 24px;
+    margin-top: 13px;
+}
+#tb_hd_job_id {
+    width: 160px;
+    height:48px;
+    float: left;
+}
+#tb_hd_job_id_content {
+    width: 64px;
+    height: 22px;
+    float: left;
+    margin-left: 24px;
+    margin-top: 13px;
+}
+#tb_hd_cellphone {
+    width: 160px;
+    height: 48px;
+    float: left;
+}
+#tb_hd_cellphone_content {
+    width: 32px;
+    height: 22px;
+    float: left;
+    margin-left: 24px;
+    margin-top: 13px;
+}
+#tb_hd_ext {
+    width: 160px;
+    height: 48px;
+    float: left;
+}
+#tb_hd_ext_content {
+    width: 32px;
+    height: 22px;
+    float: left;
+    margin-left: 24px;
+    margin-top: 13px;
+}
+#tb_hd_email {
+    width: 280px;
+    height: 48px;
+    float: left;
+}
+#tb_hd_email_content {
+    width: 65px;
+    height: 22px;
+    float: left;
+    margin-left: 24px;
+    margin-top: 13px;
+}
+#tb_hd_purview {
+    width: 80px;
+    height: 48px;
+    float: left;
+}
+#tb_hd_purview_content {
+    width: 54px;
+    height: 22px;
+    float: left;
+    margin-left: 24px;
+    margin-top: 13px;
+}
+#table_data {
+    width: 1366px;
+    height: 548px;
+    float: left;
+}
+#table_result {
+    width: 1366px;
+    height: 548px;
+    float: left;
+}
+.row_style {
+    width: 1366px;
+    height: 48px;
+    float: left;
+    font-family: 微軟正黑體;
+    font-size: 16px;
+    color: #323232;
+}
+.table_checked {
+    width: 80px;
+    height: 48px;
+    float: left;
+}
+.table_checked_span {
+    
+    float: left;
+    margin-left: 33px;
+    margin-top: 17px;
+}
+.table_account {
+    width: 160px;
+    height: 48px;
+    float: left;
+}
+.table_account_span {
+    float: left;
+    margin-left: 24px;
+    margin-top: 13px;
+}
+.table_name {
+    width: 160px;
+    height: 48px;
+    float: left;
+}
+.table_name_span {
+    float: left;
+    margin-left: 24px;
+    margin-top: 15px;
+}
+.table_gender {
+    width: 104px;
+    height: 48px;
+    float: left;
+}
+.table_gender_span {
+    float: left;
+    margin-left: 24px;
+    margin-top: 15px;
+}
+.table_job_id {
+    width: 160px;
+    height: 48px;
+    float: left;
+}
+.table_job_id_span {
+    float: left;
+    margin-left: 24px;
+    margin-top: 15px;
+}
+.table_cellphone {
+    width: 160px;
+    height: 48px;
+    float: left;
+}
+.table_cellphone_span {
+    float: left;
+    margin-left: 24px;
+    margin-top: 15px;
+}
+.table_ext {
+    width: 160px;
+    height: 48px;
+    float: left;
+}
+.table_ext_span {
+    float: left;
+    margin-left: 24px;
+    margin-top: 15px;
+}
+.table_email {
+    width: 280px;
+    height: 48px;
+    float: left;
+}
+.table_email_span {
+    float: left;
+    margin-left: 24px;
+    margin-top: 15px;
+}
+.table_purview {
+    width: 102px;
+    height: 48px;
+    float: left;
+}
+.table_purview_span {
+    float: left;
+    margin-left: 35px;
+    margin-top: 8px;
+
+}
+td {
+    border-bottom: solid 1px #979797;
+    
+}
+/*次標題左半部自型 (搜尋)*/
+#account_info_bg_left_fonts {
+    width: 80px;
+    height: 27px;
+    font-family: 微軟正黑體;
+    font-size: 20px;
+    margin-top: 17px;
+    margin-left: 24px;
+}
+/*次標題中間寬度 (分隔線)*/
+#account_info_bg_center {
+    width: 2px;
+    height: 56px;
+    background-color: #e1e1e1;
+    position: absolute;
+    top: 114px;
+    left: 1205px;
+}
+/*次標題中間 (分隔線)*/
+#account_info_bg_center_line {
+    width: 2px;
+    height: 40px;
+    background-color: #969696;
+    position: absolute;
+    top: 8px;
+    left: 0px;
+}
+/*次標題右半部 (員工權限)*/
+#account_info_bg_right {
+    width: 176px;
+    height: 56px;
+    background-color: #e1e1e1;
+    position: absolute;
+    top: 114px;
+    left: 1208px
+}
+/*次標題右半部字型 (員工權限)*/
+#account_info_bg_right_fonts {
+    width: 80px;
+    height: 27px;
+    font-family: 微軟正黑體;
+    font-size: 20px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    position: absolute;
+    top: 15px;
+    left: 48px;
+}
+
+/*/*左半區
+#account_left {
+    width: 1366px;
+    background-color: #ffffff;
+    position: absolute;
+    left: 0px;
+    top: 171px;
+}
+確認按鈕
+#save_button {
+    width: 80px;
+    height: 40px;
+    background-color: #58b4c3;
+    border: none;
+    position: absolute;
+    top: 8px;
+    right: 108px;
+}
+取消按鈕
+#cancel_button {
+    width: 80px;
+    height: 40px;
+    background-color: #969696;
+    border: none;
+    position: absolute;
+    top: 8px;
+    right: 16px;
+}
+按鈕字型
+.btn_font_style {
+    font-family: 微軟正黑體;
+    font-size: 16px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: left;
+    color: #ffffff;
+}
+
+
+
+
+#list_body {
+    width: 1366px;
+    position: absolute;
+    top: 65px;
+}
+
+#table_result {
+    width: 1360px;
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+#tablerow {
+    width: 1360px;
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 7px;
+}
+
+.icon_align {
+    text-align: right;
+}
+
+.button {
+    background-color: #4CAF50;  Green 
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    -webkit-transition-duration: 0.4s;  Safari 
+    transition-duration: 0.4s;
+    cursor: pointer;
+}
+
+.button1 {
+    background-color: #008CBA;
+    color: black;
+    border: 2px solid #008CBA;
+}
+
+    .button1:hover {
+        background-color: #008CBA;
+        color: white;
+    }*/
+
+#account_right {
+    width: 1366px;
+    background-color: #ffffff;
+    position: absolute;
+    left: 0px;
+    top: 600px;
+}
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 200px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 320px;
+    height: 160px;
+    background-color: #ffffff;
+}
+
+/* The Close Button */
+/*.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+    .close:hover,
+    .close:focus {
+        color: #000;
+        text-decoration: none;
+        cursor: pointer;
+    }*/
+#Modal_Content_Font {
+    width: 80px;
+    height: 22px;
+    float: left;
+    margin-left: 120px;
+    margin-top: 41px;
+    font-family: 微軟正黑體;
+    font-size: 16px;
+    color: #323232;
+}
+#Modal_Confirm {
+    width: 80px;
+    height: 40px;
+    background-color: #d92016;
+    border: 0px;
+    float: left;
+    margin-left: 74px;
+    margin-top: 33px;
+}
+
+#Modal_Confirm_Font {
+    width: 32px;
+    height: 21px;
+    font-family: 微軟正黑體;
+    font-size: 16px;
+    color: #ffffff;
+}
+
+#Modal_Cancel {
+    width: 80px;
+    height: 40px;
+    background-color: #969696;
+    border: 0px;
+    float: right;
+    margin-right: 74px;
+    margin-top: 33px;
+}
+
+#Modal_Cancel_Font {
+    width: 32px;
+    height: 21px;
+    font-family: 微軟正黑體;
+    font-size: 16px;
+    color: #ffffff;
+}

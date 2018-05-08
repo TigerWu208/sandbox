@@ -1,0 +1,814 @@
+﻿<!doctype html>
+
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>LEO-D Location Viewer</title>
+    <meta name="description" content="LEO-D Location Viewer">
+    <meta name="author" content="Advantech">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/reset_index.css">
+    <link href="css/select2.css" rel="stylesheet" />
+    <!--<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>-->
+    <script src="Scripts/jquery-1.12.4.min.js"></script>
+    <script src="Scripts/jquery-ui-1.12.1.min.js"></script>
+    <script src="js/select2.min.js"></script>
+    <script src="js/check_login.js"></script>
+</head>
+
+<body onselectstart="return false" style="width:1366px;height:768px">
+    <div class="title_bar">
+        <div class="bar">
+            <img id="logo" src="images/image_banner_logo.svg">
+            <h1 id="title">LEO-D Location Viewer</h1>
+                <div class="dropdown" id="my_account_view" style="float:right;">
+                    <div id="my_account" class="dropbtn" onclick="openMenu()">
+                        <img id="account_icon" src="images/btn_account_n_48.svg">
+                        <h1 id="myname"></h1>
+                    </div>
+                    <div id="myDropdown" class="dropdown-content">
+                      <a id="account_management" href="javascript: void(0)">帳戶維護</a>
+                      <a id="logout" href="javascript: void(0)" onclick="">登出</a>
+                    </div>
+                </div>
+            <div id="my_function">
+                <img id="setting_icon" src="images/btn_manage_n_48.svg" onclick="location.href='floor_management.html';">
+                <!-- <img id="alert_icon" src="images/btn_bell_n_48.svg"> -->
+                <img id="employee_icon" src="images/btn_personnel_n_48.svg" onclick="location.href='account_management.html';">
+            </div>
+        </div>
+        <div class="barline"></div>
+    </div>
+    <div class="function">
+        <div id="now_function_title">首頁 > 已連線 > 平面圖</div>
+        <div id="final_updated_time">系統更新時間：2018.02.27　15:00</div>
+    </div>
+    <div class="tabview">
+        <ul class="segmented-control">
+            <li class="segmented-control__item">
+                <input class="segmented-control__input" type="radio" value="online" name="option" id="tab_online" onclick="check_tab('online_tabview')" checked >
+                <label class="segmented-control__label" for="tab_online">已連線</label>
+            </li>
+            <li class="segmented-control__item">
+                <input class="segmented-control__input" type="radio" value="offline" name="option" id="tab_offline" onclick="check_tab('offline_tabview')">
+                <label class="segmented-control__label" for="tab_offline">未連線</label>
+            </li>
+        </ul>
+    </div>
+    <div id="tabview">
+        <!-- <div class="selectview"></div>
+        <div class="mapview"></div> -->
+        <div id="online_tabview" class="tabcontent">
+            <div class="selectview">
+                <p id="floor_title">樓層區域</p>
+                <select id="floor_select" name="floor_select" class="floor_select" onchange="renderMap()">
+                </select>
+                <div id="info_bg_center">
+                    <span id="info_bg_center_line"></span>
+                </div>
+                <p id="search_title">設備名稱</p>
+                <div id="search_view">
+                    <select name="tag_search" class="tag_search" style="width:240px;">
+                        <option></option>
+                        <!-- <option value="AL">Alabama</option>
+                        <option value="WY">Wyoming</option> -->
+                    </select>
+                </div>
+                <div id="list_button" onclick="list_button_click();">
+                    <img id="list_icon" src="images/btn_form_d_32.svg">
+                    <p id="list_title">列表</p>
+                </div>
+                <div id="info_bg_center" style="float:right;margin-left:0px">
+                    <span id="info_bg_center_line"></span>
+                </div>
+                <div id="map_button" onclick="map_button_click();">
+                    <img id="map_icon" src="images/btn_map_a_32.svg">
+                    <p id="map_title">平面圖</p>
+                </div>
+            </div>
+            <div id="drawT"></div>
+            <div id="accordion_view"></div>
+        </div>
+        <div id="online_tabview_list" class="tabcontent">
+            <div class="selectview">
+                <p id="floor_title">樓層區域</p>
+                <select id="online_list_floor_select" name="online_list_floor_select" class="floor_select" onchange="render_online_list()">
+                </select>
+                <div id="info_bg_center">
+                    <span id="info_bg_center_line"></span>
+                </div>
+                <div id="header_path_03">
+                    <div id="header_path_03_select_data">
+                        <div id="header_path_03_select_data_content">
+                            <!--<input type="button" class="button button1" onclick="keyword()" value="搜尋" />-->
+                            <span id="search_keyword_icon"><a href="javascript: void(0)" onclick="online_list_search_enter({keyCode:13})"><img src="./images/search_keyword.svg" /></a></span>
+                        </div>
+                        <div id="header_path_03_select_data_button">
+                            <input id="online_list_search_keyword_value" type="text" placeholder="請輸入關鍵字" autocomplete="off" onkeypress="return online_list_search_enter(event)"/>
+                        </div>
+                    </div>
+                </div>
+                <div id="list_button" onclick="list_button_click();">
+                    <img id="list_icon" src="images/btn_form_a_32.svg">
+                    <p id="list_title_onlinelist">列表</p>
+                </div>
+                <div id="info_bg_center" style="float:right;margin-left:0px">
+                    <span id="info_bg_center_line"></span>
+                </div>
+                <div id="map_button" onclick="map_button_click();">
+                    <img id="map_icon" src="images/btn_map_d_32.svg">
+                    <p id="map_title_onlinelist">平面圖</p>
+                </div>
+                <div id="header_path_04">
+                    <div id="header_path_04_right_icon">
+                        <span id="online_list_right_icon"><a href="javascript: void(0)"><img src="./images/btn_right.svg" /></a></span>
+                    </div>
+                    <div id="header_path_04_content_01">
+                        <div id="header_path_04_content_01_01">
+                            頁
+                        </div>
+                    </div>
+                    <div id="header_path_04_input">
+                        <div id="header_path_04_input_div">
+                            <input id="online_list_header_path_04_input_01" type="text" onkeypress="return online_list_runScript(event)" />
+                        </div>
+                    </div>
+                    <div id="header_path_04_content_02">
+                        <div id="header_path_04_content_02_01">
+                            第
+                        </div>
+                    </div>
+                    <div id="header_path_04_left_icon">
+                        <span id="online_list_left_icon"><a href="javascript: void(0)"><img src="./images/btn_left.svg" /></a></span>
+                    </div>
+                </div>
+            </div>
+            <div id="online_list_table_header">
+                <div id="tb_hd_account">
+                    <div id="tb_hd_account_content">
+                        <span>樓層區域</span>
+                    </div>
+                </div>
+                <div id="tb_hd_name">
+                    <div id="tb_hd_name_content">
+                        <span>設備名稱</span>
+                    </div>
+                </div>
+                <div id="tb_hd_gender">
+                    <div id="tb_hd_gender_content">
+                        <span>剩餘電量</span>
+                    </div>
+                </div>
+            </div>
+            <div id="online_list_table_data">
+                <table class="table" id="online_list_table_result">
+                    <tbody id="online_list_all_employee"></tbody>
+                </table>
+            </div>
+        </div>
+        <div id="offline_tabview" class="tabcontent">
+            <div class="selectview">
+                <p id="floor_title">樓層區域</p>
+                <select id="offline_floor_select" name="offline_floor_select" class="floor_select" onchange="get_offline_tag()">
+                </select>
+                <div id="info_bg_center">
+                    <span id="info_bg_center_line"></span>
+                </div>
+                <div id="header_path_03">
+                    <div id="header_path_03_select_data">
+                        <div id="header_path_03_select_data_content">
+                            <!--<input type="button" class="button button1" onclick="keyword()" value="搜尋" />-->
+                            <span id="search_keyword_icon"><a href="javascript: void(0)" onclick="search_enter({keyCode:13})"><img src="./images/search_keyword.svg" /></a></span>
+                        </div>
+                        <div id="header_path_03_select_data_button">
+                            <input id="search_keyword_value" type="text" placeholder="請輸入關鍵字" autocomplete="off" onkeypress="return search_enter(event)"/>
+                        </div>
+                    </div>
+                </div>
+                <div id="header_path_04">
+                    <div id="header_path_04_right_icon">
+                        <span id="right_icon"><a href="javascript: void(0)"><img src="./images/btn_right.svg" /></a></span>
+                    </div>
+                    <div id="header_path_04_content_01">
+                        <div id="header_path_04_content_01_01">
+                            頁
+                        </div>
+                    </div>
+                    <div id="header_path_04_input">
+                        <div id="header_path_04_input_div">
+                            <input id="header_path_04_input_01" type="text" onkeypress="return runScript(event)" />
+                        </div>
+                    </div>
+                    <div id="header_path_04_content_02">
+                        <div id="header_path_04_content_02_01">
+                            第
+                        </div>
+                    </div>
+                    <div id="header_path_04_left_icon">
+                        <span id="left_icon"><a href="javascript: void(0)"><img src="./images/btn_left.svg" /></a></span>
+                    </div>
+                </div>
+            </div>
+            <div id="table_header">
+                <div id="tb_hd_account">
+                    <div id="tb_hd_account_content">
+                        <span>最後連線日期</span>
+                    </div>
+                </div>
+                <div id="tb_hd_name">
+                    <div id="tb_hd_name_content">
+                        <span>最後連線時間</span>
+                    </div>
+                </div>
+                <div id="tb_hd_gender">
+                    <div id="tb_hd_gender_content">
+                        <span>最後連線樓層區域</span>
+                    </div>
+                </div>
+                <div id="tb_hd_job_id">
+                    <div id="tb_hd_job_id_content">
+                        <span>設備名稱</span>
+                    </div>
+                </div>
+                <div id="tb_hd_cellphone">
+                    <div id="tb_hd_cellphone_content">
+                        <span>最後連線剩餘電量</span>
+                    </div>
+                </div>
+            </div>
+            <div id="table_data">
+                <table class="table" id="table_result">
+                    <tbody id="all_employee"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script src="js/header.js"></script>
+    <script>
+        var Mapinit = [];
+        var chif = "請選擇建築區域";
+        AccRouterCount = [];
+        var now_floor_id;
+        var list_count = 11;
+
+        function check_tab(page) {
+            if(page == "online_tabview"){
+                document.getElementById('now_function_title').innerHTML = "首頁 > 已連線 > 平面圖";
+                document.getElementById('offline_tabview').style.display = "none";
+                document.getElementById('online_tabview_list').style.display = "none";
+            }else if(page == "offline_tabview"){
+                document.getElementById('now_function_title').innerHTML = "首頁 > 未連線";
+                document.getElementById('online_tabview').style.display = "none";
+                document.getElementById('online_tabview_list').style.display = "none";
+            }else{
+                document.getElementById('now_function_title').innerHTML = "首頁 > 已連線 > 列表";
+                document.getElementById('online_tabview').style.display = "none";
+                document.getElementById('offline_tabview').style.display = "none";
+            }
+            document.getElementById(page).style.display = "block";
+        }
+
+        function list_button_click() {
+            document.getElementById('now_function_title').innerHTML = "首頁 > 已連線 > 列表";
+            check_tab('online_tabview_list');
+        }
+
+        function map_button_click() {
+            document.getElementById('now_function_title').innerHTML = "首頁 > 已連線 > 平面圖";
+            check_tab('online_tabview');
+        }
+
+        function getDateStringArray(d) {
+            var year = d.getFullYear();
+            var month = d.getMonth() + 1;
+            month = (month < 10) ? '0' + month : month;
+            var day = d.getDate();
+            day = (day < 10) ? '0' + day : day;
+            var hour = d.getHours();
+            hour = (hour < 10) ? '0' + hour : hour;
+            var min = d.getMinutes();
+            min = (min < 10) ? '0' + min : min;
+            var sec = d.getSeconds();
+            sec = (sec < 10) ? '0' + sec : sec;
+            //return year+month+day+hour+min+sec;
+            return [year + "/" + month + "/" + day, hour + ":" + min];
+        }
+
+        function getAllFloor() {
+            $.ajax({
+                type: 'get',
+                url: api_endpoint + "get_employee_floorpermission_by_id?id=" + user_id,
+                success: function (data) {
+                    data = data.data;
+                    for (var i = 0; i < data.length; i++){
+                        FloorId = data[i].floorid;
+                        FloorSrc = data[i].floorimage;
+                        FloorName = data[i].floorname;
+
+                        SelectName = " <option class='floor_option' value='" + FloorId + "'>";
+                        SelectName += FloorName;
+                        SelectName += "</option>";
+
+                        $("#floor_select").append(SelectName);
+                        $("#offline_floor_select").append(SelectName);
+                        $("#online_list_floor_select").append(SelectName);
+                        var map = new Object();
+                        map.FloorId = FloorId;
+                        map.FloorSrc = FloorSrc;
+                        map.FloorName = FloorName;
+                        Mapinit.push(map);
+                    }
+                    renderMap();
+                    //$('#drawT').css('background', 'url("' + Mapinit[0].FloorSrc + '")');
+                },
+                error: function () {
+                    alert('select menu ajax failed');
+                }
+            });
+        }
+
+        function goPage(pno, psize) {
+            var itable = document.getElementById("table_result");//通過ID找到表格
+            var num = itable.rows.length;//表格所有行數(所有紀錄數)
+            var totalPage = 0;//總頁數
+            var pageSize = psize;//每頁顯示行數
+            //總共分幾頁
+            if (num / pageSize > parseInt(num / pageSize)) {
+                totalPage = parseInt(num / pageSize) + 1;
+            } else {
+                totalPage = parseInt(num / pageSize);
+            }
+            total_page = totalPage;
+            var currentPage = pno;//當前頁數
+            var startRow = (currentPage - 1) * pageSize + 1;//開始顯示的行1
+            var endRow = currentPage * pageSize;//結束顯示的行   15
+            endRow = (endRow > num) ? num : endRow;
+            //顯示數據分頁
+            for (var i = 1; i < (num + 1); i++) {
+                var irow = itable.rows[i - 1];
+                if (i >= startRow && i <= endRow) {
+                    irow.style.display = "block";
+                    start_checkbox = startRow;
+                    end_checkbox = endRow;
+
+                }
+                else {
+                    irow.style.display = "none";
+                }
+            }
+            var tempStr = "";
+            var tempStr_left = "";
+            var tempStr_right = "";
+            if (currentPage > 1) {
+                tempStr_left += "<a href=\"javascript: void(0)\" onClick=\"goPage(" + (currentPage - 1) + "," + psize + ")\"><img src=\"./images/btn_left.svg\" /></a>";
+                tempStr += "<a href=\"javascript: void(0)\" onClick=\"goPage(" + (currentPage - 1) + "," + psize + ")\"><上一頁&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>"
+                for (var j = 1; j <= totalPage; j++) {
+                    tempStr += "<a href=\"javascript: void(0)\" onClick=\"goPage(" + j + "," + psize + ")\">" + j + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>"
+                }
+                document.getElementById("check_all_item").checked = false;
+                
+                var check_arr = document.getElementsByName("checked");
+                for (var i = 0; i < check_arr.length; i++) {
+                    check_arr[i].checked = false;
+                }
+            } else {
+                tempStr_left += "<img src=\"./images/btn_left_off.svg\" />";
+                tempStr += "<上一頁&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+                for (var j = 1; j <= totalPage; j++) {
+                    tempStr += "<a href=\"javascript: void(0)\" onClick=\"goPage(" + j + "," + psize + ")\">" + j + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>"
+                }
+            }
+            if (currentPage < totalPage) {
+                tempStr_right += "<a href=\"javascript: void(0)\" onClick=\"goPage(" + (currentPage + 1) + "," + psize + ")\"><img src=\"./images/btn_right.svg\" /></a>";
+                tempStr += "<a href=\"javascript: void(0)\" onClick=\"goPage(" + (currentPage + 1) + "," + psize + ")\">下一頁>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>";
+                for (var j = 1; j <= totalPage; j++) {
+                }
+                document.getElementById("check_all_item").checked = false;
+               
+                var check_arr = document.getElementsByName("checked");
+                for (var i = 0; i < check_arr.length; i++) {
+                    check_arr[i].checked = false;
+                }
+            } else {
+                tempStr_right += "<img src=\"./images/btn_right_off.svg\" />";
+                tempStr += "  下一頁>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+                for (var j = 1; j <= totalPage; j++) {
+                }
+            }
+            // document.getElementById("barcon").innerHTML = tempStr;
+            document.getElementById("header_path_04_input_01").value = currentPage;
+            document.getElementById("left_icon").innerHTML = tempStr_left;
+            document.getElementById("right_icon").innerHTML = tempStr_right;
+
+        }
+
+        function online_list_goPage(pno, psize) {
+            var itable = document.getElementById("online_list_table_result");//通過ID找到表格
+            var num = itable.rows.length;//表格所有行數(所有紀錄數)
+            var totalPage = 0;//總頁數
+            var pageSize = psize;//每頁顯示行數
+            //總共分幾頁
+            if (num / pageSize > parseInt(num / pageSize)) {
+                totalPage = parseInt(num / pageSize) + 1;
+            } else {
+                totalPage = parseInt(num / pageSize);
+            }
+            total_page = totalPage;
+            var currentPage = pno;//當前頁數
+            var startRow = (currentPage - 1) * pageSize + 1;//開始顯示的行1
+            var endRow = currentPage * pageSize;//結束顯示的行   15
+            endRow = (endRow > num) ? num : endRow;
+            //顯示數據分頁
+            for (var i = 1; i < (num + 1); i++) {
+                var irow = itable.rows[i - 1];
+                if (i >= startRow && i <= endRow) {
+                    irow.style.display = "block";
+                    start_checkbox = startRow;
+                    end_checkbox = endRow;
+
+                }
+                else {
+                    irow.style.display = "none";
+                }
+            }
+            var tempStr = "";
+            var tempStr_left = "";
+            var tempStr_right = "";
+            if (currentPage > 1) {
+                tempStr_left += "<a href=\"javascript: void(0)\" onClick=\"goPage(" + (currentPage - 1) + "," + psize + ")\"><img src=\"./images/btn_left.svg\" /></a>";
+                tempStr += "<a href=\"javascript: void(0)\" onClick=\"goPage(" + (currentPage - 1) + "," + psize + ")\"><上一頁&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>"
+                for (var j = 1; j <= totalPage; j++) {
+                    tempStr += "<a href=\"javascript: void(0)\" onClick=\"goPage(" + j + "," + psize + ")\">" + j + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>"
+                }
+                document.getElementById("check_all_item").checked = false;
+                
+                var check_arr = document.getElementsByName("checked");
+                for (var i = 0; i < check_arr.length; i++) {
+                    check_arr[i].checked = false;
+                }
+            } else {
+                tempStr_left += "<img src=\"./images/btn_left_off.svg\" />";
+                tempStr += "<上一頁&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+                for (var j = 1; j <= totalPage; j++) {
+                    tempStr += "<a href=\"javascript: void(0)\" onClick=\"goPage(" + j + "," + psize + ")\">" + j + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>"
+                }
+            }
+            if (currentPage < totalPage) {
+                tempStr_right += "<a href=\"javascript: void(0)\" onClick=\"goPage(" + (currentPage + 1) + "," + psize + ")\"><img src=\"./images/btn_right.svg\" /></a>";
+                tempStr += "<a href=\"javascript: void(0)\" onClick=\"goPage(" + (currentPage + 1) + "," + psize + ")\">下一頁>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>";
+                for (var j = 1; j <= totalPage; j++) {
+                }
+                document.getElementById("check_all_item").checked = false;
+               
+                var check_arr = document.getElementsByName("checked");
+                for (var i = 0; i < check_arr.length; i++) {
+                    check_arr[i].checked = false;
+                }
+            } else {
+                tempStr_right += "<img src=\"./images/btn_right_off.svg\" />";
+                tempStr += "  下一頁>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+                for (var j = 1; j <= totalPage; j++) {
+                }
+            }
+            // document.getElementById("barcon").innerHTML = tempStr;
+            document.getElementById("online_list_header_path_04_input_01").value = currentPage;
+            document.getElementById("online_list_left_icon").innerHTML = tempStr_left;
+            document.getElementById("online_list_right_icon").innerHTML = tempStr_right;
+
+        }
+
+        function runScript(e) {
+            if (e.keyCode == 13) {
+                var tb = document.getElementById("header_path_04_input_01");
+                if (tb.value > 0 && total_page >= tb.value) {
+                    goPage(tb.value, list_count);
+                }
+                else {
+                    alert("查無此頁");
+                }
+            }
+        }
+
+        function online_list_runScript(e) {
+            if (e.keyCode == 13) {
+                var tb = document.getElementById("online_list_header_path_04_input_01");
+                if (tb.value > 0 && total_page >= tb.value) {
+                    goPage(tb.value, list_count);
+                }
+                else {
+                    alert("查無此頁");
+                }
+            }
+        }
+
+		function Reset_Page(){
+		    window.location.reload();
+		}
+
+        function ShowRouter(RouterId, value, RName, BS) {
+            $("#drawT").find(".fclass").attr("class", "fclass init");
+            $("#R" + RouterId).attr("class", "fclass exist");
+        }
+
+        function renderMap(){
+            $("#drawT").empty();
+            $("#accordion_view").empty();
+            var floor = document.getElementById("floor_select");
+            var floorid = floor.options[floor.selectedIndex].value;
+            for (let i = 0; i < Mapinit.length; i++) {
+                if (floorid == Mapinit[i].FloorId) {
+                    $('#drawT').css('background', 'url("' + Mapinit[i].FloorSrc + '")');
+                    break;
+                }
+            }
+            $.ajax({
+                type: 'get',
+                url: api_endpoint + "get_routers_by_floorid?floorid=" + floorid,
+                success: function (sname) {
+                    sname = sname.data;
+                    console.log('CREATEROUTER=' + sname);
+                    var length = sname.length;
+                    for (var i = 0; i < length; i++) {
+                        RId = sname[i].id;
+                        RTop = sname[i].rtop;
+                        RLeft = sname[i].rleft;
+                        H = sname[i].height;
+                        W = sname[i].width;
+                        RName = sname[i].rname;
+                        console.log("sname[i].RTop=" + sname[i].rtop + "H = sname[i].H=" + sname[i].height);
+                        AccRouterCount.push(RId);
+
+                        //加入Router區塊
+                        DivString = "<a href='javascript: void (0);' class='accordion_options' rel='" + sname[i].id + "'>";
+                        DivString += "<div  id = 'R" + RId + "' class='fclass init'>";
+                        DivString += "</div>";
+                        DivString += "</a>";
+                        //Pstring = '<img class ="imgT" src ="../Uploads/bookmark-11.png" title="+PTitle+" data-item="+PId+">'
+                        $('#drawT').append(DivString);
+                        //加入手風琴表頭
+
+                        h3str = `<button class="accordion" id="acc_${RId}">${RName}</button><div id="acc_${RId}_content" class="panel"></div>`;
+
+                        // h3str = "<h3>" + RName + "</h3>";
+                        // h3str += "<div id ='acc" + RId + "' class ='accc' style='padding:0px'></div>";
+                        $('#accordion_view').append(h3str);
+
+                        //alert($("#R1").attr("id"));
+
+                        $("#R" + RId).append("<p class='DT'>" + RName + "</p>");
+                        $("#R" + RId).parent().css({ position: 'relative' });
+                        $("#R" + RId).css({ height: H + 'px', width: W + 'px', top: RTop + 'px', left: RLeft + 'px', position: 'absolute' });
+                    }
+
+                    $(document).on('click', '.accordion_options', function () {
+                        //var current = parseInt($(this).attr("rel"));
+                        var acc = document.getElementById("acc_"+$(this).attr("rel"));
+                        acc.click();
+                        // if (typeof current !== "undefined"){
+                        //     acc[current].click();
+                        // }
+                    });
+
+                    $.ajax({
+                        type: 'get',
+                        url: api_endpoint + "get_online_tag_count_by_floorid?floorid=" + floorid,
+                        success: function (cname) {
+                            //alert('success3');
+                            //var obj = JSON.parse(cname);
+                            cname = cname.data;
+                            var length = cname.length;
+                            for (var i = 0; i < length; i++) {
+                                //alert(cname);
+                                Rid = cname[i].id;
+                                CId = cname[i].cid;
+                                RTop = cname[i].rtop;
+                                RLeft = cname[i].rleft;
+
+                                //動態加入控制項
+                                InputString2 = "<p id ='" + "C" + Rid + "' class ='CT'>" + CId + "</p>";
+                                //InputString2 = "<div id ='" + "C" + Rid + "' class ='CT'>" + CId + "</div>";
+                                $('#drawT').append(InputString2);
+                                $("#C" + Rid).parent().css({ position: 'relative' });
+                                $("#C" + Rid).css({ top: RTop + 'px', left: RLeft + 'px', position: 'absolute' });
+                            }
+                        },
+                        error: function () {
+                            alert('ajax failed');
+                        }
+
+                    });
+
+                    $.ajax({
+                        type: 'get',
+                        url: api_endpoint + "get_online_tag_by_floorid?floorid=" + floorid,
+                        success: function (name) {
+                            name = name.data;
+                            $(".tag_search").empty();
+                            var length = name.length;
+                            var table_content = "";
+                            AccHeadActive = AccRouterCount.indexOf(name[0].id);
+                            let count = 1;
+                            let router_id = name[0].id;
+                            let battery_icon;
+                            for (var i = 0; i < length; i++) {
+                                if(router_id != name[i].id){
+                                    count = 1;
+                                }
+
+                                if(name[i].battery_level == "Full"){
+                                    battery_icon = "images/img_battery(full)_32.svg";
+                                }else if(name[i].battery_level == "Medium"){
+                                    battery_icon = "images/img_battery(alarm)_32.svg";
+                                }else{
+                                    battery_icon = "images/img_battery(low)_32.svg";
+                                }
+                                let tag_list = `<div class="accordion_list" onclick=ShowRouter('${name[i].id}',this.value,'${name[i].name}','${name[i].battery_lv}')>
+                                                        <div class="tag_num">
+                                                            <p>${count}.</p>
+                                                        </div>
+                                                        <div class="tag_name">
+                                                            <p>${name[i].name}</p>
+                                                        </div>
+                                                        <div class="tag_battery">
+                                                            <img id="battery_icon" src="${battery_icon}">
+                                                            <p>${name[i].battery_level}</p>
+                                                        </div>
+                                                    </div>`;
+                                let button_content = document.getElementById("acc_" + name[i].id + "_content");
+                                button_content.innerHTML += tag_list;
+                                
+                                let search_tag_list = `<option></option>`;
+                                search_tag_list += `<option title="${name[i].id}" value="${name[i].name}">${name[i].name}</option>`;
+                                let search_content = document.getElementsByClassName("tag_search");
+                                search_content[0].innerHTML += search_tag_list;
+
+
+                                table_content += `<tr id ="o${name[i].name}" class="online_list_row_style">`;
+                                table_content += ("<td class=\"table_account\"><span class=\"table_account_span\">" + name[i].rname + "</span></td><td class=\"table_name\"><span class=\"table_name_span\">" + name[i].name + "</span></td><td class=\"online_list_table_gender\"><span class=\"table_gender_span\">" + name[i].battery_lv + "</span></td>");
+                                table_content += "</tr>";
+
+                                router_id = name[i].id;
+                                count++;
+                            }
+                            document.getElementById("online_list_all_employee").innerHTML = table_content;
+                            online_list_goPage(1, list_count);
+                            var acc = document.getElementsByClassName("accordion");
+                            var i;
+
+                            for (i = 0; i < acc.length; i++) {
+                                acc[i].addEventListener("click", function() {
+                                    this.classList.toggle("active");
+                                    var panel = this.nextElementSibling;
+                                    if (panel.style.maxHeight){
+                                        panel.style.maxHeight = null;
+                                    } else {
+                                        var content = document.getElementsByClassName("panel");
+                                        for (let j = 0; j < content.length; j++) {
+                                            if (content[j].style.maxHeight){
+                                                acc[j].classList.remove("active");
+                                                content[j].style.maxHeight = null;
+                                            }
+                                        }
+                                        panel.style.maxHeight = panel.scrollHeight + "px";
+                                    } 
+                                });
+                            }
+                        },
+                        error: function () {
+                            alert('ajax failed');
+                        }
+                    });
+                    get_offline_tag();
+                },
+            });
+        }
+
+        function render_online_list() {
+            $("#online_list_table_result tbody").empty();
+            var floor = document.getElementById("online_list_floor_select");
+            var floorid = floor.options[floor.selectedIndex].value;
+            let table_content = "";
+            $.ajax({
+                type: 'get',
+                url: api_endpoint + "get_online_tag_by_floorid?floorid=" + floorid,
+                success: function (name) {
+                    name = name.data;
+                    for (var i = 0; i < name.length; i++) {
+                        table_content += `<tr id ="o${name[i].name}" class="online_list_row_style">`;
+                        table_content += ("<td class=\"table_account\"><span class=\"table_account_span\">" + name[i].rname + "</span></td><td class=\"table_name\"><span class=\"table_name_span\">" + name[i].name + "</span></td><td class=\"online_list_table_gender\"><span class=\"table_gender_span\">" + name[i].battery_lv + "</span></td>");
+                        table_content += "</tr>";
+                    }
+                    document.getElementById("online_list_all_employee").innerHTML = table_content;
+                    online_list_goPage(1, list_count);
+                },
+                error: function () {
+                    alert('ajax failed');
+                }
+            });
+        }
+
+        function get_offline_tag() {
+            var floor = document.getElementById("offline_floor_select");
+            console.log(floor);
+            var floorid = floor.options[floor.selectedIndex].value;
+            var table_content = "";
+            $.ajax({
+                type: 'get',
+                url: api_endpoint + "get_offline_tag_by_floorid?floorid="+floorid,
+                success: function (data) {
+                    data = data.data;
+                    $("#table_result tbody").empty();
+                    for (var i = 0; i < data.length; i++) {
+                        let router_id = data[i].id;
+                        let tag_name = data[i].name;
+                        let router_name = data[i].rname;
+                        let battery_lv = data[i].battery_lv;
+                        //var milli = data[i].date_updated.replace(/\/Date\((-?\d+)\)\//, '$1');
+                        let date_array = getDateStringArray(new Date(data[i].date_updated));
+                        //console.log(date_array);
+                        table_content += `<tr class="row_style" id="${tag_name}">`;
+                        table_content += ("<td class=\"table_account\"><span class=\"table_account_span\">" + date_array[0] + "</span></td><td class=\"table_name\"><span class=\"table_name_span\">" + date_array[1] + "</span></td><td class=\"table_gender\"><span class=\"table_gender_span\">" + router_name + "</span><td class=\"table_job_id\"><span class=\"table_job_id_span\">" + tag_name + "</span></td><td class=\"table_cellphone\"><span class=\"table_cellphone_span\">" + battery_lv + "</span></td>");
+                        table_content += "</tr>";
+                    }
+                    document.getElementById("all_employee").innerHTML = table_content;
+                    goPage(1, list_count);
+                },
+                error: function () {
+                    alert('ajax failed');
+                }
+
+            });
+        }
+
+        function search_enter(e) {
+            if (e.keyCode == 13) {
+                let keyword = document.getElementById("search_keyword_value");
+                //console.log(keyword.value);
+                let rows = document.getElementsByClassName("row_style");
+                if (keyword.value.length != 0) {
+                    for (let i = 0; i < rows.length; i++) {
+                        if (rows[i].id != keyword.value) {
+                            rows[i].style.display = "none";
+                        }
+                    }
+                }else{
+                    for (let i = 0; i < rows.length; i++) {
+                        rows[i].style.display = "block";
+                    }
+                }
+                return false;
+            }
+        }
+
+        function online_list_search_enter(e) {
+            if (e.keyCode == 13) {
+                let keyword = document.getElementById("online_list_search_keyword_value");
+                //console.log(keyword.value);
+                let rows = document.getElementsByClassName("online_list_row_style");
+                if (keyword.value.length != 0) {
+                    for (let i = 0; i < rows.length; i++) {
+                        if (rows[i].id != "o" + keyword.value) {
+                            rows[i].style.display = "none";
+                        }
+                    }
+                }else{
+                    for (let i = 0; i < rows.length; i++) {
+                        rows[i].style.display = "block";
+                    }
+                }
+                return false;
+            }
+        }
+
+        document.getElementById("tab_online").click();
+        getAllFloor();
+        //setInterval(getAllFloor, 5000);
+        
+        $(document).ready(function() {
+            $('.tag_search').select2({
+                placeholder: "請選擇單一設備"
+            });
+        });
+        
+        let last_search_router = "";
+        $('.tag_search').on('select2:select', function (e) {
+            var data = e.params.data;
+            var acc = document.getElementById("acc_"+data.title);
+            if(last_search_router != data.title){
+                //console.log(acc.nextElementSibling.style.maxHeight);
+                if(acc.nextElementSibling.style.maxHeight != "0px" && acc.nextElementSibling.style.maxHeight != ""){
+                    console.log('nooooo');
+                }else{
+                    acc.click();
+                }
+            }
+            ShowRouter(data.title, "", "", "");
+            last_search_router = data.title;
+        });
+
+    </script>
+</body>
+
+</html>

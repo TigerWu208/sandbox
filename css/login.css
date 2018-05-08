@@ -1,0 +1,226 @@
+﻿body {
+    width: 1366px;
+    height: 768px;
+    background-repeat: repeat;
+}
+#login_panel {
+    width: 482px;
+    height: 517px;
+    background-color: rgba(255, 255, 255, 0.7);
+    float: left;
+    margin-left: 442px;
+    margin-top: 126px;
+}
+#login_logo_panel {
+    width: 482px;
+    height: 93px;
+    float: left;
+    margin-left:0px;
+    margin-top: 0px;
+    
+}
+#login_logo_panel_image {
+    width: 207px;
+    height: 53px;
+    float: left;
+    margin-left:40px;
+    margin-top: 40px;
+}
+#login_welcome {
+    width: 482px;
+    height: 112px;
+    float: left;
+    margin-left: 0px;
+    margin-top: 0px;
+}
+#login_welcome_content {
+    width: 250px;
+    height: 20px;
+    float: left;
+    margin-left: 40px;
+    margin-top: 54px;
+    font-family: 微軟正黑體;
+    font-size: 14px;
+    color: #323232;
+}
+#login_account_panel {
+    width: 482px;
+    height: 56px;
+    float: left;
+    margin-left: 0px;
+    margin-top: 0px;
+    
+}
+#login_account_panel_content_01 {
+    width: 32px;
+    height: 22px;
+    float: left;
+    margin-left: 40px;
+    margin-top: 17px;
+    font-family: 微軟正黑體;
+    font-size: 16px;
+    color: #323232;
+}
+#login_account_panel_content_02 {
+    width: 346px;
+    height: 56px;
+    float: left;
+    margin-left:24px;
+    margin-top: 0px;
+}
+#login_account_panel_content_02_input {
+    width: 322px;
+    height: 52px;
+    float: left;
+    margin-left: 0px;
+    margin-top: 0px;
+    border: solid 2px #58b4c3;
+    padding-left: 24px;
+    font-family: 微軟正黑體;
+    font-size: 16px;
+    text-align: left;
+    color: #002855;
+}
+#login_password_panel {
+    width: 482px;
+    height: 80px;
+    float: left;
+    margin-left: 0px;
+    margin-top: 0px;
+    
+}
+#login_password_panel_content_01 {
+    width: 32px;
+    height: 22px;
+    float: left;
+    margin-left: 40px;
+    margin-top: 41px;
+    font-family: 微軟正黑體;
+    font-size: 16px;
+    color: #323232;
+}
+#login_password_panel_content_02 {
+    width: 350px;
+    height: 56px;
+    float: left;
+    margin-left: 24px;
+    margin-top: 24px;
+}
+#login_password_panel_content_02_input {
+    width: 236px;
+    height: 52px;
+    float: left;
+    margin-left: 0px;
+    margin-top: 0px;
+    border: solid 2px #58b4c3;
+    padding-left: 24px;
+    font-family: 微軟正黑體;
+    font-size: 16px;
+    text-align: left;
+    color: #002855;
+    border-right-style: none;
+}
+#login_password_panel_content_02_forget_password {
+    width: 86px;
+    height: 54px;
+    float: right;
+    margin-left: 0px;
+    margin-top: 0px;
+    border: solid 2px #58b4c3;
+    border-left-style:none;
+    background-color: #ffffff;
+}
+#login_password_panel_content_02_forget_password_font {
+    width: 86px;
+    height: 54px;
+    float: right;
+    margin-right: 20px;
+    margin-top: 17px;
+    font-family: 微軟正黑體;
+    font-size: 16px;
+    color: #58b4c3;
+}
+a:link {
+    text-decoration: none;
+    color: #58b4c3;
+}
+a:visited {
+    color: #58b4c3;
+
+}
+input:focus {
+    outline: none;
+}
+#login_remember_panel {
+    width: 482px;
+    height: 88px;
+    float: left;
+    margin-left: 0px;
+    margin-top: 0px;
+}
+
+#login_remember_panel_content_checkbox {
+    width: 14px;
+    height: 14px;
+    float: left;
+    margin-left: 104px;
+    margin-top: 32px;
+    background-color: #58b4c3;
+}
+#login_remember_panel_content_font {
+    width: 40px;
+    height: 16px;
+    float: left;
+    margin-left: 12px;
+    margin-top: 32px;
+    font-family: 微軟正黑體;
+    font-size: 12px;
+    color: #58b4c3;
+}
+
+#login_botton_panel {
+    width: 482px;
+    height: 94px;
+    float: left;
+    margin-left: 0px;
+    margin-top: 0px;
+    
+}
+
+#login_botton_panel_content {
+    width: 160px;
+    height: 48px;
+    float: left;
+    margin-left: 161px;
+    margin-top: 0px;
+}
+#login_btn {
+    width: 160px;
+    height: 48px;
+    background-color: #58b4c3;
+    float: left;
+    margin-left: 0px;
+    margin-top: 0px;
+    border:0px;
+}
+#login_bt_font {
+    width: 40px;
+    height: 22px;
+    color: #ffffff;
+    float: left;
+    margin-left: 52px;
+    margin-top: 0px;
+    font-family: 微軟正黑體;
+    font-size: 16px;
+
+}
+#bottom_font {
+    width: 360px;
+    height: 14px;
+    color: #323232;
+    float: left;
+    margin-left: 510px;
+    margin-top: 55px;
+    font-family: 微軟正黑體;
+    font-size: 12px;
+}

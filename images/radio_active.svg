@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="32px" height="32px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 46.2 (44496) - http://www.bohemiancoding.com/sketch -->
+    <title>Btn_Radio button(edit)_a_32</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Account" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Btn_Radio-button(edit)_a_32" fill="#58B4C3">
+            <g id="Icon_one-check_check_edit" transform="translate(9.000000, 9.000000)">
+                <path d="M7,2 C4.243,2 2,4.242 2,7 C2,9.756 4.243,12 7,12 C9.757,12 12,9.756 12,7 C12,4.242 9.757,2 7,2 M7,14 C3.141,14 0,10.859 0,7 C0,3.141 3.141,0 7,0 C10.859,0 14,3.141 14,7 C14,10.859 10.859,14 7,14" id="Fill-3"></path>
+                <path d="M10,7 C10,8.656 8.657,10 7,10 C5.343,10 4,8.656 4,7 C4,5.342 5.343,4 7,4 C8.657,4 10,5.342 10,7" id="Fill-5"></path>
+            </g>
+        </g>
+    </g>
+</svg>
